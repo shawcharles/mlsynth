@@ -854,20 +854,24 @@ def TSEST(
             "R2_pre", "R2_post".
         - "Effects" : Dict[str, float]
             Estimated treatment effects. Keys: "ATT" (Average Treatment Effect
-            on Treated for post-treatment period), "ATT_post" (same as ATT),
-            "ATT_pre" (average gap in pre-treatment period).
+                on Treated for post-treatment period), "ATT_post" (same as ATT),
+                "ATT_pre" (average gap in pre-treatment period).
+
         - "95% CI" : List[float]
             A list containing two floats: `[lower_bound, upper_bound]` for the
             95% confidence interval of the ATT.
+
         - "Vectors" : Dict[str, np.ndarray]
             Time series vectors. Keys:
             "Y" (original outcome `treated_outcome_vector`),
             "Y_sc" (synthetic control counterfactual `y_counterfactual`),
             "Gap" (difference `Y - Y_sc`),
             "TimePeriods" (array of time period indices).
+
         - "WeightV" : np.ndarray
             Raw estimated SCM weights, shape (N_features,) or (N_features+1,)
             if an intercept is included by the method (e.g., "MSCa", "MSCc").
+
         - "Weights" : Dict[str, float]
             Dictionary mapping donor names to their estimated weights (rounded,
             non-zero weights shown). If an intercept is included, it might be
@@ -2027,8 +2031,7 @@ class Opt:
         base_model_results_for_averaging: Optional[Dict[str, Dict[str, Any]]] = None,
         donor_names: Optional[List[str]] = None,
     ) -> Union[cp.Problem, Dict[str, Any]]:
-        """
-        Perform optimization for various Synthetic Control Method (SCM) variants.
+        """Perform optimization for various Synthetic Control Method (SCM) variants.
 
         This static method sets up and solves the SCM optimization problem
         using CVXPY for different model specifications like standard SCM
@@ -2038,75 +2041,95 @@ class Opt:
         Parameters
         ----------
         num_control_units : int
-            Number of control units (donors) or columns in the input matrix `donor_outcomes_pre_treatment`.
-            This should be the count before any intercept is added internally.
+            Number of control units (donors) or columns in the input matrix
+            `donor_outcomes_pre_treatment`. This should be the count before
+            any intercept is added internally.
         target_outcomes_pre_treatment : np.ndarray
-            Target vector for the pre-treatment periods, shape (num_pre_treatment_periods,). This is
-            typically the outcome of the treated unit in the pre-treatment phase.
+            Target vector for the pre-treatment periods, shape
+            (num_pre_treatment_periods,). This is typically the outcome of the
+            treated unit in the pre-treatment phase.
         num_pre_treatment_periods : int
-            Number of pre-treatment periods. This defines the length of `target_outcomes_pre_treatment`
-            and the number of rows of `donor_outcomes_pre_treatment` used for fitting.
+            Number of pre-treatment periods. This defines the length of
+            `target_outcomes_pre_treatment` and the number of rows of
+            `donor_outcomes_pre_treatment` used for fitting.
         donor_outcomes_pre_treatment : np.ndarray
-            Donor matrix for the pre-treatment periods, shape (num_pre_treatment_periods, num_control_units). Each
-            column represents a donor unit's outcomes or features.
+            Donor matrix for the pre-treatment periods, shape
+            (num_pre_treatment_periods, num_control_units). Each column
+            represents a donor unit's outcomes or features.
         scm_model_type : str, optional
             The SCM optimization model to use. Options are:
+
             - 'MSCa': SCM with an intercept, weights for donors sum to 1, all non-negative.
             - 'MSCb': SCM without intercept, weights non-negative. (Default)
-            - 'MSCc': SCM with an intercept, donor weights non-negative (intercept unconstrained by sum-to-one or non-negativity directly by specific constraints, but may be affected by general beta >=0 if not OLS).
+            - 'MSCc': SCM with an intercept, donor weights non-negative.
             - 'SIMPLEX': SCM without intercept, weights non-negative and sum to 1.
             - 'OLS': Ordinary Least Squares, weights are unconstrained.
-            - 'MA': Model Averaging. Requires `base_model_results_for_averaging` to be provided.
+            - 'MA': Model Averaging. Requires `base_model_results_for_averaging`.
+
             Default is _SCM_MODEL_MSCB.
         base_model_results_for_averaging : Optional[Dict[str, Dict[str, Any]]], optional
-            Required if `scm_model_type` is _SCM_MODEL_MA. A dictionary where keys are model names
-            (strings) and values are dictionaries. Each inner dictionary must
-            contain:
-            - 'weights': np.ndarray, the SCM weights obtained from that model.
-            - 'cf': np.ndarray, the counterfactual predictions for the pre-treatment
-              period (length `num_pre_treatment_periods`) from that model.
+            Required if `scm_model_type` is _SCM_MODEL_MA. A dictionary where
+            keys are model names (strings) and values are dictionaries. Each
+            inner dictionary must contain:
+
+            ``'weights'`` : np.ndarray
+                The SCM weights obtained from that model.
+            ``'cf'`` : np.ndarray
+                The counterfactual predictions for the pre-treatment
+                period (length `num_pre_treatment_periods`) from that model.
+
             Default is None.
+
         donor_names : Optional[List[str]], optional
             List of donor names. Currently used by some internal model types if they
             handle intercepts or specific donor selections. Default is None.
 
-
         Returns
         -------
         Union[cp.Problem, Dict[str, Any]]
-            - If `scm_model_type` is _SCM_MODEL_MA: A dictionary with the following keys:
-                - "Lambdas" : Dict[str, float], model names mapped to their lambda (averaging) weights.
-                - "w_MA" : np.ndarray, the final model-averaged SCM weights for donors.
-                - "Counterfactual_pre" : np.ndarray, the model-averaged counterfactual
-                  prediction for the pre-treatment period, shape (num_pre_treatment_periods,).
-            - Otherwise (for _SCM_MODEL_MSCA, _SCM_MODEL_MSCB, _SCM_MODEL_MSCC, _SCM_MODEL_SIMPLEX, _SCM_MODEL_OLS):
-              A `cvxpy.Problem` object after it has been solved. The estimated SCM
-              weights can be accessed via:
-              `problem.solution.primal_vars[next(iter(problem.solution.primal_vars))]`.
-              If an intercept was added (e.g., _SCM_MODEL_MSCA, _SCM_MODEL_MSCC), it will be the
-              first element of the weight vector.
+            The result of the SCM optimization.
+            If `scm_model_type` is _SCM_MODEL_MA, returns a dictionary with keys:
+
+            ``"Lambdas"`` : Dict[str, float]
+                Model names mapped to their lambda (averaging) weights.
+            ``"w_MA"`` : np.ndarray
+                The final model-averaged SCM weights for donors.
+            ``"Counterfactual_pre"`` : np.ndarray
+                The model-averaged counterfactual prediction for the
+                pre-treatment period, shape (num_pre_treatment_periods,).
+
+            Otherwise (for _SCM_MODEL_MSCA, _SCM_MODEL_MSCB, _SCM_MODEL_MSCC,
+            _SCM_MODEL_SIMPLEX, _SCM_MODEL_OLS), returns a `cvxpy.Problem`
+            object after it has been solved. The estimated SCM weights can be
+            accessed via:
+            `problem.solution.primal_vars[next(iter(problem.solution.primal_vars))]`.
+            If an intercept was added (e.g., _SCM_MODEL_MSCA, _SCM_MODEL_MSCC),
+            it will be the first element of the weight vector.
 
         Raises
         ------
         MlsynthDataError
-            If `donor_outcomes_pre_treatment` and `target_outcomes_pre_treatment` dimensions
-            (after slicing to `num_pre_treatment_periods`) are inconsistent for non-MA models.
+            If `donor_outcomes_pre_treatment` and
+            `target_outcomes_pre_treatment` dimensions (after slicing to
+            `num_pre_treatment_periods`) are inconsistent for non-MA models.
         MlsynthConfigError
-            If `scm_model_type` is _SCM_MODEL_MA and `base_model_results_for_averaging` is not provided or is
+            If `scm_model_type` is _SCM_MODEL_MA and
+            `base_model_results_for_averaging` is not provided or is
             malformed, or if an unsupported `scm_model_type` is provided.
 
         Notes
         -----
-        - For models _SCM_MODEL_MSCA and _SCM_MODEL_MSCC, an intercept term is automatically added
-          to the `donor_outcomes_pre_treatment` matrix internally. The `num_control_units` parameter is incremented
+        - For models _SCM_MODEL_MSCA and _SCM_MODEL_MSCC, an intercept term is
+          automatically added to the `donor_outcomes_pre_treatment` matrix
+          internally. The `num_control_units` parameter is incremented
           accordingly, and the returned weight vector will include the intercept
           as its first element.
         - The method solves `min ||y - Xw||_2^2` subject to constraints
           defined by the `scm_model_type` type.
         - CVXPY's CLARABEL solver is used.
 
-    Examples
-    --------
+        Examples
+        --------
         >>> T_pre_ex, N_donors_ex = 10, 3
         >>> y_ex = np.random.rand(T_pre_ex)
         >>> X_ex = np.random.rand(T_pre_ex, N_donors_ex)
@@ -2124,7 +2147,6 @@ class Opt:
         ...     weights_mscb = prob_mscb.solution.primal_vars[next(iter(prob_mscb.solution.primal_vars))]
         ...     print(f"Are MSCb weights non-negative: {np.all(weights_mscb >= -1e-5)}")
         Are MSCb weights non-negative: True
-
         """
         donor_outcomes_pre_treatment_subset = donor_outcomes_pre_treatment[:num_pre_treatment_periods]
         target_outcomes_pre_treatment_subset = target_outcomes_pre_treatment[:num_pre_treatment_periods]

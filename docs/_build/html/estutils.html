@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Estimation Utilities (mlsynth.utils.estutils) &#8212; mlsynth 0.1 documentation</title>
+    <title>Estimation Utilities (mlsynth.utils.estutils) &#8212; mlsynth 0.1.1 documentation</title>
   
   
   
@@ -37,7 +37,7 @@
 <link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
   <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
 
-    <script src="_static/documentation_options.js?v=e1a75a79"></script>
+    <script src="_static/documentation_options.js?v=1a9ffd16"></script>
     <script src="_static/doctools.js?v=9bcbadda"></script>
     <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="_static/clipboard.min.js?v=a7894cd8"></script>
@@ -137,7 +137,7 @@
   
   
   
-    <p class="title logo__title">mlsynth 0.1 documentation</p>
+    <p class="title logo__title">mlsynth 0.1.1 documentation</p>
   
 </a></div>
         <div class="sidebar-primary-item">
@@ -404,87 +404,99 @@ document.write(`
 <dl class="py method">
 <dt class="sig sig-object py" id="mlsynth.utils.estutils.Opt.SCopt">
 <em class="property"><span class="k"><span class="pre">static</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">SCopt</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">num_control_units</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">target_outcomes_pre_treatment</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_pre_treatment_periods</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">donor_outcomes_pre_treatment</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scm_model_type</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><span class="pre">str</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'MSCb'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">base_model_results_for_averaging</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Dict" title="(in Python v3.13)"><span class="pre">Dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Dict" title="(in Python v3.13)"><span class="pre">Dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><span class="pre">Any</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.13)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">donor_names</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.List" title="(in Python v3.13)"><span class="pre">List</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.13)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Problem</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Dict" title="(in Python v3.13)"><span class="pre">Dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><span class="pre">Any</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#mlsynth.utils.estutils.Opt.SCopt" title="Link to this definition">#</a></dt>
-<dd><blockquote>
-<div><p>Perform optimization for various Synthetic Control Method (SCM) variants.</p>
+<dd><p>Perform optimization for various Synthetic Control Method (SCM) variants.</p>
 <p>This static method sets up and solves the SCM optimization problem
 using CVXPY for different model specifications like standard SCM
 (with or without intercept, with or without simplex constraint),
 OLS, or Model Averaging.</p>
-<dl>
-<dt>num_control_units<span class="classifier">int</span></dt><dd><p>Number of control units (donors) or columns in the input matrix <cite>donor_outcomes_pre_treatment</cite>.
-This should be the count before any intercept is added internally.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>num_control_units</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – Number of control units (donors) or columns in the input matrix
+<cite>donor_outcomes_pre_treatment</cite>. This should be the count before
+any intercept is added internally.</p></li>
+<li><p><strong>target_outcomes_pre_treatment</strong> (<em>np.ndarray</em>) – Target vector for the pre-treatment periods, shape
+(num_pre_treatment_periods,). This is typically the outcome of the
+treated unit in the pre-treatment phase.</p></li>
+<li><p><strong>num_pre_treatment_periods</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – Number of pre-treatment periods. This defines the length of
+<cite>target_outcomes_pre_treatment</cite> and the number of rows of
+<cite>donor_outcomes_pre_treatment</cite> used for fitting.</p></li>
+<li><p><strong>donor_outcomes_pre_treatment</strong> (<em>np.ndarray</em>) – Donor matrix for the pre-treatment periods, shape
+(num_pre_treatment_periods, num_control_units). Each column
+represents a donor unit’s outcomes or features.</p></li>
+<li><p><strong>scm_model_type</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a><em>, </em><em>optional</em>) – <p>The SCM optimization model to use. Options are:</p>
+<ul>
+<li><p>’MSCa’: SCM with an intercept, weights for donors sum to 1, all non-negative.</p></li>
+<li><p>’MSCb’: SCM without intercept, weights non-negative. (Default)</p></li>
+<li><p>’MSCc’: SCM with an intercept, donor weights non-negative.</p></li>
+<li><p>’SIMPLEX’: SCM without intercept, weights non-negative and sum to 1.</p></li>
+<li><p>’OLS’: Ordinary Least Squares, weights are unconstrained.</p></li>
+<li><p>’MA’: Model Averaging. Requires <cite>base_model_results_for_averaging</cite>.</p></li>
+</ul>
+<p>Default is _SCM_MODEL_MSCB.</p>
+</p></li>
+<li><p><strong>base_model_results_for_averaging</strong> (<em>Optional</em><em>[</em><em>Dict</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a><em>, </em><em>Dict</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a><em>, </em><em>Any</em><em>]</em><em>]</em><em>]</em><em>, </em><em>optional</em>) – <p>Required if <cite>scm_model_type</cite> is _SCM_MODEL_MA. A dictionary where
+keys are model names (strings) and values are dictionaries. Each
+inner dictionary must contain:</p>
+<dl class="simple">
+<dt><code class="docutils literal notranslate"><span class="pre">'weights'</span></code><span class="classifier">np.ndarray</span></dt><dd><p>The SCM weights obtained from that model.</p>
 </dd>
-<dt>target_outcomes_pre_treatment<span class="classifier">np.ndarray</span></dt><dd><p>Target vector for the pre-treatment periods, shape (num_pre_treatment_periods,). This is
-typically the outcome of the treated unit in the pre-treatment phase.</p>
+<dt><code class="docutils literal notranslate"><span class="pre">'cf'</span></code><span class="classifier">np.ndarray</span></dt><dd><p>The counterfactual predictions for the pre-treatment
+period (length <cite>num_pre_treatment_periods</cite>) from that model.</p>
 </dd>
-<dt>num_pre_treatment_periods<span class="classifier">int</span></dt><dd><p>Number of pre-treatment periods. This defines the length of <cite>target_outcomes_pre_treatment</cite>
-and the number of rows of <cite>donor_outcomes_pre_treatment</cite> used for fitting.</p>
-</dd>
-<dt>donor_outcomes_pre_treatment<span class="classifier">np.ndarray</span></dt><dd><p>Donor matrix for the pre-treatment periods, shape (num_pre_treatment_periods, num_control_units). Each
-column represents a donor unit’s outcomes or features.</p>
-</dd>
-<dt>scm_model_type<span class="classifier">str, optional</span></dt><dd><p>The SCM optimization model to use. Options are:
-- ‘MSCa’: SCM with an intercept, weights for donors sum to 1, all non-negative.
-- ‘MSCb’: SCM without intercept, weights non-negative. (Default)
-- ‘MSCc’: SCM with an intercept, donor weights non-negative (intercept unconstrained by sum-to-one or non-negativity directly by specific constraints, but may be affected by general beta &gt;=0 if not OLS).
-- ‘SIMPLEX’: SCM without intercept, weights non-negative and sum to 1.
-- ‘OLS’: Ordinary Least Squares, weights are unconstrained.
-- ‘MA’: Model Averaging. Requires <cite>base_model_results_for_averaging</cite> to be provided.
-Default is _SCM_MODEL_MSCB.</p>
-</dd>
-<dt>base_model_results_for_averaging<span class="classifier">Optional[Dict[str, Dict[str, Any]]], optional</span></dt><dd><p>Required if <cite>scm_model_type</cite> is _SCM_MODEL_MA. A dictionary where keys are model names
-(strings) and values are dictionaries. Each inner dictionary must
-contain:
-- ‘weights’: np.ndarray, the SCM weights obtained from that model.
-- ‘cf’: np.ndarray, the counterfactual predictions for the pre-treatment</p>
-<blockquote>
-<div><p>period (length <cite>num_pre_treatment_periods</cite>) from that model.</p>
-</div></blockquote>
+</dl>
 <p>Default is None.</p>
-</dd>
-<dt>donor_names<span class="classifier">Optional[List[str]], optional</span></dt><dd><p>List of donor names. Currently used by some internal model types if they
-handle intercepts or specific donor selections. Default is None.</p>
-</dd>
-</dl>
-<dl class="simple">
-<dt>Union[cp.Problem, Dict[str, Any]]</dt><dd><ul class="simple">
-<li><dl class="simple">
-<dt>If <cite>scm_model_type</cite> is _SCM_MODEL_MA: A dictionary with the following keys:</dt><dd><ul>
-<li><p>“Lambdas” : Dict[str, float], model names mapped to their lambda (averaging) weights.</p></li>
-<li><p>“w_MA” : np.ndarray, the final model-averaged SCM weights for donors.</p></li>
-<li><p>“Counterfactual_pre” : np.ndarray, the model-averaged counterfactual
-prediction for the pre-treatment period, shape (num_pre_treatment_periods,).</p></li>
+</p></li>
+<li><p><strong>donor_names</strong> (<em>Optional</em><em>[</em><em>List</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a><em>]</em><em>]</em><em>, </em><em>optional</em>) – List of donor names. Currently used by some internal model types if they
+handle intercepts or specific donor selections. Default is None.</p></li>
 </ul>
 </dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><p>The result of the SCM optimization.
+If <cite>scm_model_type</cite> is _SCM_MODEL_MA, returns a dictionary with keys:</p>
+<dl class="simple">
+<dt><code class="docutils literal notranslate"><span class="pre">&quot;Lambdas&quot;</span></code><span class="classifier">Dict[str, float]</span></dt><dd><p>Model names mapped to their lambda (averaging) weights.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">&quot;w_MA&quot;</span></code><span class="classifier">np.ndarray</span></dt><dd><p>The final model-averaged SCM weights for donors.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">&quot;Counterfactual_pre&quot;</span></code><span class="classifier">np.ndarray</span></dt><dd><p>The model-averaged counterfactual prediction for the
+pre-treatment period, shape (num_pre_treatment_periods,).</p>
+</dd>
 </dl>
-</li>
-<li><p>Otherwise (for _SCM_MODEL_MSCA, _SCM_MODEL_MSCB, _SCM_MODEL_MSCC, _SCM_MODEL_SIMPLEX, _SCM_MODEL_OLS):
-A <cite>cvxpy.Problem</cite> object after it has been solved. The estimated SCM
-weights can be accessed via:
+<p>Otherwise (for _SCM_MODEL_MSCA, _SCM_MODEL_MSCB, _SCM_MODEL_MSCC,
+_SCM_MODEL_SIMPLEX, _SCM_MODEL_OLS), returns a <cite>cvxpy.Problem</cite>
+object after it has been solved. The estimated SCM weights can be
+accessed via:
 <cite>problem.solution.primal_vars[next(iter(problem.solution.primal_vars))]</cite>.
-If an intercept was added (e.g., _SCM_MODEL_MSCA, _SCM_MODEL_MSCC), it will be the
-first element of the weight vector.</p></li>
+If an intercept was added (e.g., _SCM_MODEL_MSCA, _SCM_MODEL_MSCC),
+it will be the first element of the weight vector.</p>
+</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Union[cp.Problem, Dict[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)">str</a>, Any]]</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>MlsynthDataError</strong> – If <cite>donor_outcomes_pre_treatment</cite> and
+    <cite>target_outcomes_pre_treatment</cite> dimensions (after slicing to
+    <cite>num_pre_treatment_periods</cite>) are inconsistent for non-MA models.</p></li>
+<li><p><strong>MlsynthConfigError</strong> – If <cite>scm_model_type</cite> is _SCM_MODEL_MA and
+    <cite>base_model_results_for_averaging</cite> is not provided or is
+    malformed, or if an unsupported <cite>scm_model_type</cite> is provided.</p></li>
 </ul>
 </dd>
 </dl>
-<dl class="simple">
-<dt>MlsynthDataError</dt><dd><p>If <cite>donor_outcomes_pre_treatment</cite> and <cite>target_outcomes_pre_treatment</cite> dimensions
-(after slicing to <cite>num_pre_treatment_periods</cite>) are inconsistent for non-MA models.</p>
-</dd>
-<dt>MlsynthConfigError</dt><dd><p>If <cite>scm_model_type</cite> is _SCM_MODEL_MA and <cite>base_model_results_for_averaging</cite> is not provided or is
-malformed, or if an unsupported <cite>scm_model_type</cite> is provided.</p>
-</dd>
-</dl>
+<p class="rubric">Notes</p>
 <ul class="simple">
-<li><p>For models _SCM_MODEL_MSCA and _SCM_MODEL_MSCC, an intercept term is automatically added
-to the <cite>donor_outcomes_pre_treatment</cite> matrix internally. The <cite>num_control_units</cite> parameter is incremented
+<li><p>For models _SCM_MODEL_MSCA and _SCM_MODEL_MSCC, an intercept term is
+automatically added to the <cite>donor_outcomes_pre_treatment</cite> matrix
+internally. The <cite>num_control_units</cite> parameter is incremented
 accordingly, and the returned weight vector will include the intercept
 as its first element.</p></li>
 <li><p>The method solves <cite>min ||y - Xw||_2^2</cite> subject to constraints
 defined by the <cite>scm_model_type</cite> type.</p></li>
 <li><p>CVXPY’s CLARABEL solver is used.</p></li>
 </ul>
-</div></blockquote>
 <p class="rubric">Examples</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">T_pre_ex</span><span class="p">,</span> <span class="n">N_donors_ex</span> <span class="o">=</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">3</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">y_ex</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="n">T_pre_ex</span><span class="p">)</span>
@@ -844,9 +856,11 @@ The structure of the inner dictionary is:
 </div></blockquote>
 <ul class="simple">
 <li><dl class="simple">
-<dt>”Effects”<span class="classifier">Dict[str, float]</span></dt><dd><p>Estimated treatment effects. Keys: “ATT” (Average Treatment Effect
-on Treated for post-treatment period), “ATT_post” (same as ATT),
+<dt>”Effects”<span class="classifier">Dict[str, float]</span></dt><dd><dl class="simple">
+<dt>Estimated treatment effects. Keys: “ATT” (Average Treatment Effect</dt><dd><p>on Treated for post-treatment period), “ATT_post” (same as ATT),
 “ATT_pre” (average gap in pre-treatment period).</p>
+</dd>
+</dl>
 </dd>
 </dl>
 </li>

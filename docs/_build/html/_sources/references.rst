@@ -51,7 +51,7 @@ References
 
 
 
-.. [TSSC] Li, K. T., & Shankar, V. (2023). A Two-Step Synthetic Control Approach for Estimating Causal Effects of Marketing Events. *Management Science, 70*(6), 3734-3747. 
+.. [TSSC] Li, K. T., & Shankar, V. (2023). A Two-Step Synthetic Control Approach for Estimating Causal Effects of Marketing Events. Management Science, 70(6), 3734-3747. 
 
 
 .. [ROTH20232218]

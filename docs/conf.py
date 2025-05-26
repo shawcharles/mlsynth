@@ -12,7 +12,7 @@ project = "mlsynth"
 copyright = "2025, Jared Greathouse"
 author = "Jared Greathouse"
 
-release = "0.1"
+release = "0.1.1"
 version = "0.1.1"
 
 # -- General configuration
