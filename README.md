@@ -2,7 +2,7 @@
 
 ``mlsynth`` is a python package for doing policy evaluation using panel data estimators. See the [full documentation](https://mlsynth.readthedocs.io/) and the associated tutorials.
 
-The original library (v0.1.0), written by Jared Greathouse, has been significantly refactored to v0.2.0. This refactoring includes enhancements such as improved test coverage across all estimators and utility modules, the introduction of Pydantic types for standardized configuration and results, comprehensive error handling, and a more modular codebase.
+The original library (v0.1.0), written by Jared Greathouse, has been significantly refactored to v0.1.1. This refactoring includes enhancements such as improved test coverage across all estimators and utility modules, the introduction of Pydantic types for standardized configuration and results, comprehensive error handling, and a more modular codebase.
 
 
 ## What is  ``mlsynth``

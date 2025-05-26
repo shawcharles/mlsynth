@@ -6,7 +6,7 @@ with open("README.md", "r", encoding="utf-8") as f:
 
 setup(
     name="mlsynth",
-    version="0.2.0",
+    version="0.1.1",
     description="A Python package for advanced synthetic control methods.",
     long_description=long_description,
     long_description_content_type="text/markdown",
