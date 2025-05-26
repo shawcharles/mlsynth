@@ -1,0 +1,655 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Forward Difference-in-Differences &#8212; mlsynth 0.1 documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="_static/documentation_options.js?v=e1a75a79"></script>
+    <script src="_static/doctools.js?v=9bcbadda"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/static/custom_mathjax.js"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'fdid';</script>
+    <link rel="author" title="About these documents" href="about.html" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Factor Model Approach" href="fma.html" />
+    <link rel="prev" title="Cluster Synthetic Controls" href="clustersc.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="index.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">mlsynth 0.1 documentation</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Overview:</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="about.html">About mlsynth</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="references.html">References</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Estimators</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="clustersc.html">Cluster Synthetic Controls</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Forward Difference-in-Differences</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fma.html">Factor Model Approach</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fscm.html">Forward SCM</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="gsc.html">Generalized Synthetic Control (GSC)</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="_autosummary/mlsynth.estimators.gsc.GSC.html">mlsynth.estimators.gsc.GSC</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="nsc.html">Nonlinear Synthetic Control (NSC)</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="_autosummary/mlsynth.estimators.nsc.NSC.html">mlsynth.estimators.nsc.NSC</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="pda.html">Panel Data Approach</a></li>
+<li class="toctree-l1"><a class="reference internal" href="proximal.html">Proximal Synthetic Control</a></li>
+<li class="toctree-l1"><a class="reference internal" href="scmo.html">Synthetic Control With Multiple Outcomes</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="sdid.html">Synthetic Difference-in-Differences (SDID)</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="_autosummary/mlsynth.estimators.sdid.SDID.html">mlsynth.estimators.sdid.SDID</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="si.html">Synthetic Interventions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="src.html">Synthetic Regression Control Method</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="stablesc.html">Stable Synthetic Control (StableSC)</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="_autosummary/mlsynth.estimators.stablesc.StableSC.html">mlsynth.estimators.stablesc.StableSC</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="tssc.html">Two-Step Synthetic Control</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Utilities</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="datautils.html">Data Utilities (<cite>mlsynth.utils.datautils</cite>)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="estutils.html">Estimation Utilities (<cite>mlsynth.utils.estutils</cite>)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="inferutils.html">Inference Utilities (<cite>mlsynth.utils.inferutils</cite>)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="resultutils.html">Result Utilities (<cite>mlsynth.utils.resultutils</cite>)</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/fdid.rst" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.rst</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Forward Difference-in-Differences</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#implementing-fdid-via-mlsynth">Implementing FDID via mlsynth</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mlsynth.FDID"><code class="docutils literal notranslate"><span class="pre">FDID</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#mlsynth.FDID.__init__"><code class="docutils literal notranslate"><span class="pre">FDID.__init__()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#to-do-list">To-Do List</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="forward-difference-in-differences">
+<h1>Forward Difference-in-Differences<a class="headerlink" href="#forward-difference-in-differences" title="Link to this heading">#</a></h1>
+<p>With Difference-in-Differences (DID) designs, we may be unsure if the parallel trends assumption holds. Under parallel-trends, we posit the average difference between the treated unit and control group would be constant if the treatment did not happen, holds. In practice, parallel trends may not hold due to poor controls, “poor” in the sense that the pre-intervention outcome trends for some controls may be too dissimilar to the treated unit of interest.</p>
+<p>Formally, I lay out the notations. Indexed by <span class="math notranslate nohighlight">\(j\)</span>, we observe <span class="math notranslate nohighlight">\(\mathcal{N} \operatorname*{:=} \{1, 2, \ldots, N\}\)</span> units where the set <span class="math notranslate nohighlight">\(\mathcal{N}\)</span> has cardinality <span class="math notranslate nohighlight">\(N = |\mathcal{N}|\)</span>. <span class="math notranslate nohighlight">\(j = 1\)</span> is the treated unit with the controls being <span class="math notranslate nohighlight">\(\mathcal{N}_0 \operatorname*{:=} \mathcal{N} \setminus \{1\}\)</span> whose cardinality is <span class="math notranslate nohighlight">\(N_0 = |\mathcal{N}_0|\)</span>. Let <span class="math notranslate nohighlight">\(\widehat{U} \subset \mathcal{N}_0\)</span> be a subset of controls, with cardinality <span class="math notranslate nohighlight">\(U = |\widehat{U}|\)</span>. Time periods are indexed by <span class="math notranslate nohighlight">\(t\)</span>. Let <span class="math notranslate nohighlight">\(\mathcal{T}_1 \operatorname*{:=} \{1, 2, \ldots, T_0\}\)</span> represent the pre-intervention periods, where <span class="math notranslate nohighlight">\(T_0\)</span> is the final pre-intervention period, and <span class="math notranslate nohighlight">\(\mathcal{T}_2 \operatorname*{:=} \{T_0 + 1, \ldots, T\}\)</span> represents the post-intervention periods. Both of these sets have cardinalities <span class="math notranslate nohighlight">\(T_1 = |\mathcal{T}_1|\)</span> and <span class="math notranslate nohighlight">\(T_2 = |\mathcal{T}_2|\)</span>. Let <span class="math notranslate nohighlight">\(\mathcal{T} \operatorname*{:=} \mathcal{T}_1 \cup \mathcal{T}_2\)</span> represent the full time series, with cardinality <span class="math notranslate nohighlight">\(T = |\mathcal{T}|\)</span>.</p>
+<p>With this in mind, we may describe the algorithm. By design, we are agnostic as to which sub-matrix of units we should use or how even many controls we should use. The Forward DID method is an iterative, data driven algorithm which chooses the controls. The Forward DID method updates the selected control set <span class="math notranslate nohighlight">\(\widehat{U}_k\)</span> iteratively over <span class="math notranslate nohighlight">\(k = 1, 2, \ldots, N_0\)</span>. The process begins with an empty control set <span class="math notranslate nohighlight">\(\widehat{U}_0 = \emptyset\)</span> and an empty candidate set <span class="math notranslate nohighlight">\(\mathcal{U} = \emptyset\)</span>. For <span class="math notranslate nohighlight">\(k = 1\)</span>, we estimate <span class="math notranslate nohighlight">\(N_0\)</span> DID models using the outcome vector of each control unit as a predictor, computing the <span class="math notranslate nohighlight">\(R^2\)</span> statistic for each control unit. The optimization is</p>
+<div class="math notranslate nohighlight">
+\[\operatorname*{argmin}_{\boldsymbol{\beta}_{\widehat{U}_{k-1} \cup \{i\}}} \left\| \mathbf{y}_1 - \mathbf{Y}_{\widehat{U}_{k-1} \cup \{i\}} \boldsymbol{\beta}_{\widehat{U}_{k-1} \cup \{i\}} \right\|_2^2,
+\quad \text{subject to } \boldsymbol{\beta}_{\widehat{U}_{k-1} \cup \{i\}} = \frac{1}{|\widehat{U}_{k-1}| + 1}.\]</div>
+<p>where we have a <span class="math notranslate nohighlight">\(T_1 \times 1\)</span> pre-intervention vector of outcomes for the treated unit, <span class="math notranslate nohighlight">\(\mathbf{y}_1\)</span>, and a <span class="math notranslate nohighlight">\(T_1 \times N_0\)</span> matrix of outcomes for our control group, <span class="math notranslate nohighlight">\(\mathbf{Y}_0\)</span>. After iterating over all controls, we then select the control unit that maximizes the pre-intervention <span class="math notranslate nohighlight">\(R^2\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[i^\ast_1 = \operatorname*{argmax}_{i \in \mathcal{N}_0} R^2_i,
+\quad \widehat{U}_1 = \{i^\ast_1\},
+\quad \mathcal{U} = \{\widehat{U}_1\}.\]</div>
+<p>For subsequent iterations <span class="math notranslate nohighlight">\(k = 2, 3, \ldots, N_0\)</span>, we construct <span class="math notranslate nohighlight">\(N_0 - k + 1\)</span> DID models by combining the previously selected set <span class="math notranslate nohighlight">\(\widehat{U}_{k-1}\)</span> with each remaining control unit <span class="math notranslate nohighlight">\(i \notin \widehat{U}_{k-1}\)</span>. For each k-th iteration, we select the submodel/control unit with the highest <span class="math notranslate nohighlight">\(R^2\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[i^\ast_k = \operatorname*{argmax}_{i \in \mathcal{N}_0 \setminus \widehat{U}_{k-1}} R^2_{\widehat{U}_{k-1} \cup \{i\}},
+\quad \widehat{U}_k = \widehat{U}_{k-1} \cup \{i^\ast_k\},
+\quad \mathcal{U} = \mathcal{U} \cup \{\widehat{U}_k\}.\]</div>
+<p>This process continues until iteration <span class="math notranslate nohighlight">\(k = N_0\)</span>. The control group ultimately returned by FDID is <span class="math notranslate nohighlight">\(\widehat{U} \operatorname*{:=} \operatorname*{argmax}_{\widehat{U}_k \in \mathcal{U}} R^2(\widehat{U}_k)\)</span>, or the candidate set of control units that has the highest R-squared statistic of all the candidate sets.</p>
+<section id="implementing-fdid-via-mlsynth">
+<h2>Implementing FDID via mlsynth<a class="headerlink" href="#implementing-fdid-via-mlsynth" title="Link to this heading">#</a></h2>
+<p>Here is the input FDID accepts:</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="mlsynth.FDID">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mlsynth.</span></span><span class="sig-name descname"><span class="pre">FDID</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">FDIDConfig</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mlsynth.FDID" title="Link to this definition">#</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>Implements the Forward Difference-in-Differences (FDID) estimator.</p>
+<p>This class computes estimates for three related methods:
+1.  Forward Difference-in-Differences (FDID): Uses a forward selection</p>
+<blockquote>
+<div><p>procedure to choose a subset of control units to construct the
+counterfactual for the treated unit.</p>
+</div></blockquote>
+<ol class="arabic simple" start="2">
+<li><p>Standard Difference-in-Differences (DID): Uses all available control
+units.</p></li>
+<li><p>Augmented Difference-in-Differences (ADID): Also uses all available
+control units but incorporates them differently in the regression.</p></li>
+</ol>
+<p>The <cite>fit</cite> method returns results for all three estimators. Configuration is
+managed via a Pydantic model. Key instance attributes are derived from this
+configuration object. Refer to the <cite>__init__</cite> method for detailed parameter
+descriptions.</p>
+<p class="rubric">References</p>
+<p>Li, K. T. (2023). “Frontiers: A Simple Forward Difference-in-Differences Method.”
+<em>Marketing Science</em> 43(2):267-279.</p>
+<p>Li, K. T. &amp; Van den Bulte, C. (2023). “Augmented Difference-in-Differences.”
+<em>Marketing Science</em> 42:4, 746-767.</p>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">mlsynth</span><span class="w"> </span><span class="kn">import</span> <span class="n">FDID</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">mlsynth.config_models</span><span class="w"> </span><span class="kn">import</span> <span class="n">FDIDConfig</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Create sample data for demonstration</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
+<span class="gp">... </span>    <span class="s1">&#39;unit&#39;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">repeat</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span> <span class="mi">10</span><span class="p">),</span> <span class="c1"># 3 units</span>
+<span class="gp">... </span>    <span class="s1">&#39;time&#39;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">tile</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">11</span><span class="p">),</span> <span class="mi">3</span><span class="p">),</span>   <span class="c1"># 10 time periods</span>
+<span class="gp">... </span>    <span class="s1">&#39;outcome&#39;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">30</span><span class="p">)</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">repeat</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">3</span><span class="p">),</span><span class="mi">10</span><span class="p">)</span><span class="o">*</span><span class="mf">0.5</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="s1">&#39;treated_unit_1&#39;</span><span class="p">:</span> <span class="p">((</span><span class="n">np</span><span class="o">.</span><span class="n">repeat</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span> <span class="mi">10</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)</span> <span class="o">&amp;</span>     <span class="o">...</span>                        <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">tile</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">11</span><span class="p">),</span> <span class="mi">3</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="mi">6</span><span class="p">))</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+<span class="gp">... </span><span class="p">})</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">fdid_config</span> <span class="o">=</span> <span class="n">FDIDConfig</span><span class="p">(</span>
+<span class="gp">... </span>    <span class="n">df</span><span class="o">=</span><span class="n">data</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">outcome</span><span class="o">=</span><span class="s1">&#39;outcome&#39;</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">treat</span><span class="o">=</span><span class="s1">&#39;treated_unit_1&#39;</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">unitid</span><span class="o">=</span><span class="s1">&#39;unit&#39;</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">time</span><span class="o">=</span><span class="s1">&#39;time&#39;</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">display_graphs</span><span class="o">=</span><span class="kc">False</span> <span class="c1"># Typically True, False for non-interactive examples</span>
+<span class="gp">... </span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">estimator</span> <span class="o">=</span> <span class="n">FDID</span><span class="p">(</span><span class="n">config</span><span class="o">=</span><span class="n">fdid_config</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Results can be obtained by calling estimator.fit()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># results_list = estimator.fit()</span>
+</pre></div>
+</div>
+<dl class="py method">
+<dt class="sig sig-object py" id="mlsynth.FDID.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">FDIDConfig</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.13)"><span class="pre">None</span></a></span></span><a class="headerlink" href="#mlsynth.FDID.__init__" title="Link to this definition">#</a></dt>
+<dd><p>Initializes the FDID estimator with a configuration object.</p>
+<p>The configuration object <cite>config</cite> bundles all parameters for the estimator.
+<cite>FDIDConfig</cite> inherits from <cite>BaseEstimatorConfig</cite>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>config</strong> (<em>FDIDConfig</em>) – <p>A Pydantic model instance containing the configuration parameters.
+The fields are inherited from <cite>BaseEstimatorConfig</cite>:
+df : pd.DataFrame</p>
+<blockquote>
+<div><p>The input panel data. Must contain columns for outcome, treatment
+indicator, unit identifier, and time identifier.</p>
+</div></blockquote>
+<dl class="simple">
+<dt>outcome<span class="classifier">str</span></dt><dd><p>Name of the outcome variable column in <cite>df</cite>.</p>
+</dd>
+<dt>treat<span class="classifier">str</span></dt><dd><p>Name of the binary treatment indicator column in <cite>df</cite>.</p>
+</dd>
+<dt>unitid<span class="classifier">str</span></dt><dd><p>Name of the unit identifier (e.g., country, individual ID) column in <cite>df</cite>.</p>
+</dd>
+<dt>time<span class="classifier">str</span></dt><dd><p>Name of the time period column in <cite>df</cite>.</p>
+</dd>
+<dt>display_graphs<span class="classifier">bool, default=True</span></dt><dd><p>Whether to display plots of the results after fitting.</p>
+</dd>
+<dt>save<span class="classifier">Union[bool, str], default=False</span></dt><dd><p>If False, plots are not saved. If True, plots are saved with default names.
+If a string, it’s used as a prefix for saved plot filenames.
+(Note: The internal <cite>plot_estimates</cite> function might handle more complex
+types like Dict for <cite>save</cite>, but <cite>FDIDConfig</cite> defines it as <cite>Union[bool, str]</cite>).</p>
+</dd>
+<dt>counterfactual_color<span class="classifier">str, default=”red”</span></dt><dd><p>Color for the counterfactual line(s) in plots.
+(Note: The internal <cite>plot_estimates</cite> function might handle a list of colors,
+but <cite>FDIDConfig</cite> defines it as <cite>str</cite>).</p>
+</dd>
+<dt>treated_color<span class="classifier">str, default=”black”</span></dt><dd><p>Color for the treated unit line in plots.</p>
+</dd>
+</dl>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<p>The code below automates this process for the three standard datasets in the synthetic control literature. Users need simply change the “number” outside of the function to run the results for Basque, West Germany, or California’s Prop 99 example, from 0, to 1 and 2, respectively. In this case, we use the Basque dataset. We begin with importing the libraries. I use my own custom plot, but naturally you can do this or not.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">mlsynth.mlsynth</span><span class="w"> </span><span class="kn">import</span> <span class="n">FDID</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+
+<span class="n">file</span> <span class="o">=</span> <span class="s1">&#39;https://raw.githubusercontent.com/jgreathouse9/mlsynth/refs/heads/main/basedata/basque_data.csv&#39;</span>
+<span class="c1"># Load the CSV file using pandas</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">file</span><span class="p">)</span>
+
+<span class="n">treat</span> <span class="o">=</span> <span class="s2">&quot;Terrorism&quot;</span>
+<span class="n">outcome</span> <span class="o">=</span> <span class="s2">&quot;gdpcap&quot;</span>
+<span class="n">unitid</span> <span class="o">=</span> <span class="s2">&quot;regionname&quot;</span>
+<span class="n">time</span> <span class="o">=</span> <span class="s2">&quot;year&quot;</span>
+
+<span class="n">config</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;df&quot;</span><span class="p">:</span> <span class="n">df</span><span class="p">,</span>
+    <span class="s2">&quot;treat&quot;</span><span class="p">:</span> <span class="n">treat</span><span class="p">,</span>
+    <span class="s2">&quot;time&quot;</span><span class="p">:</span> <span class="n">time</span><span class="p">,</span>
+    <span class="s2">&quot;outcome&quot;</span><span class="p">:</span> <span class="n">outcome</span><span class="p">,</span>
+    <span class="s2">&quot;unitid&quot;</span><span class="p">:</span> <span class="n">unitid</span><span class="p">,</span>
+    <span class="s2">&quot;display_graphs&quot;</span><span class="p">:</span> <span class="kc">True</span>
+<span class="p">}</span>
+
+<span class="n">model</span> <span class="o">=</span> <span class="n">FDID</span><span class="p">(</span><span class="n">config</span><span class="p">)</span>
+
+<span class="n">arco</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>This code produces this plot</p>
+<a class="reference internal image-reference" href="https://raw.githubusercontent.com/jgreathouse9/mlsynth/main/examples/fdid/FDID_Basque.png"><img alt="FDID Basque Plot" class="align-center" src="https://raw.githubusercontent.com/jgreathouse9/mlsynth/main/examples/fdid/FDID_Basque.png" style="width: 600px;" />
+</a>
+<p>Now suppose we wish to access the results. We can do this by printing the keys</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">fdidresult</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
+
+<span class="n">fdid_info</span> <span class="o">=</span> <span class="n">fdidresult</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s1">&#39;FDID&#39;</span><span class="p">]</span>
+
+<span class="n">keys</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Effects&#39;</span><span class="p">,</span> <span class="s1">&#39;Fit&#39;</span><span class="p">,</span> <span class="s1">&#39;Inference&#39;</span><span class="p">,</span> <span class="s1">&#39;Weights&#39;</span><span class="p">]</span>
+
+<span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">keys</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="si">{</span><span class="n">key</span><span class="si">}</span><span class="s2">:&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">fdid_info</span><span class="p">[</span><span class="n">key</span><span class="p">])</span>
+</pre></div>
+</div>
+<p>Here is the raw output:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>Effects:
+{&#39;ATT&#39;: -0.875, &#39;Percent ATT&#39;: -10.035, &#39;SATT&#39;: -37.587}
+
+Fit:
+{&#39;T0 RMSE&#39;: 0.076, &#39;R-Squared&#39;: 0.994, &#39;Pre-Periods&#39;: 20}
+
+Inference:
+{&#39;P-Value&#39;: 0.0, &#39;95 LB&#39;: -0.921, &#39;95 UB&#39;: -0.829, &#39;Width&#39;: 0.09125913731952662, &#39;SE&#39;: 0.1116508902713375, &#39;Intercept&#39;: array([0.84])}
+
+Weights:
+{&#39;Cataluna&#39;: 0.5, &#39;Aragon&#39;: 0.5}
+</pre></div>
+</div>
+</section>
+<section id="to-do-list">
+<h2>To-Do List<a class="headerlink" href="#to-do-list" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>Extend both to staggered adoption (including inference)</p></li>
+</ul>
+</section>
+</section>
+
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="clustersc.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Cluster Synthetic Controls</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="fma.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Factor Model Approach</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#implementing-fdid-via-mlsynth">Implementing FDID via mlsynth</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mlsynth.FDID"><code class="docutils literal notranslate"><span class="pre">FDID</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#mlsynth.FDID.__init__"><code class="docutils literal notranslate"><span class="pre">FDID.__init__()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#to-do-list">To-Do List</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Jared Greathouse
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2025, Jared Greathouse.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

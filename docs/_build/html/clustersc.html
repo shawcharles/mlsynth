@@ -1,0 +1,945 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Cluster Synthetic Controls &#8212; mlsynth 0.1 documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="_static/documentation_options.js?v=e1a75a79"></script>
+    <script src="_static/doctools.js?v=9bcbadda"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/static/custom_mathjax.js"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'clustersc';</script>
+    <link rel="author" title="About these documents" href="about.html" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Forward Difference-in-Differences" href="fdid.html" />
+    <link rel="prev" title="References" href="references.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="index.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">mlsynth 0.1 documentation</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Overview:</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="about.html">About mlsynth</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="references.html">References</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Estimators</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Cluster Synthetic Controls</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fdid.html">Forward Difference-in-Differences</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fma.html">Factor Model Approach</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fscm.html">Forward SCM</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="gsc.html">Generalized Synthetic Control (GSC)</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="_autosummary/mlsynth.estimators.gsc.GSC.html">mlsynth.estimators.gsc.GSC</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="nsc.html">Nonlinear Synthetic Control (NSC)</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="_autosummary/mlsynth.estimators.nsc.NSC.html">mlsynth.estimators.nsc.NSC</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="pda.html">Panel Data Approach</a></li>
+<li class="toctree-l1"><a class="reference internal" href="proximal.html">Proximal Synthetic Control</a></li>
+<li class="toctree-l1"><a class="reference internal" href="scmo.html">Synthetic Control With Multiple Outcomes</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="sdid.html">Synthetic Difference-in-Differences (SDID)</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="_autosummary/mlsynth.estimators.sdid.SDID.html">mlsynth.estimators.sdid.SDID</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="si.html">Synthetic Interventions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="src.html">Synthetic Regression Control Method</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="stablesc.html">Stable Synthetic Control (StableSC)</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="_autosummary/mlsynth.estimators.stablesc.StableSC.html">mlsynth.estimators.stablesc.StableSC</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="tssc.html">Two-Step Synthetic Control</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Utilities</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="datautils.html">Data Utilities (<cite>mlsynth.utils.datautils</cite>)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="estutils.html">Estimation Utilities (<cite>mlsynth.utils.estutils</cite>)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="inferutils.html">Inference Utilities (<cite>mlsynth.utils.inferutils</cite>)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="resultutils.html">Result Utilities (<cite>mlsynth.utils.resultutils</cite>)</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/clustersc.rst" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.rst</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Cluster Synthetic Controls</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#notations">Notations</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#estimation">Estimation</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pcr">PCR</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#robust-pca-synth">Robust PCA SYNTH</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#estimating-clustersc">Estimating <code class="docutils literal notranslate"><span class="pre">CLUSTERSC</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mlsynth.CLUSTERSC"><code class="docutils literal notranslate"><span class="pre">CLUSTERSC</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#mlsynth.CLUSTERSC.config"><code class="docutils literal notranslate"><span class="pre">CLUSTERSC.config</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#mlsynth.CLUSTERSC.df"><code class="docutils literal notranslate"><span class="pre">CLUSTERSC.df</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#mlsynth.CLUSTERSC.outcome"><code class="docutils literal notranslate"><span class="pre">CLUSTERSC.outcome</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#mlsynth.CLUSTERSC.treat"><code class="docutils literal notranslate"><span class="pre">CLUSTERSC.treat</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#mlsynth.CLUSTERSC.unitid"><code class="docutils literal notranslate"><span class="pre">CLUSTERSC.unitid</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#mlsynth.CLUSTERSC.time"><code class="docutils literal notranslate"><span class="pre">CLUSTERSC.time</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#mlsynth.CLUSTERSC.method"><code class="docutils literal notranslate"><span class="pre">CLUSTERSC.method</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#mlsynth.CLUSTERSC.objective"><code class="docutils literal notranslate"><span class="pre">CLUSTERSC.objective</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#mlsynth.CLUSTERSC.cluster"><code class="docutils literal notranslate"><span class="pre">CLUSTERSC.cluster</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#mlsynth.CLUSTERSC.Frequentist"><code class="docutils literal notranslate"><span class="pre">CLUSTERSC.Frequentist</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#mlsynth.CLUSTERSC.ROB"><code class="docutils literal notranslate"><span class="pre">CLUSTERSC.ROB</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#mlsynth.CLUSTERSC.display_graphs"><code class="docutils literal notranslate"><span class="pre">CLUSTERSC.display_graphs</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#mlsynth.CLUSTERSC.save"><code class="docutils literal notranslate"><span class="pre">CLUSTERSC.save</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#mlsynth.CLUSTERSC.counterfactual_color"><code class="docutils literal notranslate"><span class="pre">CLUSTERSC.counterfactual_color</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#mlsynth.CLUSTERSC.treated_color"><code class="docutils literal notranslate"><span class="pre">CLUSTERSC.treated_color</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#mlsynth.CLUSTERSC.fit"><code class="docutils literal notranslate"><span class="pre">CLUSTERSC.fit()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#mlsynth.CLUSTERSC.__init__"><code class="docutils literal notranslate"><span class="pre">CLUSTERSC.__init__()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#to-do-list">To-Do List</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="cluster-synthetic-controls">
+<h1>Cluster Synthetic Controls<a class="headerlink" href="#cluster-synthetic-controls" title="Link to this heading">#</a></h1>
+<p>With Synthetic Control Methods, we may be unsure if the control group we use will be a good countrefactual for the treated unit– even if we are relying on a weighted average of the controls instead of using all of them. Outcome trajectories may be noisy, have missing data, or have an extremely large number of control units, epsecially in modern settings where data are frequently disaggregated. To address this, <a class="reference internal" href="references.html#amjad2018" id="id1"><span>[Amjad2018]</span></a> developed a SVD version of the synthetic control method, Robust Synthetic Control. This is what the <code class="xref py py-class docutils literal notranslate"><span class="pre">CLUSTERSC</span></code> class implements, and more. I begin with notations.</p>
+<section id="notations">
+<h2>Notations<a class="headerlink" href="#notations" title="Link to this heading">#</a></h2>
+<p>Here, we have <span class="math notranslate nohighlight">\(\mathcal{N} \operatorname*{:=} \lbrace{1 \ldots N \rbrace}\)</span> units across
+<span class="math notranslate nohighlight">\(t \in \left(1, T\right) \cap \mathbb{N}\)</span> time periods, where <span class="math notranslate nohighlight">\(j=1\)</span> is our sole treated unit.
+This leaves us with <span class="math notranslate nohighlight">\(\mathcal{N}_0 \operatorname*{:=} \lbrace{2 \ldots N \rbrace}\)</span> control units,
+with its cardinality being <span class="math notranslate nohighlight">\(|N_0|\)</span>. We have two sets of time series
+<span class="math notranslate nohighlight">\(\mathcal{T} \operatorname*{:=}\mathcal{T}_1 \cup \mathcal{T}_2\)</span>, where
+<span class="math notranslate nohighlight">\(\mathcal{T}_1 \operatorname*{:=} \lbrace{1 \ldots T_0 \rbrace}\)</span> is the pre-intervention period and
+<span class="math notranslate nohighlight">\(\mathcal{T}_2 \operatorname*{:=}\lbrace{T_0+1 \ldots T \rbrace}\)</span> denotes the post-intervention period,
+each with their respective cardinalities <span class="math notranslate nohighlight">\(|T_1|\)</span> and <span class="math notranslate nohighlight">\(|T_2|\)</span>.</p>
+<p>We represent the outcomes of all units over time as matrices and vectors. Let <span class="math notranslate nohighlight">\(\mathbf{Y} \in \mathbb{R}^{N \times T}\)</span> denote the outcome matrix for all units across all time periods, where each row corresponds to a unit and each column corresponds to a time period. Specifically, let: <span class="math notranslate nohighlight">\(\mathbf{Y}_{\mathcal{N}_0} \in \mathbb{R}^{(N-1) \times T}\)</span> denote the outcome matrix for the control units, <span class="math notranslate nohighlight">\(\mathbf{y}_1 \in \mathbb{R}^{1 \times T}\)</span> denote the outcome vector for the treated unit.</p>
+<p>Let <span class="math notranslate nohighlight">\(\mathbf{w} \operatorname*{:=}\lbrace{w_2 \ldots w_N \rbrace}\)</span>
+be a weight vector learnt by regression. The basic problem with causal inference is that we see our units as being treated or untreated, never both.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}y_{jt} =
+\begin{cases}
+    y^{0}_{jt} &amp; \forall \: j \in \mathcal{N}_0 \\
+    y^{0}_{1t} &amp; \text{if } j = 1 \text{ and } t \in \mathcal{T}_1 \\
+    y^{1}_{1t} &amp; \text{if } j = 1 \text{ and } t \in \mathcal{T}_2
+\end{cases}\end{split}\]</div>
+<p>In the synthetic control method, we (typically) have a single treated unit which, along with the donors, follows a certain data generating process for all time periods until <span class="math notranslate nohighlight">\(T_0\)</span>.
+After the final pre-treatment period, the control units follow the same process because they are unaffected by the intervention. However for unit <span class="math notranslate nohighlight">\(j=1\)</span>, the outcomes we see are that pre-intervention DGP plus some treatment effect. To this end, we are concerned with <span class="math notranslate nohighlight">\(\hat{y}_{1t}\)</span>, or the out of sample values we would have observed for the treated unit absent treatment. The average treatment effect on the treated</p>
+<div class="math notranslate nohighlight">
+\[ATT = \frac{1}{T_2 - T_1} \sum_{T_0 +1}^{T} (y_{1t} - \hat{y}_{1t})\]</div>
+<p>is our main statistic of interest, where <span class="math notranslate nohighlight">\((y_{1t} - \hat{y}_{1t})\)</span> is the treatment effect at some given time point.</p>
+</section>
+<section id="estimation">
+<h2>Estimation<a class="headerlink" href="#estimation" title="Link to this heading">#</a></h2>
+<section id="pcr">
+<h3>PCR<a class="headerlink" href="#pcr" title="Link to this heading">#</a></h3>
+<p>In SCM, we exploit the linear relation
+between untreated and the treated unit to estimate its counterfactual. Typically, this is done like</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{align}
+    \underset{w}{\operatorname*{argmin}} &amp; \quad ||\mathbf{y}_{1} - \mathbf{Y}_{\mathcal{N}_{0}} w_j||_{2}^2 \\
+    \text{s.t.} &amp; \quad \mathbf{w}: w_{j} \in \mathbb{I}, \quad  \|\mathbf{w}\|_{1} = 1
+\end{align}\end{split}\]</div>
+<p>where the weights are constrained to lie on the unit interval and add up to 1, which we refer to as the <em>convex hull constraint</em>. Geometrically, and practically, this has some good properties; it means that we will never extrapolate beyond the support of the control group and allows for an interpretable solution. However, it also suffers from computational issues stemming from the (often) bilevel optimization (<a class="reference internal" href="references.html#becker20181" id="id2"><span>[BECKER20181]</span></a> , <a class="reference internal" href="references.html#albalate2021decoupling" id="id3"><span>[albalate2021decoupling]</span></a>, <a class="reference internal" href="references.html#malo2023computing" id="id4"><span>[malo2023computing]</span></a>). Instead, <a class="reference internal" href="references.html#amjad2018" id="id5"><span>[Amjad2018]</span></a> proposes a different solution, using low-rank matrix  techniques. Given the donor pool outcome matrix <span class="math notranslate nohighlight">\(\mathbf{Y}_{\mathcal{N}_0} \in \mathbb{R}^{(N-1) \times T}\)</span>, we seek a low-rank approximation <span class="math notranslate nohighlight">\(\widehat{\mathbf{Y}}_{\mathcal{N}_0} = \mathbf{U} \mathbf{S} \mathbf{V}^\top\)</span> of our control group. Here, <span class="math notranslate nohighlight">\(\mathbf{U} \in \mathbb{R}^{(N-1) \times k}\)</span>, <span class="math notranslate nohighlight">\(\mathbf{S} \in \mathbb{R}^{k \times k}\)</span>, and <span class="math notranslate nohighlight">\(\mathbf{V} \in \mathbb{R}^{T \times k}\)</span> with rank <span class="math notranslate nohighlight">\(k \ll \min(N-1, T)\)</span>. We learn this low-rank approximation, <span class="math notranslate nohighlight">\(\mathbf{L}\)</span>,  by minimizing the reconstruction error <em>in the preintervention period</em>. Here is the objective function</p>
+<div class="math notranslate nohighlight">
+\[\mathbf{L}=\underset{\mathbf{U}, \mathbf{S}, \mathbf{V}}{\text{argmin}} \quad \|\mathbf{Y}_{\mathcal{N}_0} - \mathbf{U} \mathbf{S} \mathbf{V}^\top\|_F^2\]</div>
+<p>where <span class="math notranslate nohighlight">\(\|\cdot\|_F\)</span> denotes the Frobenius norm. When we do this, we are left with the singular values, and how much of the total variance they explain. Selecting too few singular values/principal components means our synthetic control will underfit the pre-intervention time series of the treated unit. Selecting too many singular values means we will overft the pre-intervention time series. The benefits of this approach, as <a class="reference internal" href="references.html#amjad2018" id="id6"><span>[Amjad2018]</span></a> and <a class="reference internal" href="references.html#agarwal2021" id="id7"><span>[Agarwal2021]</span></a> show, is that it implicitly performs regularization our donor pool, and has a denoising effect. PCR (also called Robust Synthetic Control) uses Universal Singular Value Thresholding to choose the optimal numver of principal componenets to retain <a class="reference internal" href="references.html#chatterjee2015" id="id8"><span>[Chatterjee2015]</span></a>. We take the same approach, but other methods, such as SCREENOT by Donoho et al. <a class="reference internal" href="references.html#donoho2023" id="id9"><span>[Donoho2023]</span></a>, may at some point be applied as an option. The final objective function is</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{align}
+    \underset{w}{\text{argmin}} &amp; \quad ||\mathbf{y}_{1} - \mathbf{L}\mathbf{w}^{\top}||_{2}^2 \\
+    \text{s.t.} \: &amp; \mathbf{w} \in \mathbb{R}
+\end{align}\end{split}\]</div>
+<p>where we simply use the reconstructed, denoised version of the control group to learn the values of the treated unit in the preintervention period via OLS. Then, we take the dot product of our control group using the learnt weights. This returns our in and out of sample predictions so that we may compute ATTs. Note as of January 11, the Bayesian version of this method is also an option, when the <code class="docutils literal notranslate"><span class="pre">Frequentist</span></code> option is set to False (for both the clustered and unclustered RSCs). The mathematical details of the Bayesian RSC/PCR will be laid out here, soon.</p>
+</section>
+<section id="robust-pca-synth">
+<h3>Robust PCA SYNTH<a class="headerlink" href="#robust-pca-synth" title="Link to this heading">#</a></h3>
+<p>The next method <code class="xref py py-class docutils literal notranslate"><span class="pre">CLUSTERSC</span></code> implements is the Robust PCA SC method by <a class="reference internal" href="references.html#bayani2021" id="id10"><span>[Bayani2021]</span></a>. <a class="reference internal" href="references.html#bayani2021" id="id11"><span>[Bayani2021]</span></a> argues that the PCR/Robust Synthetic Control method described above is senstive to gross data corruptions and noisy outcomes. Furthermore, <a class="reference internal" href="references.html#amjad2018" id="id12"><span>[Amjad2018]</span></a> notes that even with the denoisign procedure, there still typically needs to be an expert in the field to determine an appropriate donor pool. To solve this issue, Robust PCA SYNTH  begins with a donor selection step. <a class="reference internal" href="references.html#bayani2021" id="id13"><span>[Bayani2021]</span></a> advocates for applying functional PCA to the fully observed outcome matrix in the pre-intervention period and applying k-means clustering. Given the set of outcome trajectories for all units during the pre-intervention period, denote the outcome matrix as <span class="math notranslate nohighlight">\(\mathbf{Y} \in \mathbb{R}^{N \times T_0}\)</span>, where <span class="math notranslate nohighlight">\(N\)</span> is the number of units and <span class="math notranslate nohighlight">\(T_0\)</span> is the length of the pre-intervention period. Each unit’s trajectory, <span class="math notranslate nohighlight">\(\mathbf{y}_j(t)\)</span> for <span class="math notranslate nohighlight">\(j \in \{1, \ldots, N\}\)</span>, can be modeled as a smooth function <span class="math notranslate nohighlight">\(f_j(t)\)</span> by projecting onto a set of functional principal components:</p>
+<div class="math notranslate nohighlight">
+\[f_j(t) \approx \mu(t) + \sum_{k=1}^{K} x_{jk} \phi_k(t),\]</div>
+<p>where <span class="math notranslate nohighlight">\(\mu(t)\)</span> is the mean function, <span class="math notranslate nohighlight">\(\phi_k(t)\)</span> are the eigenfunctions, <span class="math notranslate nohighlight">\(x_{jk}\)</span> are the corresponding functional principal component scores for unit <span class="math notranslate nohighlight">\(j\)</span>. After, we can either apply SCREENOT as described above to provide us with the number of functional PC scores to use, or use the elbow method to select the number of scores that explain at least 90% of the preintervention data. At present, we use the latter method.</p>
+<p>After retaining the top few FPC scores, <code class="xref py py-class docutils literal notranslate"><span class="pre">CLUSTERSC</span></code> uses the k-means algorithm to group units with similar temporal patterns during the pre-intervention period. The idea is that units in the same cluster based on their low dimensional representation will be superior controls to these that are not. <a class="reference internal" href="references.html#bayani2021" id="id14"><span>[Bayani2021]</span></a> advocates the silhouette score to choose the number of clustes For each unit <span class="math notranslate nohighlight">\(j\)</span>, the silhouette score <span class="math notranslate nohighlight">\(s(j)\)</span> is defined as <span class="math notranslate nohighlight">\(s(j) = \frac{b(j) - a(j)}{\max\{a(j), b(j)\}}\)</span>, where <span class="math notranslate nohighlight">\(a(j)\)</span> is the average distance from unit <span class="math notranslate nohighlight">\(j\)</span> to all other units in its own cluster and <span class="math notranslate nohighlight">\(b(j)\)</span> is the minimum average distance from unit <span class="math notranslate nohighlight">\(j\)</span> to units in any other cluster (the closest neighboring cluster). To determine the best number of clusters, we compute the silhouette coefficient for each potential number of clusters <span class="math notranslate nohighlight">\(K\)</span>. The silhouette coefficient, denoted by <span class="math notranslate nohighlight">\(SC(K)\)</span>, is the average silhouette score across all units in the dataset for a given value of <span class="math notranslate nohighlight">\(K\)</span>: <span class="math notranslate nohighlight">\(SC(K) = \frac{1}{N} \sum_{j=1}^{N} s(j)\)</span>. We then select the number of clusters <span class="math notranslate nohighlight">\(K^\ast\)</span> that maximizes the silhouette coefficient:</p>
+<div class="math notranslate nohighlight">
+\[K^\ast = \underset{K}{\mathrm{argmax}} \; SC(K).\]</div>
+<p>Now that we know the number of clusters, we now can apply the k-means method. The objective of K-Means clustering is to partition the units into <span class="math notranslate nohighlight">\(K\)</span> clusters by minimizing the within-cluster variance:</p>
+<div class="math notranslate nohighlight">
+\[\underset{\mathcal{C}}{\mathrm{argmin}} \sum_{k=1}^{K} \sum_{j \in \mathcal{C}_k} \|\boldsymbol{x}_j - \mathbf{c}_k\|_2^2,\]</div>
+<p>where <span class="math notranslate nohighlight">\(\mathcal{C} = \{\mathcal{C}_1, \ldots, \mathcal{C}_K\}\)</span> is the set of clusters and <span class="math notranslate nohighlight">\(\mathbf{c}_k\)</span> is the centroid of cluster <span class="math notranslate nohighlight">\(k\)</span>. The cluster containing the treated unit is selected as the donor pool for constructing the synthetic control</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\mathbf{1}\left( j \in \mathcal{C}_k \right) =
+\begin{cases}
+1, &amp; \text{if } 1 \in \mathcal{C}_k \\
+0, &amp; \text{otherwise}
+\end{cases}\end{split}\]</div>
+<p>With this brand new donor pool, we now can get to the estimation of the synthetic control weights, which we do via Robust PCA.</p>
+<p>Robust PCA is advocated by <a class="reference internal" href="references.html#bayani2021" id="id15"><span>[Bayani2021]</span></a> because it is less sensitive to noise, corruption in the data, and outliers than standard PCA. Robust PCA asks the user to accept the very simple premise that the observed outcomes are byproducts of a low-rank structure with occasional/sparse outliers, <span class="math notranslate nohighlight">\(\mathbf{L} + \mathbf{S}\)</span>, where both matrices respectively are of <span class="math notranslate nohighlight">\(N \times T\)</span> dimensions. As before with PCR/Robust SC, if we can extract this low-rank component for our donor pool, we can use it to learn which combination of donors matters most for the construction of our counterfactual. This problem is written as:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{align*}
+&amp;\mathop {{\mathrm{minimize}}}\limits _{{\mathbf{L}},{\mathbf{S}}} ~{\mathrm{rank}}({\mathbf{L}}) + \lambda {\left \|{ {\mathbf{S}} }\right \|_{0}} \\
+&amp;\textrm {subject to } ~~{\mathbf{Y}} = {\mathbf{L}} + {\mathbf{S}},
+\end{align*}\end{split}\]</div>
+<p>However, this program is NP-hard due to the rank portion of the objective function. Instead, we use the nuclear norm and <span class="math notranslate nohighlight">\(\ell_1\)</span> norm on the low-rank matrix and sparse matrix, respectively:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{align*}
+&amp;\mathop {{\mathrm{minimize}}}\limits _{{\mathbf{L}},{\mathbf{S}}} ~{\left \|{ {\mathbf{L}} }\right \|_{*}} + \lambda {\left \|{ {\mathbf{S}} }\right \|_{1}} \\
+&amp;\textrm {subject to } ~~{\mathbf{Y}} = {\mathbf{L}} + {\mathbf{S}},
+\end{align*}\end{split}\]</div>
+<p>This is done via taking the augmented Lagrangian, solved with proximal gradient descent</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{aligned}
+\mathbf{L}_{k+1} &amp;= \mathrm{SVT}_{1/\rho}\left(\mathbf{X} - \mathbf{S}_{k} + \frac{1}{\rho} \mathbf{Y}_{k}\right) \\
+\mathbf{S}_{k+1} &amp;= \mathcal{S}_{\lambda/\rho}\left(\mathbf{X} - \mathbf{L}_{k+1} + \frac{1}{\rho} \mathbf{Y}_{k}\right) \\
+\mathbf{Y}_{k+1} &amp;= \mathbf{Y}_{k} + \rho\left(\mathbf{X} - \mathbf{L}_{k+1} - \mathbf{S}^{k+1}\right)
+\end{aligned}\end{split}\]</div>
+<p>In the above, all this means is that we iteratively estimate the rank of the donor matrix via the SVT operator, and we use the <span class="math notranslate nohighlight">\(\ell_1\)</span> norm to extract to the noise component, and the <span class="math notranslate nohighlight">\(\rho\)</span> (the proximal gradient operator) encourages updates. With this low-rank structure, we estimate our weights by solving the following optimization problem:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{align}
+    \underset{w}{\text{argmin}} &amp; \quad ||\mathbf{y}_{1} - \mathbf{L} \mathbf{w}^{\top}||_{2}^2 \\
+    \text{s.t.} \: &amp; \mathbf{w}: w_{j} \in \mathbb{R}_{\geq 0}
+\end{align}\end{split}\]</div>
+<p>our weights are here onlt constrained to be positive, since the donor selection provess attempts to ensure that the donors are already more similar to the treated unit.</p>
+</section>
+</section>
+<section id="estimating-clustersc">
+<h2>Estimating <code class="docutils literal notranslate"><span class="pre">CLUSTERSC</span></code><a class="headerlink" href="#estimating-clustersc" title="Link to this heading">#</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="mlsynth.CLUSTERSC">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mlsynth.</span></span><span class="sig-name descname"><span class="pre">CLUSTERSC</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">CLUSTERSCConfig</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mlsynth.CLUSTERSC" title="Link to this definition">#</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>Implements Cluster-based Synthetic Control methods.</p>
+<p>This estimator provides Average Treatment Effect on the Treated (ATT)
+estimates and donor weights using two main approaches: Principal Component
+Regression (PCR) and Robust PCA Synthetic Control (RPCA SCM).
+The PCR method can be run in Frequentist (Robust Synthetic Control - RSC)
+or Bayesian (Bayesian RSC) mode. RPCA SCM can use Principal Component
+Pursuit (PCP) or Half-Quadratic Regularization (HQF).</p>
+<p>The estimator can run either method (“PCR”, “RPCA”) individually or both
+(“BOTH”) for comparison. It operates on panel data and requires specifying
+outcome, treatment, unit, and time identifiers. Configuration is managed
+via the <cite>CLUSTERSCConfig</cite> Pydantic model.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mlsynth.CLUSTERSC.config">
+<span class="sig-name descname"><span class="pre">config</span></span><a class="headerlink" href="#mlsynth.CLUSTERSC.config" title="Link to this definition">#</a></dt>
+<dd><p>The configuration object passed during initialization, containing all
+parameters for the estimator.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>CLUSTERSCConfig</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mlsynth.CLUSTERSC.df">
+<span class="sig-name descname"><span class="pre">df</span></span><a class="headerlink" href="#mlsynth.CLUSTERSC.df" title="Link to this definition">#</a></dt>
+<dd><p>The input panel data.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>pd.DataFrame</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mlsynth.CLUSTERSC.outcome">
+<span class="sig-name descname"><span class="pre">outcome</span></span><a class="headerlink" href="#mlsynth.CLUSTERSC.outcome" title="Link to this definition">#</a></dt>
+<dd><p>Name of the outcome variable column.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)">str</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mlsynth.CLUSTERSC.treat">
+<span class="sig-name descname"><span class="pre">treat</span></span><a class="headerlink" href="#mlsynth.CLUSTERSC.treat" title="Link to this definition">#</a></dt>
+<dd><p>Name of the binary treatment indicator column.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)">str</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mlsynth.CLUSTERSC.unitid">
+<span class="sig-name descname"><span class="pre">unitid</span></span><a class="headerlink" href="#mlsynth.CLUSTERSC.unitid" title="Link to this definition">#</a></dt>
+<dd><p>Name of the unit identifier column.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)">str</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mlsynth.CLUSTERSC.time">
+<span class="sig-name descname"><span class="pre">time</span></span><a class="headerlink" href="#mlsynth.CLUSTERSC.time" title="Link to this definition">#</a></dt>
+<dd><p>Name of the time period column.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)">str</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mlsynth.CLUSTERSC.method">
+<span class="sig-name descname"><span class="pre">method</span></span><a class="headerlink" href="#mlsynth.CLUSTERSC.method" title="Link to this definition">#</a></dt>
+<dd><p>Estimation method to use (“PCR”, “RPCA”, “BOTH”).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)">str</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mlsynth.CLUSTERSC.objective">
+<span class="sig-name descname"><span class="pre">objective</span></span><a class="headerlink" href="#mlsynth.CLUSTERSC.objective" title="Link to this definition">#</a></dt>
+<dd><p>Objective function for PCR weight optimization.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)">str</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mlsynth.CLUSTERSC.cluster">
+<span class="sig-name descname"><span class="pre">cluster</span></span><a class="headerlink" href="#mlsynth.CLUSTERSC.cluster" title="Link to this definition">#</a></dt>
+<dd><p>Whether to apply clustering before PCR.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)">bool</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mlsynth.CLUSTERSC.Frequentist">
+<span class="sig-name descname"><span class="pre">Frequentist</span></span><a class="headerlink" href="#mlsynth.CLUSTERSC.Frequentist" title="Link to this definition">#</a></dt>
+<dd><p>If True, use Frequentist RSC for PCR; otherwise, Bayesian RSC.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)">bool</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mlsynth.CLUSTERSC.ROB">
+<span class="sig-name descname"><span class="pre">ROB</span></span><a class="headerlink" href="#mlsynth.CLUSTERSC.ROB" title="Link to this definition">#</a></dt>
+<dd><p>Robust PCA decomposition method for RPCA (“PCP” or “HQF”).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)">str</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mlsynth.CLUSTERSC.display_graphs">
+<span class="sig-name descname"><span class="pre">display_graphs</span></span><a class="headerlink" href="#mlsynth.CLUSTERSC.display_graphs" title="Link to this definition">#</a></dt>
+<dd><p>Whether to display plots of results.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)">bool</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mlsynth.CLUSTERSC.save">
+<span class="sig-name descname"><span class="pre">save</span></span><a class="headerlink" href="#mlsynth.CLUSTERSC.save" title="Link to this definition">#</a></dt>
+<dd><p>Plot saving configuration.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Union[<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)">bool</a>, Dict[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)">str</a>, <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)">str</a>]]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mlsynth.CLUSTERSC.counterfactual_color">
+<span class="sig-name descname"><span class="pre">counterfactual_color</span></span><a class="headerlink" href="#mlsynth.CLUSTERSC.counterfactual_color" title="Link to this definition">#</a></dt>
+<dd><p>Color(s) for counterfactual line(s) in plots.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Union[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)">str</a>, List[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)">str</a>]]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mlsynth.CLUSTERSC.treated_color">
+<span class="sig-name descname"><span class="pre">treated_color</span></span><a class="headerlink" href="#mlsynth.CLUSTERSC.treated_color" title="Link to this definition">#</a></dt>
+<dd><p>Color for the treated unit line in plots.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)">str</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="mlsynth.CLUSTERSC.fit">
+<span class="sig-name descname"><span class="pre">fit</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mlsynth.CLUSTERSC.fit" title="Link to this definition">#</a></dt>
+<dd><p>Fits the model according to the specified method and returns results.</p>
+</dd></dl>
+
+<p class="rubric">References</p>
+<p>Amjad, M., Shah, D., &amp; Shen, D. (2018). “Robust synthetic control.”
+<em>Journal of Machine Learning Research</em>, 19(22), 1-51.
+Agarwal, A., Shah, D., Shen, D., &amp; Song, D. (2021). “On Robustness of Principal Component Regression.”
+<em>Journal of the American Statistical Association</em>, 116(536), 1731–45.
+Bayani, M. (2022). “Essays on Machine Learning Methods in Economics.” Chapter 1.
+<em>CUNY Academic Works</em>.
+Wang, Z., Li, X. P., So, H. C., &amp; Liu, Z. (2023). “Robust PCA via non-convex half-quadratic regularization.”
+<em>Signal Processing</em>, 204, 108816.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="mlsynth.CLUSTERSC.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">CLUSTERSCConfig</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.13)"><span class="pre">None</span></a></span></span><a class="headerlink" href="#mlsynth.CLUSTERSC.__init__" title="Link to this definition">#</a></dt>
+<dd><p>Initializes the CLUSTERSC estimator with a configuration object.</p>
+<p>All parameters are passed via the <cite>config</cite> argument, which is an
+instance of <cite>CLUSTERSCConfig</cite>. These parameters are then stored as
+attributes of the estimator instance.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>config</strong> (<em>CLUSTERSCConfig</em>) – <p>A Pydantic model instance containing all configuration parameters.
+Key fields include:
+- <cite>df</cite> (pd.DataFrame): Input panel data.
+- <cite>outcome</cite> (str): Name of the outcome variable column.
+- <cite>treat</cite> (str): Name of the treatment indicator column.
+- <cite>unitid</cite> (str): Name of the unit identifier column.
+- <cite>time</cite> (str): Name of the time period column.
+- <cite>method</cite> (str): Estimation method: “PCR”, “RPCA”, or “BOTH”.</p>
+<blockquote>
+<div><p>Default is “PCR”.</p>
+</div></blockquote>
+<ul class="simple">
+<li><p><cite>objective</cite> (str): For PCR, objective for weight optimization
+(e.g., “OLS”, “SIMPLEX”). Default is “OLS”.</p></li>
+<li><p><cite>cluster</cite> (bool): For PCR, whether to apply clustering. Default is True.</p></li>
+<li><p><cite>Frequentist</cite> (bool): For PCR, True for Frequentist RSC, False for
+Bayesian RSC. Default is True.</p></li>
+<li><p><cite>ROB</cite> (str): For RPCA, robust PCA method (“PCP” or “HQF”).
+Default is “PCP”.</p></li>
+<li><p><cite>display_graphs</cite> (bool): Whether to display plots. Default is True.</p></li>
+<li><p><cite>save</cite> (Union[bool, str, Dict[str, str]]): Plot saving configuration.
+Default is False.</p></li>
+<li><p><cite>counterfactual_color</cite> (Union[str, List[str]]): Color(s) for
+counterfactual lines. Default is “red”.</p></li>
+<li><p><cite>treated_color</cite> (str): Color for the treated unit line.
+Default is “black”.</p></li>
+</ul>
+<p>Refer to <cite>CLUSTERSCConfig</cite> and <cite>BaseEstimatorConfig</cite> in
+<cite>mlsynth.config_models</cite> for all available fields and their defaults.</p>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<p>We can now turn to an empirical example, namely the reanalysis of West Germany’ Reunification with East Germany and its effect upon West Germany’s GDP per Capita.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">mlsynth.mlsynth</span><span class="w"> </span><span class="kn">import</span> <span class="n">CLUSTERSC</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+
+<span class="n">file</span> <span class="o">=</span> <span class="s1">&#39;https://raw.githubusercontent.com/jgreathouse9/mlsynth/refs/heads/main/basedata/german_reunification.csv&#39;</span>
+<span class="c1"># Load the CSV file using pandas</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">file</span><span class="p">)</span>
+
+<span class="n">treat</span> <span class="o">=</span> <span class="s2">&quot;Reunification&quot;</span>
+<span class="n">outcome</span> <span class="o">=</span> <span class="s2">&quot;gdp&quot;</span>
+<span class="n">unitid</span> <span class="o">=</span> <span class="s2">&quot;country&quot;</span>
+<span class="n">time</span> <span class="o">=</span> <span class="s2">&quot;year&quot;</span>
+
+<span class="n">config</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;df&quot;</span><span class="p">:</span> <span class="n">df</span><span class="p">,</span>
+    <span class="s2">&quot;treat&quot;</span><span class="p">:</span> <span class="n">treat</span><span class="p">,</span>
+    <span class="s2">&quot;time&quot;</span><span class="p">:</span> <span class="n">time</span><span class="p">,</span>
+    <span class="s2">&quot;outcome&quot;</span><span class="p">:</span> <span class="n">outcome</span><span class="p">,</span>
+    <span class="s2">&quot;unitid&quot;</span><span class="p">:</span> <span class="n">unitid</span><span class="p">,</span>
+    <span class="s2">&quot;display_graphs&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
+    <span class="s2">&quot;cluster&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
+<span class="p">}</span>
+
+<span class="n">model</span> <span class="o">=</span> <span class="n">CLUSTERSC</span><span class="p">(</span><span class="n">config</span><span class="p">)</span>
+
+<span class="n">arco</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
+</pre></div>
+</div>
+<a class="reference internal image-reference" href="https://raw.githubusercontent.com/jgreathouse9/mlsynth/refs/heads/main/examples/clustersc/German.png"><img alt="CLUSTERSC Plot" class="align-center" src="https://raw.githubusercontent.com/jgreathouse9/mlsynth/refs/heads/main/examples/clustersc/German.png" style="width: 600px;" />
+</a>
+<p>Here we plot the West Germany Synthetic Control predictions. Here are the weights as produced by RPCA-SC</p>
+<div class="pst-scrollable-table-container"><table class="table" id="id16">
+<caption><span class="caption-text">Weights</span><a class="headerlink" href="#id16" title="Link to this table">#</a></caption>
+<thead>
+<tr class="row-odd"><th class="head"><p>Country</p></th>
+<th class="head"><p>Value</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>UK</p></td>
+<td><p>0.0</p></td>
+</tr>
+<tr class="row-odd"><td><p>Austria</p></td>
+<td><p>0.023</p></td>
+</tr>
+<tr class="row-even"><td><p>Belgium</p></td>
+<td><p>0.0</p></td>
+</tr>
+<tr class="row-odd"><td><p>Denmark</p></td>
+<td><p>0.0</p></td>
+</tr>
+<tr class="row-even"><td><p>France</p></td>
+<td><p>0.354</p></td>
+</tr>
+<tr class="row-odd"><td><p>Italy</p></td>
+<td><p>0.0</p></td>
+</tr>
+<tr class="row-even"><td><p>Netherlands</p></td>
+<td><p>0.0</p></td>
+</tr>
+<tr class="row-odd"><td><p>Norway</p></td>
+<td><p>0.485</p></td>
+</tr>
+<tr class="row-even"><td><p>Japan</p></td>
+<td><p>0.0</p></td>
+</tr>
+<tr class="row-odd"><td><p>Australia</p></td>
+<td><p>0.0</p></td>
+</tr>
+<tr class="row-even"><td><p>New Zealand</p></td>
+<td><p>0.296</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>These are the same results Mani gets in his dissertation. The Root Mean Squared Error for RPCA-SC is 88.60, which is not quite as tight as the original SCM, but better than the RSC (98.69).</p>
+</section>
+<section id="to-do-list">
+<h2>To-Do List<a class="headerlink" href="#to-do-list" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>Implement Bayesian Inference from Amjad’s Paper</p></li>
+<li><p>Implement Cross Validation to choose lambda for ADMM</p></li>
+<li><p>Maybe, allow users to choose between USVT and Spectral Rank</p></li>
+</ul>
+</section>
+</section>
+
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="references.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">References</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="fdid.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Forward Difference-in-Differences</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#notations">Notations</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#estimation">Estimation</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pcr">PCR</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#robust-pca-synth">Robust PCA SYNTH</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#estimating-clustersc">Estimating <code class="docutils literal notranslate"><span class="pre">CLUSTERSC</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mlsynth.CLUSTERSC"><code class="docutils literal notranslate"><span class="pre">CLUSTERSC</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#mlsynth.CLUSTERSC.config"><code class="docutils literal notranslate"><span class="pre">CLUSTERSC.config</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#mlsynth.CLUSTERSC.df"><code class="docutils literal notranslate"><span class="pre">CLUSTERSC.df</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#mlsynth.CLUSTERSC.outcome"><code class="docutils literal notranslate"><span class="pre">CLUSTERSC.outcome</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#mlsynth.CLUSTERSC.treat"><code class="docutils literal notranslate"><span class="pre">CLUSTERSC.treat</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#mlsynth.CLUSTERSC.unitid"><code class="docutils literal notranslate"><span class="pre">CLUSTERSC.unitid</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#mlsynth.CLUSTERSC.time"><code class="docutils literal notranslate"><span class="pre">CLUSTERSC.time</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#mlsynth.CLUSTERSC.method"><code class="docutils literal notranslate"><span class="pre">CLUSTERSC.method</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#mlsynth.CLUSTERSC.objective"><code class="docutils literal notranslate"><span class="pre">CLUSTERSC.objective</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#mlsynth.CLUSTERSC.cluster"><code class="docutils literal notranslate"><span class="pre">CLUSTERSC.cluster</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#mlsynth.CLUSTERSC.Frequentist"><code class="docutils literal notranslate"><span class="pre">CLUSTERSC.Frequentist</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#mlsynth.CLUSTERSC.ROB"><code class="docutils literal notranslate"><span class="pre">CLUSTERSC.ROB</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#mlsynth.CLUSTERSC.display_graphs"><code class="docutils literal notranslate"><span class="pre">CLUSTERSC.display_graphs</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#mlsynth.CLUSTERSC.save"><code class="docutils literal notranslate"><span class="pre">CLUSTERSC.save</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#mlsynth.CLUSTERSC.counterfactual_color"><code class="docutils literal notranslate"><span class="pre">CLUSTERSC.counterfactual_color</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#mlsynth.CLUSTERSC.treated_color"><code class="docutils literal notranslate"><span class="pre">CLUSTERSC.treated_color</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#mlsynth.CLUSTERSC.fit"><code class="docutils literal notranslate"><span class="pre">CLUSTERSC.fit()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#mlsynth.CLUSTERSC.__init__"><code class="docutils literal notranslate"><span class="pre">CLUSTERSC.__init__()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#to-do-list">To-Do List</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Jared Greathouse
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2025, Jared Greathouse.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

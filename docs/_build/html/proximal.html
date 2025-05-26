@@ -1,0 +1,931 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Proximal Synthetic Control &#8212; mlsynth 0.1 documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="_static/documentation_options.js?v=e1a75a79"></script>
+    <script src="_static/doctools.js?v=9bcbadda"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/static/custom_mathjax.js"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'proximal';</script>
+    <link rel="author" title="About these documents" href="about.html" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Synthetic Control With Multiple Outcomes" href="scmo.html" />
+    <link rel="prev" title="Panel Data Approach" href="pda.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="index.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">mlsynth 0.1 documentation</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Overview:</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="about.html">About mlsynth</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="references.html">References</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Estimators</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="clustersc.html">Cluster Synthetic Controls</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fdid.html">Forward Difference-in-Differences</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fma.html">Factor Model Approach</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fscm.html">Forward SCM</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="gsc.html">Generalized Synthetic Control (GSC)</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="_autosummary/mlsynth.estimators.gsc.GSC.html">mlsynth.estimators.gsc.GSC</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="nsc.html">Nonlinear Synthetic Control (NSC)</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="_autosummary/mlsynth.estimators.nsc.NSC.html">mlsynth.estimators.nsc.NSC</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="pda.html">Panel Data Approach</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Proximal Synthetic Control</a></li>
+<li class="toctree-l1"><a class="reference internal" href="scmo.html">Synthetic Control With Multiple Outcomes</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="sdid.html">Synthetic Difference-in-Differences (SDID)</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="_autosummary/mlsynth.estimators.sdid.SDID.html">mlsynth.estimators.sdid.SDID</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="si.html">Synthetic Interventions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="src.html">Synthetic Regression Control Method</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="stablesc.html">Stable Synthetic Control (StableSC)</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="_autosummary/mlsynth.estimators.stablesc.StableSC.html">mlsynth.estimators.stablesc.StableSC</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="tssc.html">Two-Step Synthetic Control</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Utilities</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="datautils.html">Data Utilities (<cite>mlsynth.utils.datautils</cite>)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="estutils.html">Estimation Utilities (<cite>mlsynth.utils.estutils</cite>)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="inferutils.html">Inference Utilities (<cite>mlsynth.utils.inferutils</cite>)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="resultutils.html">Result Utilities (<cite>mlsynth.utils.resultutils</cite>)</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/proximal.rst" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.rst</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Proximal Synthetic Control</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#notations">Notations</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#surrogate-approach">Surrogate Approach</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mlsynth.PROXIMAL"><code class="docutils literal notranslate"><span class="pre">PROXIMAL</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#mlsynth.PROXIMAL.config"><code class="docutils literal notranslate"><span class="pre">PROXIMAL.config</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#mlsynth.PROXIMAL.df"><code class="docutils literal notranslate"><span class="pre">PROXIMAL.df</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#mlsynth.PROXIMAL.outcome"><code class="docutils literal notranslate"><span class="pre">PROXIMAL.outcome</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#mlsynth.PROXIMAL.treat"><code class="docutils literal notranslate"><span class="pre">PROXIMAL.treat</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#mlsynth.PROXIMAL.unitid"><code class="docutils literal notranslate"><span class="pre">PROXIMAL.unitid</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#mlsynth.PROXIMAL.time"><code class="docutils literal notranslate"><span class="pre">PROXIMAL.time</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#mlsynth.PROXIMAL.display_graphs"><code class="docutils literal notranslate"><span class="pre">PROXIMAL.display_graphs</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#mlsynth.PROXIMAL.save"><code class="docutils literal notranslate"><span class="pre">PROXIMAL.save</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#mlsynth.PROXIMAL.counterfactual_color"><code class="docutils literal notranslate"><span class="pre">PROXIMAL.counterfactual_color</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#mlsynth.PROXIMAL.treated_color"><code class="docutils literal notranslate"><span class="pre">PROXIMAL.treated_color</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#mlsynth.PROXIMAL.donors"><code class="docutils literal notranslate"><span class="pre">PROXIMAL.donors</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#mlsynth.PROXIMAL.surrogates"><code class="docutils literal notranslate"><span class="pre">PROXIMAL.surrogates</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#mlsynth.PROXIMAL.vars"><code class="docutils literal notranslate"><span class="pre">PROXIMAL.vars</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#mlsynth.PROXIMAL.__init__"><code class="docutils literal notranslate"><span class="pre">PROXIMAL.__init__()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#estimating-proximal-inference-scm-via-mlsynth">Estimating Proximal Inference SCM via <code class="docutils literal notranslate"><span class="pre">mlsynth</span></code></a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="proximal-synthetic-control">
+<h1>Proximal Synthetic Control<a class="headerlink" href="#proximal-synthetic-control" title="Link to this heading">#</a></h1>
+<p>Next, I discuss the proximal SCM method. In synthetic control methods, we oftentimes make the presumption that our outcomes are generated by some latent variable model, <span class="math notranslate nohighlight">\(y_{jt} = \delta_t + \lambda_t\mu_j+\epsilon_{jt}\)</span>. This data-generating process may include covariates, but the basic idea is that there are a set of common time effects which impact all units the same and unit-specific effects, which interact with the former, which generates the outcomes that we see. Abadie and co <a class="reference internal" href="references.html#abadie2010" id="id1"><span>[ABADIE2010]</span></a> and others use this linear factor model to justify SCM. They also derive a bias bound for the SCM, which is (with qualifications) unbiased as the the number of pre-treatment periods grows without bound. This, naturally, poses a problem in settings where we have few pre-treatment periods. Additionally, it may not always be possible to obtain good pre-treatment fit, especially with a short pre-intervention time series. As a result, the Proximal Inference SCM was developed. In the paper, Shi, Li, Miao, Hu, and Tchetgen Tchetgen <a class="reference internal" href="references.html#proxscm" id="id2"><span>[ProxSCM]</span></a></p>
+<blockquote>
+<div><p>argue that the outcomes of control units are essentially proxies of the latent factors. Rather than directly regressing the outcome on all such proxies, one can split the set of  proxies into two, thus leveraging one set of proxies to assist the construction of a SC defined in terms of the other set of proxies.</p>
+</div></blockquote>
+<p>In other words, if we agree that the outcomes of the control units are time variant proxies for our control units, we may be able to still employ the outcomes of other control units, especially if we believe they are correlated with common time factors. This page describes, broadly, the three methods they propose, and applies it to an empirical example.</p>
+<section id="notations">
+<h2>Notations<a class="headerlink" href="#notations" title="Link to this heading">#</a></h2>
+<p>Formally, let us define the notation. We observe a set of units indexed by <span class="math notranslate nohighlight">\(j\)</span>, where
+<span class="math notranslate nohighlight">\(\mathcal{N} \operatorname*{:=} \{1, 2, \ldots, N\}\)</span> is the set of all units, with cardinality
+<span class="math notranslate nohighlight">\(N = |\mathcal{N}|\)</span>. Let <span class="math notranslate nohighlight">\(j = 1\)</span> represent the treated unit, and
+<span class="math notranslate nohighlight">\(\mathcal{N}_0 \operatorname*{:=} \mathcal{N} \setminus \{1\}\)</span> denote the set of control units,
+with cardinality <span class="math notranslate nohighlight">\(N_0 = |\mathcal{N}_0|\)</span>. The time periods are indexed by <span class="math notranslate nohighlight">\(t\)</span>, with
+<span class="math notranslate nohighlight">\(\mathcal{T}_1 \operatorname*{:=} \{1, 2, \ldots, T_0\}\)</span> representing the pre-intervention periods
+and <span class="math notranslate nohighlight">\(\mathcal{T}_2 \operatorname*{:=} \{T_0 + 1, \ldots, T\}\)</span> representing the post-intervention periods.
+We denote the full time series as <span class="math notranslate nohighlight">\(\mathcal{T} \operatorname*{:=} \mathcal{T}_1 \cup \mathcal{T}_2\)</span>,
+with <span class="math notranslate nohighlight">\(T = |\mathcal{T}|\)</span> representing the total number of time periods.</p>
+<p>Let <span class="math notranslate nohighlight">\(\mathbf{y}_1 \in \mathbb{R}^T\)</span> be the vector for the treated unit’s outcomes, and
+<span class="math notranslate nohighlight">\(\mathbf{Y}_0 \in \mathbb{R}^{T \times N_0}\)</span> be the matrix containing the outcomes of the control units.
+Let <span class="math notranslate nohighlight">\(\mathbf{P}_t \in \mathbb{R}^{k \times T}\)</span> be a matrix of proxy variables that are assumed to be
+correlated with the common factors driving the outcomes of the treated unit. Here, <span class="math notranslate nohighlight">\(k\)</span> represents the
+number of proxy variables. Let <span class="math notranslate nohighlight">\(\mathbf{w} \in \mathbb{R}^{N_0}\)</span> represent the vector of weights for the synthetic control.</p>
+<p>Shi, Li, Miao, Hu, and Tchetgen Tchetgen <a class="reference internal" href="references.html#proxscm" id="id3"><span>[ProxSCM]</span></a> advocate for a GMM approach, defining the estimating function for the proximal synthetic control method as:</p>
+<div class="math notranslate nohighlight">
+\[U_t(\mathbf{w}) = g(\mathbf{P}_t) \cdot \left( \mathbf{y}_1 - (\mathbf{Y}_0 \mathbf{w})_t \right),\]</div>
+<p>where <span class="math notranslate nohighlight">\(g(\mathbf{P}_t)\)</span> is a function applied to the proxy variables <span class="math notranslate nohighlight">\(\mathbf{P}_t\)</span> at time <span class="math notranslate nohighlight">\(t\)</span>,
+and <span class="math notranslate nohighlight">\(\mathbf{y}_1\)</span> and <span class="math notranslate nohighlight">\((\mathbf{Y}_0 \mathbf{w})_t\)</span> are the observed and predicted outcomes at time <span class="math notranslate nohighlight">\(t\)</span>, respectively. In this setup, the <span class="math notranslate nohighlight">\(\mathbf{P}_t\)</span> matrix may be comprised of anything we believe to be correlated with the time variant common factors. Per HCW <a class="reference internal" href="references.html#hcw" id="id4"><span>[HCW]</span></a>, the outcomes of other donor units is one example of a proxy. We may also use other covariates that are unaffected by the treatment but are correlated with the time latent factors.</p>
+<p>We define a set of moment conditions over the pre-intervention period such that <span class="math notranslate nohighlight">\(\mathbf{y} - \mathbf{Y}_0 \mathbf{w}\)</span> should be orthogonal to the proxies <span class="math notranslate nohighlight">\(\mathbf{P}\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[\mathbb{E}\left[ \mathbf{y}_1- \tau - \mathbf{Y}_0 \mathbf{w} \right] = 0.\]</div>
+<p>We combine these conditions into a single stacked moment vector <span class="math notranslate nohighlight">\(U(\theta)\)</span>, where <span class="math notranslate nohighlight">\(\theta = (\mathbf{w}, \tau)\)</span> contains the weights and the treatment effect. For <span class="math notranslate nohighlight">\(t \leq T_0\)</span>, the residuals are:</p>
+<div class="math notranslate nohighlight">
+\[U_0(t, \mathbf{w}) = \mathbf{P}^\top \left( \mathbf{y}_1 - (\mathbf{Y}_0 \mathbf{w})_t \right).\]</div>
+<p>and for <span class="math notranslate nohighlight">\(t &gt; T_0\)</span>, we have:</p>
+<div class="math notranslate nohighlight">
+\[U_1(t, \tau, \mathbf{w}) = \mathbf{y}_1 - \tau - (\mathbf{Y}_0 \mathbf{w})_t.\]</div>
+<p>The complete moment vector is:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}U(\theta) =
+\begin{bmatrix}
+U_0(t, \mathbf{w}) \\
+U_1(t, \tau, \mathbf{w})
+\end{bmatrix} =
+\begin{bmatrix}
+\mathbf{P}^\top \left( \mathbf{y}_1 - \mathbf{Y}_0 \mathbf{w} \right) \\
+\mathbf{y}_1 - \tau - \mathbf{Y}_0 \mathbf{w}
+\end{bmatrix}.\end{split}\]</div>
+<p>The goal is to estimate the weights <span class="math notranslate nohighlight">\(\mathbf{w}\)</span> by solving a quadratic programming problem that minimizes the moment vector:</p>
+<div class="math notranslate nohighlight">
+\[\mathbf{w} = \arg\min_{\mathbf{w}} \sum_{t \in \mathcal{T}_1} U_t(\mathbf{w})^\top \Omega^{-1} U_t(\mathbf{w}),\]</div>
+<p>where <span class="math notranslate nohighlight">\(\Omega\)</span> is the covariance matrix. When we estimate our weights, we now can estimate the treatment effect like</p>
+<div class="math notranslate nohighlight">
+\[\tau = \mathbf{y}_1 - \mathbf{Y}_0 \mathbf{w}.\]</div>
+<p>The sample average of the treatment effect in the post-intervention period is the ATT. For inference, we estimate the variance-covariance matrix of the moment conditions, denoted by
+<span class="math notranslate nohighlight">\(\boldsymbol{\Omega}\)</span>. This is done using a HAC estimator. The matrix <span class="math notranslate nohighlight">\(\boldsymbol{\Omega}\)</span> is computed as:</p>
+<div class="math notranslate nohighlight">
+\[\boldsymbol{\Omega} = \frac{1}{T} \sum_{j=-J}^{J} k(j, J) \sum_{t=1}^{T - |j|} \mathbf{g}_t \mathbf{g}_{t+j}^\top,\]</div>
+<p>where <span class="math notranslate nohighlight">\(k(j, J)\)</span> is the Bartlett kernel, <span class="math notranslate nohighlight">\(J\)</span> is the bandwidth, and
+<span class="math notranslate nohighlight">\(\mathbf{g}_t\)</span> is the vector of moment conditions at time <span class="math notranslate nohighlight">\(t\)</span>. The outer summation runs over all lags
+within the valid range, while the inner summation computes the covariance contribution for each lag. For our purposes, the number of lags we choose to use is <span class="math notranslate nohighlight">\(h = \lfloor 4 \cdot \left( \frac{T_2}{100} \right)^{\frac{2}{9}} \rfloor\)</span>.</p>
+<p>We now calculate the covariance matrix
+of the parameters as:</p>
+<div class="math notranslate nohighlight">
+\[\text{Cov} = \mathbf{G}^{-1} \boldsymbol{\Omega} \left(\mathbf{G}^{-1}\right)^\top,\]</div>
+<p>The variance of the ATT estimate <span class="math notranslate nohighlight">\(\tau\)</span> is then extracted from the covariance matrix as:</p>
+<div class="math notranslate nohighlight">
+\[\text{Var}(\tau) = \text{Cov}[-1, -1],\]</div>
+<p>where <span class="math notranslate nohighlight">\(\text{Cov}[-1, -1]\)</span> refers to the bottom-right entry of the covariance matrix. Finally, the standard error
+of <span class="math notranslate nohighlight">\(\tau\)</span> is computed as:</p>
+<div class="math notranslate nohighlight">
+\[\text{SE}(\tau) = \sqrt{\frac{\text{Var}(\tau)}{T}}.\]</div>
+<p>So, to summarize quickly, we employ these proxies to assist in the matching on the pre-intervention common factors, using other donor unit outcomes or auxiliary predictors.</p>
+</section>
+<section id="surrogate-approach">
+<h2>Surrogate Approach<a class="headerlink" href="#surrogate-approach" title="Link to this heading">#</a></h2>
+<p>We may also employ surrogate variables which capture latent factors that drive outcome. This appears in the extension paper <a class="reference internal" href="references.html#liutchetgenvar" id="id5"><span>[LiuTchetgenVar]</span></a>, adding to the above. Let <span class="math notranslate nohighlight">\(\mathbf{X}_t \in \mathbb{R}^H\)</span> represent a vector of observed surrogates for the treated unit, where <span class="math notranslate nohighlight">\(H\)</span> is the number of surrogate variables. These surrogates are chosen because they are highly predictive of the treatment effects and driven by the same latent factors as the treated unit. The surrogates are unique because we exploit their post-intervention period data only. The treatment effect is decomposed into two components,</p>
+<div class="math notranslate nohighlight">
+\[\mathbf{y}_1(1) - \mathbf{y}_1(0) = \boldsymbol{\rho}_t^\top \boldsymbol{\theta} + \delta_t,\]</div>
+<p>where <span class="math notranslate nohighlight">\(\boldsymbol{\rho}_t \in \mathbb{R}^K\)</span> is a vector of latent factors driving the causal effect, <span class="math notranslate nohighlight">\(\boldsymbol{\theta} \in \mathbb{R}^K\)</span> is a vector of factor loadings for the causal effect, and <span class="math notranslate nohighlight">\(\delta_t\)</span> represents an error term uncorrelated with the latent factors. The observed surrogates <span class="math notranslate nohighlight">\(\mathbf{X}_t\)</span> also follow a similar factor model,</p>
+<div class="math notranslate nohighlight">
+\[\mathbf{X}_t^\top = \boldsymbol{\rho}_t^\top \mathbf{\Phi} + \boldsymbol{\epsilon}_{X,t}^\top,\]</div>
+<p>where <span class="math notranslate nohighlight">\(\mathbf{\Phi} \in \mathbb{R}^{K \times H}\)</span> is a matrix of factor loadings for the surrogates, and <span class="math notranslate nohighlight">\(\boldsymbol{\epsilon}_{X,t}\)</span> is an error term for the surrogates. In this framework, proxies are introduced for donors and surrogates. Let <span class="math notranslate nohighlight">\(\mathbf{P}_{0t}\)</span> represent proxy variables for donor outcomes, assumed to capture latent factors <span class="math notranslate nohighlight">\(\boldsymbol{\lambda}_t\)</span>, and let <span class="math notranslate nohighlight">\(\mathbf{P}_{1t}\)</span> represent proxy variables for surrogates, capturing both both donor latent factors <span class="math notranslate nohighlight">\(\boldsymbol{\lambda}_t\)</span> and surrogate latent factors <span class="math notranslate nohighlight">\(\boldsymbol{\rho}_t\)</span>.</p>
+<p>The surrogate framework introduces two sets of moment conditions, one for the pre-treatment period and one for the post-treatment period. In the pre-treatment period, the residuals are orthogonal to the proxies for donor units:</p>
+<div class="math notranslate nohighlight">
+\[\mathbb{E}[\mathbf{y}_1 - \mathbf{Y}_0^\top \mathbf{w} \mid \mathbf{P}_{0t}, t \leq T_0] = 0.\]</div>
+<p>As above, the weights match on the treated unit’s outcomes to the donor pool via the proxies <span class="math notranslate nohighlight">\(\mathbf{P}_{0,t}\)</span> for the common time factors. In the post-treatment period, the residuals must also account for the surrogate variables via the moment condition:</p>
+<div class="math notranslate nohighlight">
+\[\mathbb{E}[\mathbf{y}_1 - \mathbf{Y}_0^\top \mathbf{w} - \mathbf{X}_t^\top \boldsymbol{\gamma} \mid \mathbf{P}_{0t}, \mathbf{P}_{1t}, t &gt; T_0] = 0.\]</div>
+<p>Here, <span class="math notranslate nohighlight">\(\mathbf{X}_t\)</span> is the matrix of surrogate variables, and <span class="math notranslate nohighlight">\(\boldsymbol{\gamma}\)</span> is the vector of coefficients relating the surrogates to the latent unit specific factors.</p>
+<p>As above, we combine these into a function of moment conditions, <span class="math notranslate nohighlight">\(\mathbf{U}_t(\mathbf{w}, \boldsymbol{\gamma})\)</span>. For <span class="math notranslate nohighlight">\(t \leq T_0\)</span>, the moment vector is:</p>
+<div class="math notranslate nohighlight">
+\[U_0(t, \mathbf{w}) = \mathbf{g}_0(\mathbf{P}_{0t}) \left(\mathbf{y}_1- \mathbf{Y}_0^\top \mathbf{w} \right),\]</div>
+<p>where <span class="math notranslate nohighlight">\(\mathbf{g}_0(\mathbf{P}_{0t})\)</span> is a user-specified function of the proxies <span class="math notranslate nohighlight">\(\mathbf{P}_{0t}\)</span>. For <span class="math notranslate nohighlight">\(t &gt; T_0\)</span>, the moment vector is:</p>
+<div class="math notranslate nohighlight">
+\[U_1(t, \mathbf{w}, \boldsymbol{\gamma}) = \mathbf{g}_1(\mathbf{P}_{0t}, \mathbf{P}_{1t}) \left(\mathbf{y}_1 - \mathbf{Y}_0^\top \mathbf{w} - \mathbf{X}_t^\top \boldsymbol{\gamma} \right),\]</div>
+<p>where <span class="math notranslate nohighlight">\(\mathbf{g}_1(\mathbf{P}_{0t}, \mathbf{P}_{1t})\)</span> is a user-specified function of the proxies <span class="math notranslate nohighlight">\(\mathbf{P}_{0t}\)</span> and <span class="math notranslate nohighlight">\(\mathbf{P}_{1t}\)</span>. The complete stacked moment vector is:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\mathbf{U}_t(\mathbf{w}, \boldsymbol{\gamma}) =
+\begin{cases}
+\mathbf{g}_0(\mathbf{P}_{0,t}) \left( \mathbf{y}_1 - \mathbf{Y}_0^\top \mathbf{w} \right), &amp; t \leq T_0, \\
+\mathbf{g}_1(\mathbf{P}_{0,t}, \mathbf{P}_{1,t}) \left( \mathbf{y}_1 - \mathbf{Y}_0^\top \mathbf{w} - \mathbf{X}_t^\top \boldsymbol{\gamma} \right), &amp; t &gt; T_0.
+\end{cases}\end{split}\]</div>
+<p>In matrix form, the stacked moment vector can be written as:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\mathbf{U}(\mathbf{w}, \boldsymbol{\gamma}) =
+\begin{bmatrix}
+\mathbf{g}_0(\mathbf{P}_{0t}) \left( \mathbf{y}_1- \mathbf{Y}_0 \mathbf{w} \right) \\
+\mathbf{g}_1(\mathbf{P}_{0,t}, \mathbf{P}_{1t}) \left( \mathbf{y}_1 - \mathbf{Y}_0 \mathbf{w} - \mathbf{X} \boldsymbol{\gamma} \right)
+\end{bmatrix}.\end{split}\]</div>
+<p>The goal is to estimate the weights <span class="math notranslate nohighlight">\(\mathbf{w}\)</span> and the surrogate coefficients <span class="math notranslate nohighlight">\(\boldsymbol{\gamma}\)</span> by minimizing the quadratic form of the moment residuals:</p>
+<div class="math notranslate nohighlight">
+\[\arg \min_{\mathbf{w}, \boldsymbol{\gamma}} \sum_{t \in \mathcal{T}} \mathbf{U}_t(\mathbf{w}, \boldsymbol{\gamma})^\top \Omega^{-1} \mathbf{U}_t(\mathbf{w}, \boldsymbol{\gamma}),\]</div>
+<p>where <span class="math notranslate nohighlight">\(\Omega\)</span> is the covariance matrix of the moment conditions, accounting for heteroskedasticity and autocorrelation.</p>
+<p>The Average Treatment Effect on the Treated (ATT) is expressed with the surrogates information in mind, as</p>
+<div class="math notranslate nohighlight">
+\[\tau = \frac{1}{T - T_0} \sum_{t &gt; T_0} \mathbf{X}_t^\top \boldsymbol{\gamma},\]</div>
+<p>where the surrogate coefficients <span class="math notranslate nohighlight">\(\boldsymbol{\gamma}\)</span> are estimated from the post-treatment period.</p>
+<p>We can also do the surrogate approach with post intervention data only. The first moment condition is the treated unit’s post-treatment outcomes are consistent with the donors (the ones where the weights come from) via the proxy variables:</p>
+<div class="math notranslate nohighlight">
+\[\mathbb{E}[\mathbf{P}_1 \cdot (\mathbf{y}_1 - \mathbf{Y}_0^\top \mathbf{w} - \mathbf{X}^\top \boldsymbol{\gamma})] = 0.\]</div>
+<p>The surrogate moment condition does the same with respect to the proxy variables of the surrogates:</p>
+<div class="math notranslate nohighlight">
+\[\mathbb{E}[\mathbf{P}_2 \cdot (\mathbf{y}_1 - \mathbf{Y}_0^\top \mathbf{w} - \mathbf{X}^\top \boldsymbol{\gamma})] = 0.\]</div>
+<p>The surrogate treatment effect condition links the surrogates directly to the causal effect:</p>
+<div class="math notranslate nohighlight">
+\[\mathbb{E}[\mathbf{X}^\top \boldsymbol{\gamma} - \tau] = 0.\]</div>
+<p>The combined moment vector is given by:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\mathbf{U}(\mathbf{w}, \boldsymbol{\gamma}, \tau) =
+\begin{bmatrix}
+\mathbf{P}_1 \cdot (\mathbf{y}_1 - \mathbf{Y}_0^\top \mathbf{w} - \mathbf{X}^\top \boldsymbol{\gamma}) \\
+\mathbf{P}_2 \cdot (\mathbf{y}_1 - \mathbf{Y}_0^\top \mathbf{w} - \mathbf{X}^\top \boldsymbol{\gamma}) \\
+\mathbf{X}^\top \boldsymbol{\gamma} - \tau
+\end{bmatrix}.\end{split}\]</div>
+<p>Our GMM optimization becomes:</p>
+<div class="math notranslate nohighlight">
+\[\arg \min_{\mathbf{w}, \boldsymbol{\gamma}, \tau} \mathbf{U}(\mathbf{w}, \boldsymbol{\gamma}, \tau)^\top \Omega^{-1} \mathbf{U}(\mathbf{w}, \boldsymbol{\gamma}, \tau),\]</div>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>Let’s take a breath and understand what’s really going on here. If we’re interested in the treatment effect for a treated unit, proxies will help capture time specific effects that are common across all units. But what about surrogates? Surrogates are post-intervention metrics we think will be informative of the causal effect that are similar on unit specific latent factors. This means we can even include other units we think are affected by the treatment, or entities that are within the exact same geography (if spillovers are a concern). In standard SCM studies, we would throw out these metrics. But here, we repurpose them. We remove them from the donor pool and use them to adjust our effect size based on their correlation with the treatment effect.</p>
+</div>
+<dl class="py class">
+<dt class="sig sig-object py" id="mlsynth.PROXIMAL">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mlsynth.</span></span><span class="sig-name descname"><span class="pre">PROXIMAL</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">PROXIMALConfig</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mlsynth.PROXIMAL" title="Link to this definition">#</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>Implements the Proximal Inference framework for causal effect estimation.</p>
+<p>This class allows for the estimation of treatment effects using several
+proximal inference approaches, including:
+1.  <strong>Proximal Inference (PI):</strong> Uses donor units and their proxies.
+2.  <strong>Proximal Inference with Surrogates (PIS):</strong> Incorporates surrogate</p>
+<blockquote>
+<div><p>outcomes and their proxies, in addition to donor units and their proxies.</p>
+</div></blockquote>
+<ol class="arabic simple" start="3">
+<li><p><strong>Proximal Inference Post-Surrogates (PIPost):</strong> A variation of PIS.</p></li>
+</ol>
+<p>The methods are based on the work by Shi et al. (2023) and Liu et al. (2023),
+adapting synthetic control ideas within a proximal causal inference framework.
+The <cite>fit</cite> method can return results for one or all of these approaches,
+depending on whether surrogate information is provided.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mlsynth.PROXIMAL.config">
+<span class="sig-name descname"><span class="pre">config</span></span><a class="headerlink" href="#mlsynth.PROXIMAL.config" title="Link to this definition">#</a></dt>
+<dd><p>The configuration object holding all parameters for the estimator.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>PROXIMALConfig</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mlsynth.PROXIMAL.df">
+<span class="sig-name descname"><span class="pre">df</span></span><a class="headerlink" href="#mlsynth.PROXIMAL.df" title="Link to this definition">#</a></dt>
+<dd><p>The input DataFrame containing panel data.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>pd.DataFrame</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mlsynth.PROXIMAL.outcome">
+<span class="sig-name descname"><span class="pre">outcome</span></span><a class="headerlink" href="#mlsynth.PROXIMAL.outcome" title="Link to this definition">#</a></dt>
+<dd><p>Name of the outcome variable column in <cite>df</cite>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)">str</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mlsynth.PROXIMAL.treat">
+<span class="sig-name descname"><span class="pre">treat</span></span><a class="headerlink" href="#mlsynth.PROXIMAL.treat" title="Link to this definition">#</a></dt>
+<dd><p>Name of the treatment indicator column in <cite>df</cite>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)">str</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mlsynth.PROXIMAL.unitid">
+<span class="sig-name descname"><span class="pre">unitid</span></span><a class="headerlink" href="#mlsynth.PROXIMAL.unitid" title="Link to this definition">#</a></dt>
+<dd><p>Name of the unit identifier column in <cite>df</cite>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)">str</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mlsynth.PROXIMAL.time">
+<span class="sig-name descname"><span class="pre">time</span></span><a class="headerlink" href="#mlsynth.PROXIMAL.time" title="Link to this definition">#</a></dt>
+<dd><p>Name of the time variable column in <cite>df</cite>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)">str</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mlsynth.PROXIMAL.display_graphs">
+<span class="sig-name descname"><span class="pre">display_graphs</span></span><a class="headerlink" href="#mlsynth.PROXIMAL.display_graphs" title="Link to this definition">#</a></dt>
+<dd><p>Whether to display graphs of results.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)">bool</a>, default True</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mlsynth.PROXIMAL.save">
+<span class="sig-name descname"><span class="pre">save</span></span><a class="headerlink" href="#mlsynth.PROXIMAL.save" title="Link to this definition">#</a></dt>
+<dd><p>Configuration for saving plots.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Union[<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)">bool</a>, <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)">str</a>, Dict[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)">str</a>, <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)">str</a>]], default False</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mlsynth.PROXIMAL.counterfactual_color">
+<span class="sig-name descname"><span class="pre">counterfactual_color</span></span><a class="headerlink" href="#mlsynth.PROXIMAL.counterfactual_color" title="Link to this definition">#</a></dt>
+<dd><p>Color(s) for the counterfactual line(s) in plots.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Union[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)">str</a>, List[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)">str</a>]], default_factory=lambda: [“grey”, “red”, “blue”]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mlsynth.PROXIMAL.treated_color">
+<span class="sig-name descname"><span class="pre">treated_color</span></span><a class="headerlink" href="#mlsynth.PROXIMAL.treated_color" title="Link to this definition">#</a></dt>
+<dd><p>Color for the treated unit line in plots.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)">str</a>, default “black”</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mlsynth.PROXIMAL.donors">
+<span class="sig-name descname"><span class="pre">donors</span></span><a class="headerlink" href="#mlsynth.PROXIMAL.donors" title="Link to this definition">#</a></dt>
+<dd><p>List of donor unit identifiers used to construct the counterfactual.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>List[Union[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)">str</a>, <a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)">int</a>]]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mlsynth.PROXIMAL.surrogates">
+<span class="sig-name descname"><span class="pre">surrogates</span></span><a class="headerlink" href="#mlsynth.PROXIMAL.surrogates" title="Link to this definition">#</a></dt>
+<dd><p>List of surrogate unit identifiers.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>List[Union[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)">str</a>, <a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)">int</a>]], default_factory=list</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mlsynth.PROXIMAL.vars">
+<span class="sig-name descname"><span class="pre">vars</span></span><a class="headerlink" href="#mlsynth.PROXIMAL.vars" title="Link to this definition">#</a></dt>
+<dd><p>Dictionary specifying proxy variables.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Dict[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)">str</a>, List[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)">str</a>]], default_factory=dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+<p class="rubric">References</p>
+<p>Xu Shi, Kendrick Li, Wang Miao, Mengtong Hu, and Eric Tchetgen Tchetgen.
+“Theory for identification and Inference with Synthetic Controls: A Proximal Causal Inference Framework.”
+arXiv preprint arXiv:2108.13935, 2023. URL: https://arxiv.org/abs/2108.13935.</p>
+<p>Jizhou Liu, Eric J. Tchetgen Tchetgen, and Carlos Varjão.
+“Proximal Causal Inference for Synthetic Control with Surrogates.”
+arXiv preprint arXiv:2308.09527, 2023. URL: https://arxiv.org/abs/2308.09527.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="mlsynth.PROXIMAL.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">PROXIMALConfig</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.13)"><span class="pre">None</span></a></span></span><a class="headerlink" href="#mlsynth.PROXIMAL.__init__" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="estimating-proximal-inference-scm-via-mlsynth">
+<h2>Estimating Proximal Inference SCM via <code class="docutils literal notranslate"><span class="pre">mlsynth</span></code><a class="headerlink" href="#estimating-proximal-inference-scm-via-mlsynth" title="Link to this heading">#</a></h2>
+<p>In the paper by Liu, Tchetgen and Varjão <a class="reference internal" href="references.html#liutchetgenvar" id="id6"><span>[LiuTchetgenVar]</span></a>, the authors give an example of the Proximal Causal Inference SCM. The authors exploit the Panic of 1907, using data from <a class="reference internal" href="references.html#fohlin2021" id="id7"><span>[fohlin2021]</span></a> as an intervention. Basically, this financial crisis led to the downfall of the Knickerbocker Trust, a major bank in New York City. We have price data on the stock for 59 major trusts, where Knickerbocker is the treated unit. Of the remaining 58, there are two more trusts which also experienced devastating bank runs. 7 trusts were connected to major firms. Finally, of the 58 trusts, one trust was dropped because it was missing one time periods. This leaves us with the logged price for 49 potential control units, with Knickerbocker being the treated unit. With the Proximal Inference SCM, we can use the logged bid price for the 49 unit control group as a proxy for the log-stock price of Knickerbocker. And this makes sense, since the bid price may reasonably be correlated with other macroeconomic factors which affect the overall stock price of the treated unit. Here is the code for both approaches I discuss</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">mlsynth.mlsynth</span><span class="w"> </span><span class="kn">import</span> <span class="n">PROXIMAL</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">theme</span><span class="w"> </span><span class="kn">import</span> <span class="n">jared_theme</span>
+
+<span class="n">matplotlib</span><span class="o">.</span><span class="n">rcParams</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">jared_theme</span><span class="p">)</span>
+
+<span class="n">file_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="vm">__file__</span><span class="p">),</span> <span class="s1">&#39;..&#39;</span><span class="p">,</span> <span class="s1">&#39;basedata&#39;</span><span class="p">,</span> <span class="s1">&#39;trust.dta&#39;</span><span class="p">)</span>
+
+<span class="c1"># Load the CSV file using pandas</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_stata</span><span class="p">(</span><span class="n">file_path</span><span class="p">)</span>
+
+<span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;ID&quot;</span><span class="p">]</span> <span class="o">!=</span> <span class="mi">1</span><span class="p">]</span>  <span class="c1"># Dropping the unbalanced unit</span>
+
+<span class="n">surrogates</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;introuble&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1</span><span class="p">][</span><span class="s1">&#39;ID&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">()</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>  <span class="c1"># Our list of surrogates</span>
+<span class="n">donors</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;type&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;normal&quot;</span><span class="p">][</span><span class="s1">&#39;ID&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">()</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>  <span class="c1"># Our pure controls</span>
+
+<span class="nb">vars</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;bid_itp&quot;</span><span class="p">,</span> <span class="s2">&quot;ask_itp&quot;</span><span class="p">]</span>
+
+<span class="n">df</span><span class="p">[</span><span class="nb">vars</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="nb">vars</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">)</span>  <span class="c1"># We take the log of these, per the paper.</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;Panic&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">((</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;time&#39;</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">229</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;ID&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">34</span><span class="p">),</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+
+<span class="c1"># Here is when our treatment began, on the 229th tri-week.</span>
+<span class="n">treat</span> <span class="o">=</span> <span class="s2">&quot;Panic&quot;</span>
+<span class="n">outcome</span> <span class="o">=</span> <span class="s2">&quot;prc_log&quot;</span>
+<span class="n">unitid</span> <span class="o">=</span> <span class="s2">&quot;ID&quot;</span>
+<span class="n">time</span> <span class="o">=</span> <span class="s2">&quot;date&quot;</span>
+
+<span class="n">var_dict</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;donorproxies&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;bid_itp&quot;</span><span class="p">],</span>
+    <span class="s2">&quot;surrogatevars&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;ask_itp&quot;</span><span class="p">]</span>
+<span class="p">}</span>
+
+<span class="n">new_directory</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">(),</span> <span class="s2">&quot;examples&quot;</span><span class="p">)</span>
+<span class="n">os</span><span class="o">.</span><span class="n">chdir</span><span class="p">(</span><span class="n">new_directory</span><span class="p">)</span>
+
+<span class="c1"># Define the &#39;PROXIMAL&#39; directory</span>
+<span class="n">save_directory</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">(),</span> <span class="s2">&quot;PROXIMAL&quot;</span><span class="p">)</span>
+
+<span class="c1"># Create the directory if it doesn&#39;t exist</span>
+<span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">save_directory</span><span class="p">):</span>
+    <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">save_directory</span><span class="p">)</span>
+
+<span class="c1"># First run</span>
+<span class="n">save_1</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;filename&quot;</span><span class="p">:</span> <span class="s2">&quot;PanicProx&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;extension&quot;</span><span class="p">:</span> <span class="s2">&quot;png&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;directory&quot;</span><span class="p">:</span> <span class="n">save_directory</span><span class="p">,</span>
+<span class="p">}</span>
+
+<span class="n">config_1</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;df&quot;</span><span class="p">:</span> <span class="n">df</span><span class="p">,</span>
+    <span class="s2">&quot;treat&quot;</span><span class="p">:</span> <span class="n">treat</span><span class="p">,</span>
+    <span class="s2">&quot;time&quot;</span><span class="p">:</span> <span class="n">time</span><span class="p">,</span>
+    <span class="s2">&quot;outcome&quot;</span><span class="p">:</span> <span class="n">outcome</span><span class="p">,</span>
+    <span class="s2">&quot;unitid&quot;</span><span class="p">:</span> <span class="n">unitid</span><span class="p">,</span>
+    <span class="s2">&quot;treated_color&quot;</span><span class="p">:</span> <span class="s2">&quot;black&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;counterfactual_color&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;blue&quot;</span><span class="p">],</span>
+    <span class="s2">&quot;display_graphs&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
+    <span class="s2">&quot;vars&quot;</span><span class="p">:</span> <span class="n">var_dict</span><span class="p">,</span>
+    <span class="s2">&quot;donors&quot;</span><span class="p">:</span> <span class="n">donors</span><span class="p">,</span>
+    <span class="s2">&quot;save&quot;</span><span class="p">:</span> <span class="n">save_1</span>
+<span class="p">}</span>
+
+<span class="n">model_1</span> <span class="o">=</span> <span class="n">PROXIMAL</span><span class="p">(</span><span class="n">config_1</span><span class="p">)</span>
+<span class="n">SC_1</span> <span class="o">=</span> <span class="n">model_1</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">clf</span><span class="p">()</span>
+
+<span class="c1"># Second run with surrogates and new filename</span>
+<span class="n">save_2</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;filename&quot;</span><span class="p">:</span> <span class="s2">&quot;PanicSurrogates&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;extension&quot;</span><span class="p">:</span> <span class="s2">&quot;png&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;directory&quot;</span><span class="p">:</span> <span class="n">save_directory</span><span class="p">,</span>
+<span class="p">}</span>
+
+<span class="n">config_2</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;df&quot;</span><span class="p">:</span> <span class="n">df</span><span class="p">,</span>
+    <span class="s2">&quot;treat&quot;</span><span class="p">:</span> <span class="n">treat</span><span class="p">,</span>
+    <span class="s2">&quot;time&quot;</span><span class="p">:</span> <span class="n">time</span><span class="p">,</span>
+    <span class="s2">&quot;outcome&quot;</span><span class="p">:</span> <span class="n">outcome</span><span class="p">,</span>
+    <span class="s2">&quot;unitid&quot;</span><span class="p">:</span> <span class="n">unitid</span><span class="p">,</span>
+    <span class="s2">&quot;treated_color&quot;</span><span class="p">:</span> <span class="s2">&quot;black&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;counterfactual_color&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;blue&quot;</span><span class="p">,</span> <span class="s2">&quot;red&quot;</span><span class="p">,</span> <span class="s2">&quot;lime&quot;</span><span class="p">],</span>
+    <span class="s2">&quot;display_graphs&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
+    <span class="s2">&quot;vars&quot;</span><span class="p">:</span> <span class="n">var_dict</span><span class="p">,</span>
+    <span class="s2">&quot;donors&quot;</span><span class="p">:</span> <span class="n">donors</span><span class="p">,</span>
+    <span class="s2">&quot;surrogates&quot;</span><span class="p">:</span> <span class="n">surrogates</span><span class="p">,</span>  <span class="c1"># Here are our surrogates!!</span>
+    <span class="s2">&quot;save&quot;</span><span class="p">:</span> <span class="n">save_2</span>
+<span class="p">}</span>
+
+<span class="n">model_2</span> <span class="o">=</span> <span class="n">PROXIMAL</span><span class="p">(</span><span class="n">config_2</span><span class="p">)</span>
+<span class="n">SC_2</span> <span class="o">=</span> <span class="n">model_2</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>This is the plot we get when we estimate the causal impact.</p>
+<a class="reference internal image-reference" href="https://raw.githubusercontent.com/jgreathouse9/mlsynth/refs/heads/main/examples/PROXIMAL/PanicProx.png"><img alt="Proximal Synthetic Control Estimation" class="align-center" src="https://raw.githubusercontent.com/jgreathouse9/mlsynth/refs/heads/main/examples/PROXIMAL/PanicProx.png" style="width: 600px;" />
+</a>
+<p>As we can see, the use of the bidding price (a proxy for supply) as a proxy causes the synthetic control to fit the pre-intervention time series well. What if we just used the post-intervention data, or added in the surrogates? In the original code, the authors used the bidding price of the two other affected trusts as surrogates. They also included the bidding price of Knickerbocker itself as a surrogate. The proxies for the surrogates was the weekly asking price for the trust. Keep in mind, the surrogates were also affected substantially by their own bank runs. But in our case that’s okay because they do not contribute to the synthetic control, they are effectively used as instruments for the latent unit effects in the post-intervention period since it’s reasonable to assume they are correlated with the treatment effect. Here is the plot we get when we add in the surrogates</p>
+<a class="reference internal image-reference" href="https://raw.githubusercontent.com/jgreathouse9/mlsynth/refs/heads/main/examples/PROXIMAL/PanicSurrogates.png"><img alt="Surrogate Synthetic Control Estimation" class="align-center" src="https://raw.githubusercontent.com/jgreathouse9/mlsynth/refs/heads/main/examples/PROXIMAL/PanicSurrogates.png" style="width: 600px;" />
+</a>
+<p>As we can see, even when we use only post-intervention data to estimate the causal impact, the result largely agrees with the original Proximal Inference estimates.</p>
+<p>The authors list prediction intervals and inference for the setting of contaminated surrogates as useful directions for future work, and I agree with them. However, I think another extension may also be warranted, namely the selection of proxies and surrogates. In other words, suppose we have a high dimensional setup where we observe very many potentially relevant proxies for common time factors; which proxies should we use and why? How many should we use? If we believe many valid surrogates exist, which ones should we employ, how many, and why? Coupled with inference, I believe there are exciting future topics for this setting which policy analysts and other researchers may use.</p>
+</section>
+</section>
+
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="pda.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Panel Data Approach</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="scmo.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Synthetic Control With Multiple Outcomes</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#notations">Notations</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#surrogate-approach">Surrogate Approach</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mlsynth.PROXIMAL"><code class="docutils literal notranslate"><span class="pre">PROXIMAL</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#mlsynth.PROXIMAL.config"><code class="docutils literal notranslate"><span class="pre">PROXIMAL.config</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#mlsynth.PROXIMAL.df"><code class="docutils literal notranslate"><span class="pre">PROXIMAL.df</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#mlsynth.PROXIMAL.outcome"><code class="docutils literal notranslate"><span class="pre">PROXIMAL.outcome</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#mlsynth.PROXIMAL.treat"><code class="docutils literal notranslate"><span class="pre">PROXIMAL.treat</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#mlsynth.PROXIMAL.unitid"><code class="docutils literal notranslate"><span class="pre">PROXIMAL.unitid</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#mlsynth.PROXIMAL.time"><code class="docutils literal notranslate"><span class="pre">PROXIMAL.time</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#mlsynth.PROXIMAL.display_graphs"><code class="docutils literal notranslate"><span class="pre">PROXIMAL.display_graphs</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#mlsynth.PROXIMAL.save"><code class="docutils literal notranslate"><span class="pre">PROXIMAL.save</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#mlsynth.PROXIMAL.counterfactual_color"><code class="docutils literal notranslate"><span class="pre">PROXIMAL.counterfactual_color</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#mlsynth.PROXIMAL.treated_color"><code class="docutils literal notranslate"><span class="pre">PROXIMAL.treated_color</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#mlsynth.PROXIMAL.donors"><code class="docutils literal notranslate"><span class="pre">PROXIMAL.donors</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#mlsynth.PROXIMAL.surrogates"><code class="docutils literal notranslate"><span class="pre">PROXIMAL.surrogates</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#mlsynth.PROXIMAL.vars"><code class="docutils literal notranslate"><span class="pre">PROXIMAL.vars</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#mlsynth.PROXIMAL.__init__"><code class="docutils literal notranslate"><span class="pre">PROXIMAL.__init__()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#estimating-proximal-inference-scm-via-mlsynth">Estimating Proximal Inference SCM via <code class="docutils literal notranslate"><span class="pre">mlsynth</span></code></a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Jared Greathouse
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2025, Jared Greathouse.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

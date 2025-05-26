@@ -1,0 +1,35 @@
+
+
+Examples using ``mlsynth.config_models.PDAConfig``
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+
+.. start-sphx-glr-thumbnails
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbnails">
+
+.. thumbnail-parent-div-open
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="L2 Relaxer">
+
+.. only:: html
+
+  .. image:: /gallery_output/images/thumb/sphx_glr_Water_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_gallery_output_Water.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">L2 Relaxer</div>
+    </div>
+
+
+.. only:: not html
+
+ * :ref:`sphx_glr_gallery_output_Water.py`

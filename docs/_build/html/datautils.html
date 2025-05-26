@@ -1,0 +1,1080 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Data Utilities (mlsynth.utils.datautils) &#8212; mlsynth 0.1 documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="_static/documentation_options.js?v=e1a75a79"></script>
+    <script src="_static/doctools.js?v=9bcbadda"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/static/custom_mathjax.js"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'datautils';</script>
+    <link rel="author" title="About these documents" href="about.html" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Estimation Utilities (mlsynth.utils.estutils)" href="estutils.html" />
+    <link rel="prev" title="Two-Step Synthetic Control" href="tssc.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="index.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">mlsynth 0.1 documentation</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Overview:</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="about.html">About mlsynth</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="references.html">References</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Estimators</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="clustersc.html">Cluster Synthetic Controls</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fdid.html">Forward Difference-in-Differences</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fma.html">Factor Model Approach</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fscm.html">Forward SCM</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="gsc.html">Generalized Synthetic Control (GSC)</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="_autosummary/mlsynth.estimators.gsc.GSC.html">mlsynth.estimators.gsc.GSC</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="nsc.html">Nonlinear Synthetic Control (NSC)</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="_autosummary/mlsynth.estimators.nsc.NSC.html">mlsynth.estimators.nsc.NSC</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="pda.html">Panel Data Approach</a></li>
+<li class="toctree-l1"><a class="reference internal" href="proximal.html">Proximal Synthetic Control</a></li>
+<li class="toctree-l1"><a class="reference internal" href="scmo.html">Synthetic Control With Multiple Outcomes</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="sdid.html">Synthetic Difference-in-Differences (SDID)</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="_autosummary/mlsynth.estimators.sdid.SDID.html">mlsynth.estimators.sdid.SDID</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="si.html">Synthetic Interventions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="src.html">Synthetic Regression Control Method</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="stablesc.html">Stable Synthetic Control (StableSC)</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="_autosummary/mlsynth.estimators.stablesc.StableSC.html">mlsynth.estimators.stablesc.StableSC</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="tssc.html">Two-Step Synthetic Control</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Utilities</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Data Utilities (<cite>mlsynth.utils.datautils</cite>)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="estutils.html">Estimation Utilities (<cite>mlsynth.utils.estutils</cite>)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="inferutils.html">Inference Utilities (<cite>mlsynth.utils.inferutils</cite>)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="resultutils.html">Result Utilities (<cite>mlsynth.utils.resultutils</cite>)</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/datautils.rst" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.rst</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Data Utilities (mlsynth.utils.datautils)</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-mlsynth.utils.datautils">Module API</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mlsynth.utils.datautils.balance"><code class="docutils literal notranslate"><span class="pre">balance()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mlsynth.utils.datautils.clean_surrogates2"><code class="docutils literal notranslate"><span class="pre">clean_surrogates2()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mlsynth.utils.datautils.dataprep"><code class="docutils literal notranslate"><span class="pre">dataprep()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mlsynth.utils.datautils.logictreat"><code class="docutils literal notranslate"><span class="pre">logictreat()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mlsynth.utils.datautils.proxy_dataprep"><code class="docutils literal notranslate"><span class="pre">proxy_dataprep()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#function-reference">Function Reference</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id0"><code class="docutils literal notranslate"><span class="pre">logictreat()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1"><code class="docutils literal notranslate"><span class="pre">dataprep()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2"><code class="docutils literal notranslate"><span class="pre">balance()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3"><code class="docutils literal notranslate"><span class="pre">clean_surrogates2()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4"><code class="docutils literal notranslate"><span class="pre">proxy_dataprep()</span></code></a></li>
+</ul>
+</li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="data-utilities-mlsynth-utils-datautils">
+<h1>Data Utilities (<cite>mlsynth.utils.datautils</cite>)<a class="headerlink" href="#data-utilities-mlsynth-utils-datautils" title="Link to this heading">#</a></h1>
+<p>This module provides utility functions for data preparation and manipulation, commonly required by synthetic control and panel data estimators.</p>
+<section id="module-mlsynth.utils.datautils">
+<span id="module-api"></span><h2>Module API<a class="headerlink" href="#module-mlsynth.utils.datautils" title="Link to this heading">#</a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="mlsynth.utils.datautils.balance">
+<span class="sig-prename descclassname"><span class="pre">mlsynth.utils.datautils.</span></span><span class="sig-name descname"><span class="pre">balance</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">DataFrame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">unit_id_column_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">time_period_column_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><span class="pre">str</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.13)"><span class="pre">None</span></a></span></span><a class="headerlink" href="#mlsynth.utils.datautils.balance" title="Link to this definition">#</a></dt>
+<dd><p>Check if the panel is strongly balanced.</p>
+<p>A strongly balanced panel means every unit has an observation for every
+time period, and there are no duplicate unit-time observations.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>df</strong> (<em>pd.DataFrame</em>) – The input panel data. Must contain columns specified by <cite>unit_id_column_name</cite>
+and <cite>time_period_column_name</cite>.</p></li>
+<li><p><strong>unit_id_column_name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – The name of the column in <cite>df</cite> that identifies the units. (Formerly <cite>unit_col</cite>)</p></li>
+<li><p><strong>time_period_column_name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – The name of the column in <cite>df</cite> that identifies the time periods. (Formerly <cite>time_col</cite>)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>MlsynthDataError</strong> – If duplicate unit-time observations are found.
+    If the panel is not strongly balanced (i.e., not all units have
+    observations for all time periods).</p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>This function does not return a value but raises an error if the
+panel is not strongly balanced or contains duplicates.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="mlsynth.utils.datautils.clean_surrogates2">
+<span class="sig-prename descclassname"><span class="pre">mlsynth.utils.datautils.</span></span><span class="sig-name descname"><span class="pre">clean_surrogates2</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">surrogate_matrix</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">donor_covariates_matrix</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">treated_unit_covariates_matrix</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_pre_treatment_periods</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">common_covariates_matrix</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.13)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">ndarray</span></span></span><a class="headerlink" href="#mlsynth.utils.datautils.clean_surrogates2" title="Link to this definition">#</a></dt>
+<dd><p>Clean surrogate variables by orthogonalizing them against covariates.</p>
+<p>This function adjusts each surrogate variable in <cite>surrogate_matrix</cite> by removing the
+linear influence of a set of covariates. The covariates for projection
+are formed by combining <cite>donor_covariates_matrix</cite> (donor pool covariates) and
+<cite>treated_unit_covariates_matrix</cite> (treated unit covariates), potentially augmented by
+<cite>common_covariates_matrix</cite>. The cleaning process involves estimating a linear
+relationship between each surrogate and the combined covariates using data
+from the pre-treatment period (<cite>num_pre_treatment_periods</cite>), and then
+subtracting this predicted component from the surrogate across all time periods.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>surrogate_matrix</strong> (<em>np.ndarray</em>) – Matrix of surrogate variables to be cleaned.
+Shape (n_periods, n_surrogates).</p></li>
+<li><p><strong>donor_covariates_matrix</strong> (<em>np.ndarray</em>) – Matrix of covariates for the donor pool.
+Shape (n_periods, n_donor_covariates).</p></li>
+<li><p><strong>treated_unit_covariates_matrix</strong> (<em>np.ndarray</em>) – Matrix of covariates for the treated unit.
+Shape (n_periods, n_treated_covariates).
+Typically, <cite>n_donor_covariates</cite> equals <cite>n_treated_covariates</cite>.</p></li>
+<li><p><strong>num_pre_treatment_periods</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – Number of pre-treatment periods. The linear projection coefficients
+(<cite>projection_coefficients</cite>) are estimated using data up to this period.</p></li>
+<li><p><strong>common_covariates_matrix</strong> (<em>Optional</em><em>[</em><em>np.ndarray</em><em>]</em><em>, </em><em>default None</em>) – Additional common covariates to include in the projection for both
+donor and treated sides. Shape (n_periods, n_common_covariates).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The matrix of cleaned surrogate variables, where the influence of
+the specified covariates has been removed.
+Shape (n_periods, n_surrogates).</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>np.ndarray</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="mlsynth.utils.datautils.dataprep">
+<span class="sig-prename descclassname"><span class="pre">mlsynth.utils.datautils.</span></span><span class="sig-name descname"><span class="pre">dataprep</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">DataFrame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">unit_id_column_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">time_period_column_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">outcome_column_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">treatment_indicator_column_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><span class="pre">str</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Dict" title="(in Python v3.13)"><span class="pre">Dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><span class="pre">Any</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#mlsynth.utils.datautils.dataprep" title="Link to this definition">#</a></dt>
+<dd><p>Prepare data for synthetic control methods.</p>
+<p>Pivots a long DataFrame into a wide format required by many synthetic
+control estimators. It identifies treated and donor units, and separates
+data into pre-treatment and post-treatment periods. Handles cases with
+a single treated unit or multiple treated units (by cohorting based on
+treatment start time).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>df</strong> (<em>pd.DataFrame</em>) – The input panel data in long format. Must contain columns for unit
+identifiers, time periods, outcome variable, and treatment indicator.</p></li>
+<li><p><strong>unit_id_column_name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – Name of the column in <cite>df</cite> that identifies unique units. (Formerly <cite>unitid</cite>)</p></li>
+<li><p><strong>time_period_column_name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – Name of the column in <cite>df</cite> that identifies time periods. (Formerly <cite>time</cite>)</p></li>
+<li><p><strong>outcome_column_name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – Name of the column in <cite>df</cite> for the outcome variable. (Formerly <cite>outcome</cite>)</p></li>
+<li><p><strong>treatment_indicator_column_name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – Name of the column in <cite>df</cite> for the treatment indicator (0 or 1). (Formerly <cite>treat</cite>)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><p>A dictionary containing the prepared data. The structure of this
+dictionary depends on whether a single or multiple treated units
+are identified by <cite>logictreat</cite>.</p>
+<dl>
+<dt>If a single treated unit is found:</dt><dd><dl class="simple">
+<dt>”treated_unit_name”<span class="classifier">str</span></dt><dd><p>Name/identifier of the treated unit.</p>
+</dd>
+<dt>”Ywide”<span class="classifier">pd.DataFrame</span></dt><dd><p>DataFrame of outcome data pivoted to wide format, with time periods
+as index and unit identifiers as columns. Shape (n_periods, n_units).</p>
+</dd>
+<dt>”y”<span class="classifier">np.ndarray</span></dt><dd><p>1D array of outcome data for the treated unit. Shape (n_periods,).</p>
+</dd>
+<dt>”donor_names”<span class="classifier">pd.Index</span></dt><dd><p>Index object containing the names/identifiers of the donor units.</p>
+</dd>
+<dt>”donor_matrix”<span class="classifier">np.ndarray</span></dt><dd><p>2D array of outcome data for the donor units.
+Shape (n_periods, n_donors).</p>
+</dd>
+<dt>”total_periods”<span class="classifier">int</span></dt><dd><p>Total number of time periods.</p>
+</dd>
+<dt>”pre_periods”<span class="classifier">int</span></dt><dd><p>Number of pre-treatment periods.</p>
+</dd>
+<dt>”post_periods”<span class="classifier">int</span></dt><dd><p>Number of post-treatment periods.</p>
+</dd>
+</dl>
+</dd>
+<dt>If multiple treated units are found (cohort mode):</dt><dd><dl>
+<dt>”Ywide”<span class="classifier">pd.DataFrame</span></dt><dd><p>As above, outcome data pivoted wide. Shape (n_periods, n_units).</p>
+</dd>
+<dt>”cohorts”<span class="classifier">Dict[Any, Dict[str, Any]]</span></dt><dd><p>A dictionary where keys are treatment start times (identifying
+each cohort) and values are dictionaries, each containing data
+specific to that cohort:
+“treated_units” : List[str]</p>
+<blockquote>
+<div><p>List of unit names/identifiers belonging to this cohort.</p>
+</div></blockquote>
+<dl class="simple">
+<dt>”y”<span class="classifier">np.ndarray</span></dt><dd><p>Outcome matrix for the treated units in this cohort.
+Shape (n_periods, n_treated_in_cohort).</p>
+</dd>
+<dt>”donor_names”<span class="classifier">pd.Index</span></dt><dd><p>Names/identifiers of donor units for this cohort (units not
+in this specific cohort).</p>
+</dd>
+<dt>”donor_matrix”<span class="classifier">np.ndarray</span></dt><dd><p>Outcome matrix for donor units relevant to this cohort.
+Shape (n_periods, n_donors_for_cohort).</p>
+</dd>
+<dt>”total_periods”<span class="classifier">int</span></dt><dd><p>Total number of time periods.</p>
+</dd>
+<dt>”pre_periods”<span class="classifier">int</span></dt><dd><p>Number of pre-treatment periods for this cohort, determined
+by the cohort’s treatment start time.</p>
+</dd>
+<dt>”post_periods”<span class="classifier">int</span></dt><dd><p>Number of post-treatment periods for this cohort.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd>
+</dl>
+</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Dict[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)">str</a>, Any]</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>MlsynthDataError</strong> – <ul class="simple">
+<li><p>If no donor units are found after pivoting and selecting for a single
+      treated unit case.
+    - If there are zero pre-treatment periods for a single treated unit case.</p></li>
+</ul>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="mlsynth.utils.datautils.logictreat">
+<span class="sig-prename descclassname"><span class="pre">mlsynth.utils.datautils.</span></span><span class="sig-name descname"><span class="pre">logictreat</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">treatment_matrix</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Dict" title="(in Python v3.13)"><span class="pre">Dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><span class="pre">Any</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#mlsynth.utils.datautils.logictreat" title="Link to this definition">#</a></dt>
+<dd><p>Analyze a treatment matrix to determine treatment timings and unit counts.</p>
+<p>Identifies pre-treatment and post-treatment periods for single or multiple
+treated units. For multiple treated units, it determines the first treatment
+period for each.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>treatment_matrix</strong> (<em>np.ndarray</em>) – A 2D NumPy array where rows represent time periods and columns
+represent units. A value of 1 indicates treatment, 0 otherwise.
+Shape (n_periods, n_units).</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><p>A dictionary containing treatment analysis results. The keys and
+their meanings depend on whether a single or multiple treated units
+are detected:</p>
+<dl class="simple">
+<dt>If a single treated unit is found:</dt><dd><dl class="simple">
+<dt>”Num Treated Units”<span class="classifier">int</span></dt><dd><p>Always 1.</p>
+</dd>
+<dt>”Post Periods”<span class="classifier">int</span></dt><dd><p>Number of post-treatment periods for the treated unit.</p>
+</dd>
+<dt>”Treated Index”<span class="classifier">np.ndarray</span></dt><dd><p>1D array containing the column index of the treated unit.
+Shape (1,).</p>
+</dd>
+<dt>”Pre Periods”<span class="classifier">int</span></dt><dd><p>Number of pre-treatment periods for the treated unit.</p>
+</dd>
+<dt>”Total Periods”<span class="classifier">int</span></dt><dd><p>Total number of time periods for the treated unit.</p>
+</dd>
+</dl>
+</dd>
+<dt>If multiple treated units are found:</dt><dd><dl class="simple">
+<dt>”Num Treated Units”<span class="classifier">int</span></dt><dd><p>Number of unique treated units detected.</p>
+</dd>
+<dt>”Treated Index”<span class="classifier">np.ndarray</span></dt><dd><p>1D array containing the column indices of all treated units.
+Shape (num_treated_units,).</p>
+</dd>
+<dt>”First Treat Periods”<span class="classifier">np.ndarray</span></dt><dd><p>1D array, where each element is the first treatment period
+(0-indexed) for the corresponding treated unit in “Treated Index”.
+Shape (num_treated_units,).</p>
+</dd>
+<dt>”Pre Periods by Unit”<span class="classifier">np.ndarray</span></dt><dd><p>1D array, number of pre-treatment periods for each treated unit.
+Shape (num_treated_units,).</p>
+</dd>
+<dt>”Post Periods by Unit”<span class="classifier">np.ndarray</span></dt><dd><p>1D array, number of post-treatment periods for each treated unit.
+Shape (num_treated_units,).</p>
+</dd>
+<dt>”Total Periods”<span class="classifier">int</span></dt><dd><p>Total number of time periods in the input <cite>treatment_matrix</cite>.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Dict[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)">str</a>, Any]</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>MlsynthDataError</strong> – If <cite>treatment_matrix</cite> is not a NumPy array.
+    If no treated units are found (zero treated observations).
+    If a treated unit has no post-treatment period.
+    If treatment is not sustained for a treated unit (i.e., a 0 appears
+    after a 1 in its treatment vector).</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="mlsynth.utils.datautils.proxy_dataprep">
+<span class="sig-prename descclassname"><span class="pre">mlsynth.utils.datautils.</span></span><span class="sig-name descname"><span class="pre">proxy_dataprep</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">DataFrame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">surrogate_units</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.List" title="(in Python v3.13)"><span class="pre">List</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><span class="pre">Any</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">proxy_variable_column_names_map</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Dict" title="(in Python v3.13)"><span class="pre">Dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.List" title="(in Python v3.13)"><span class="pre">List</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">unit_id_column_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><span class="pre">str</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'Artist'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">time_period_column_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><span class="pre">str</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'Date'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_total_periods</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><span class="pre">int</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.13)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Tuple" title="(in Python v3.13)"><span class="pre">Tuple</span></a><span class="p"><span class="pre">[</span></span><span class="pre">ndarray</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">ndarray</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#mlsynth.utils.datautils.proxy_dataprep" title="Link to this definition">#</a></dt>
+<dd><p>Construct surrogate and surrogate-proxy matrices from long-form data.</p>
+<p>This function takes a long-format DataFrame and pivots it to create
+two wide-format matrices for a specified set of surrogate units:
+1.  A surrogate matrix (often denoted as <cite>X</cite> in models like ProximalSC),</p>
+<blockquote>
+<div><p>derived from variables specified by <cite>proxy_variable_column_names_map[‘donorproxies’]</cite>.</p>
+</div></blockquote>
+<ol class="arabic simple" start="2">
+<li><p>A surrogate-proxy matrix (often denoted <cite>Z1</cite>), derived from variables
+specified by <cite>proxy_variable_column_names_map[‘surrogatevars’]</cite>.</p></li>
+</ol>
+<p>The function assumes that <cite>proxy_variable_column_names_map[‘donorproxies’]</cite> and
+<cite>proxy_variable_column_names_map[‘surrogatevars’]</cite> each contain the name of a single column
+in <cite>df</cite> to be used for constructing these matrices.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>df</strong> (<em>pd.DataFrame</em>) – The input panel data in long format. Must contain columns for unit
+identifiers, time periods, and the variables specified in <cite>proxy_variable_column_names_map</cite>.</p></li>
+<li><p><strong>surrogate_units</strong> (<em>List</em><em>[</em><em>Any</em><em>]</em>) – A list of unit identifiers (matching values in <cite>unit_id_column_name</cite>) that will
+form the columns of the output matrices.</p></li>
+<li><p><strong>proxy_variable_column_names_map</strong> (<em>Dict</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a><em>, </em><em>List</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a><em>]</em><em>]</em>) – <p>A dictionary specifying the variables to use for constructing the
+matrices. It must contain two keys:</p>
+<ul>
+<li><p>’donorproxies’: A list containing the name of the column in <cite>df</cite>
+to use for the surrogate matrix. (Formerly <cite>proxy_vars</cite>)</p></li>
+<li><p>’surrogatevars’: A list containing the name of the column in <cite>df</cite>
+to use for the surrogate-proxy matrix.</p></li>
+</ul>
+</p></li>
+<li><p><strong>unit_id_column_name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a><em>, </em><em>default &quot;Artist&quot;</em>) – Name of the column in <cite>df</cite> that identifies unique units. (Formerly <cite>id_col</cite>)</p></li>
+<li><p><strong>time_period_column_name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a><em>, </em><em>default &quot;Date&quot;</em>) – Name of the column in <cite>df</cite> that identifies time periods. This column
+will form the index of the pivoted DataFrames before conversion to NumPy arrays. (Formerly <cite>time_col</cite>)</p></li>
+<li><p><strong>num_total_periods</strong> (<em>Optional</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a><em>]</em><em>, </em><em>default None</em>) – Total number of time periods. This parameter is not explicitly used in
+the current implementation’s logic but is included for potential API
+consistency or future extensions. (Formerly <cite>T</cite>)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p><strong>surrogate_matrix</strong> (<em>np.ndarray</em>) – The constructed surrogate matrix (X).
+Shape (n_time_periods, n_surrogate_units).</p></li>
+<li><p><strong>surrogate_proxy_matrix</strong> (<em>np.ndarray</em>) – The constructed surrogate-proxy matrix (Z1).
+Shape (n_time_periods, n_surrogate_units).</p></li>
+</ul>
+</p>
+</dd>
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#KeyError" title="(in Python v3.13)"><strong>KeyError</strong></a> – <ul class="simple">
+<li><p>If <cite>proxy_variable_column_names_map</cite> does not contain ‘donorproxies’ or ‘surrogatevars’,
+      or if the lists associated with these keys are empty.</p></li>
+</ul>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="function-reference">
+<h2>Function Reference<a class="headerlink" href="#function-reference" title="Link to this heading">#</a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="id0">
+<span class="sig-prename descclassname"><span class="pre">mlsynth.utils.datautils.</span></span><span class="sig-name descname"><span class="pre">logictreat</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">treatment_matrix</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Dict" title="(in Python v3.13)"><span class="pre">Dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><span class="pre">Any</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#id0" title="Link to this definition">#</a></dt>
+<dd><p>Analyze a treatment matrix to determine treatment timings and unit counts.</p>
+<p>Identifies pre-treatment and post-treatment periods for single or multiple
+treated units. For multiple treated units, it determines the first treatment
+period for each.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>treatment_matrix</strong> (<em>np.ndarray</em>) – A 2D NumPy array where rows represent time periods and columns
+represent units. A value of 1 indicates treatment, 0 otherwise.
+Shape (n_periods, n_units).</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><p>A dictionary containing treatment analysis results. The keys and
+their meanings depend on whether a single or multiple treated units
+are detected:</p>
+<dl class="simple">
+<dt>If a single treated unit is found:</dt><dd><dl class="simple">
+<dt>”Num Treated Units”<span class="classifier">int</span></dt><dd><p>Always 1.</p>
+</dd>
+<dt>”Post Periods”<span class="classifier">int</span></dt><dd><p>Number of post-treatment periods for the treated unit.</p>
+</dd>
+<dt>”Treated Index”<span class="classifier">np.ndarray</span></dt><dd><p>1D array containing the column index of the treated unit.
+Shape (1,).</p>
+</dd>
+<dt>”Pre Periods”<span class="classifier">int</span></dt><dd><p>Number of pre-treatment periods for the treated unit.</p>
+</dd>
+<dt>”Total Periods”<span class="classifier">int</span></dt><dd><p>Total number of time periods for the treated unit.</p>
+</dd>
+</dl>
+</dd>
+<dt>If multiple treated units are found:</dt><dd><dl class="simple">
+<dt>”Num Treated Units”<span class="classifier">int</span></dt><dd><p>Number of unique treated units detected.</p>
+</dd>
+<dt>”Treated Index”<span class="classifier">np.ndarray</span></dt><dd><p>1D array containing the column indices of all treated units.
+Shape (num_treated_units,).</p>
+</dd>
+<dt>”First Treat Periods”<span class="classifier">np.ndarray</span></dt><dd><p>1D array, where each element is the first treatment period
+(0-indexed) for the corresponding treated unit in “Treated Index”.
+Shape (num_treated_units,).</p>
+</dd>
+<dt>”Pre Periods by Unit”<span class="classifier">np.ndarray</span></dt><dd><p>1D array, number of pre-treatment periods for each treated unit.
+Shape (num_treated_units,).</p>
+</dd>
+<dt>”Post Periods by Unit”<span class="classifier">np.ndarray</span></dt><dd><p>1D array, number of post-treatment periods for each treated unit.
+Shape (num_treated_units,).</p>
+</dd>
+<dt>”Total Periods”<span class="classifier">int</span></dt><dd><p>Total number of time periods in the input <cite>treatment_matrix</cite>.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Dict[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)">str</a>, Any]</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>MlsynthDataError</strong> – If <cite>treatment_matrix</cite> is not a NumPy array.
+    If no treated units are found (zero treated observations).
+    If a treated unit has no post-treatment period.
+    If treatment is not sustained for a treated unit (i.e., a 0 appears
+    after a 1 in its treatment vector).</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="id1">
+<span class="sig-prename descclassname"><span class="pre">mlsynth.utils.datautils.</span></span><span class="sig-name descname"><span class="pre">dataprep</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">DataFrame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">unit_id_column_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">time_period_column_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">outcome_column_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">treatment_indicator_column_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><span class="pre">str</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Dict" title="(in Python v3.13)"><span class="pre">Dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><span class="pre">Any</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#id1" title="Link to this definition">#</a></dt>
+<dd><p>Prepare data for synthetic control methods.</p>
+<p>Pivots a long DataFrame into a wide format required by many synthetic
+control estimators. It identifies treated and donor units, and separates
+data into pre-treatment and post-treatment periods. Handles cases with
+a single treated unit or multiple treated units (by cohorting based on
+treatment start time).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>df</strong> (<em>pd.DataFrame</em>) – The input panel data in long format. Must contain columns for unit
+identifiers, time periods, outcome variable, and treatment indicator.</p></li>
+<li><p><strong>unit_id_column_name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – Name of the column in <cite>df</cite> that identifies unique units. (Formerly <cite>unitid</cite>)</p></li>
+<li><p><strong>time_period_column_name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – Name of the column in <cite>df</cite> that identifies time periods. (Formerly <cite>time</cite>)</p></li>
+<li><p><strong>outcome_column_name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – Name of the column in <cite>df</cite> for the outcome variable. (Formerly <cite>outcome</cite>)</p></li>
+<li><p><strong>treatment_indicator_column_name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – Name of the column in <cite>df</cite> for the treatment indicator (0 or 1). (Formerly <cite>treat</cite>)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><p>A dictionary containing the prepared data. The structure of this
+dictionary depends on whether a single or multiple treated units
+are identified by <cite>logictreat</cite>.</p>
+<dl>
+<dt>If a single treated unit is found:</dt><dd><dl class="simple">
+<dt>”treated_unit_name”<span class="classifier">str</span></dt><dd><p>Name/identifier of the treated unit.</p>
+</dd>
+<dt>”Ywide”<span class="classifier">pd.DataFrame</span></dt><dd><p>DataFrame of outcome data pivoted to wide format, with time periods
+as index and unit identifiers as columns. Shape (n_periods, n_units).</p>
+</dd>
+<dt>”y”<span class="classifier">np.ndarray</span></dt><dd><p>1D array of outcome data for the treated unit. Shape (n_periods,).</p>
+</dd>
+<dt>”donor_names”<span class="classifier">pd.Index</span></dt><dd><p>Index object containing the names/identifiers of the donor units.</p>
+</dd>
+<dt>”donor_matrix”<span class="classifier">np.ndarray</span></dt><dd><p>2D array of outcome data for the donor units.
+Shape (n_periods, n_donors).</p>
+</dd>
+<dt>”total_periods”<span class="classifier">int</span></dt><dd><p>Total number of time periods.</p>
+</dd>
+<dt>”pre_periods”<span class="classifier">int</span></dt><dd><p>Number of pre-treatment periods.</p>
+</dd>
+<dt>”post_periods”<span class="classifier">int</span></dt><dd><p>Number of post-treatment periods.</p>
+</dd>
+</dl>
+</dd>
+<dt>If multiple treated units are found (cohort mode):</dt><dd><dl>
+<dt>”Ywide”<span class="classifier">pd.DataFrame</span></dt><dd><p>As above, outcome data pivoted wide. Shape (n_periods, n_units).</p>
+</dd>
+<dt>”cohorts”<span class="classifier">Dict[Any, Dict[str, Any]]</span></dt><dd><p>A dictionary where keys are treatment start times (identifying
+each cohort) and values are dictionaries, each containing data
+specific to that cohort:
+“treated_units” : List[str]</p>
+<blockquote>
+<div><p>List of unit names/identifiers belonging to this cohort.</p>
+</div></blockquote>
+<dl class="simple">
+<dt>”y”<span class="classifier">np.ndarray</span></dt><dd><p>Outcome matrix for the treated units in this cohort.
+Shape (n_periods, n_treated_in_cohort).</p>
+</dd>
+<dt>”donor_names”<span class="classifier">pd.Index</span></dt><dd><p>Names/identifiers of donor units for this cohort (units not
+in this specific cohort).</p>
+</dd>
+<dt>”donor_matrix”<span class="classifier">np.ndarray</span></dt><dd><p>Outcome matrix for donor units relevant to this cohort.
+Shape (n_periods, n_donors_for_cohort).</p>
+</dd>
+<dt>”total_periods”<span class="classifier">int</span></dt><dd><p>Total number of time periods.</p>
+</dd>
+<dt>”pre_periods”<span class="classifier">int</span></dt><dd><p>Number of pre-treatment periods for this cohort, determined
+by the cohort’s treatment start time.</p>
+</dd>
+<dt>”post_periods”<span class="classifier">int</span></dt><dd><p>Number of post-treatment periods for this cohort.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd>
+</dl>
+</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Dict[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)">str</a>, Any]</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>MlsynthDataError</strong> – <ul class="simple">
+<li><p>If no donor units are found after pivoting and selecting for a single
+      treated unit case.
+    - If there are zero pre-treatment periods for a single treated unit case.</p></li>
+</ul>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="id2">
+<span class="sig-prename descclassname"><span class="pre">mlsynth.utils.datautils.</span></span><span class="sig-name descname"><span class="pre">balance</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">DataFrame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">unit_id_column_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">time_period_column_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><span class="pre">str</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.13)"><span class="pre">None</span></a></span></span><a class="headerlink" href="#id2" title="Link to this definition">#</a></dt>
+<dd><p>Check if the panel is strongly balanced.</p>
+<p>A strongly balanced panel means every unit has an observation for every
+time period, and there are no duplicate unit-time observations.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>df</strong> (<em>pd.DataFrame</em>) – The input panel data. Must contain columns specified by <cite>unit_id_column_name</cite>
+and <cite>time_period_column_name</cite>.</p></li>
+<li><p><strong>unit_id_column_name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – The name of the column in <cite>df</cite> that identifies the units. (Formerly <cite>unit_col</cite>)</p></li>
+<li><p><strong>time_period_column_name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – The name of the column in <cite>df</cite> that identifies the time periods. (Formerly <cite>time_col</cite>)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>MlsynthDataError</strong> – If duplicate unit-time observations are found.
+    If the panel is not strongly balanced (i.e., not all units have
+    observations for all time periods).</p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>This function does not return a value but raises an error if the
+panel is not strongly balanced or contains duplicates.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="id3">
+<span class="sig-prename descclassname"><span class="pre">mlsynth.utils.datautils.</span></span><span class="sig-name descname"><span class="pre">clean_surrogates2</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">surrogate_matrix</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">donor_covariates_matrix</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">treated_unit_covariates_matrix</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_pre_treatment_periods</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">common_covariates_matrix</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.13)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">ndarray</span></span></span><a class="headerlink" href="#id3" title="Link to this definition">#</a></dt>
+<dd><p>Clean surrogate variables by orthogonalizing them against covariates.</p>
+<p>This function adjusts each surrogate variable in <cite>surrogate_matrix</cite> by removing the
+linear influence of a set of covariates. The covariates for projection
+are formed by combining <cite>donor_covariates_matrix</cite> (donor pool covariates) and
+<cite>treated_unit_covariates_matrix</cite> (treated unit covariates), potentially augmented by
+<cite>common_covariates_matrix</cite>. The cleaning process involves estimating a linear
+relationship between each surrogate and the combined covariates using data
+from the pre-treatment period (<cite>num_pre_treatment_periods</cite>), and then
+subtracting this predicted component from the surrogate across all time periods.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>surrogate_matrix</strong> (<em>np.ndarray</em>) – Matrix of surrogate variables to be cleaned.
+Shape (n_periods, n_surrogates).</p></li>
+<li><p><strong>donor_covariates_matrix</strong> (<em>np.ndarray</em>) – Matrix of covariates for the donor pool.
+Shape (n_periods, n_donor_covariates).</p></li>
+<li><p><strong>treated_unit_covariates_matrix</strong> (<em>np.ndarray</em>) – Matrix of covariates for the treated unit.
+Shape (n_periods, n_treated_covariates).
+Typically, <cite>n_donor_covariates</cite> equals <cite>n_treated_covariates</cite>.</p></li>
+<li><p><strong>num_pre_treatment_periods</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – Number of pre-treatment periods. The linear projection coefficients
+(<cite>projection_coefficients</cite>) are estimated using data up to this period.</p></li>
+<li><p><strong>common_covariates_matrix</strong> (<em>Optional</em><em>[</em><em>np.ndarray</em><em>]</em><em>, </em><em>default None</em>) – Additional common covariates to include in the projection for both
+donor and treated sides. Shape (n_periods, n_common_covariates).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The matrix of cleaned surrogate variables, where the influence of
+the specified covariates has been removed.
+Shape (n_periods, n_surrogates).</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>np.ndarray</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="id4">
+<span class="sig-prename descclassname"><span class="pre">mlsynth.utils.datautils.</span></span><span class="sig-name descname"><span class="pre">proxy_dataprep</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">DataFrame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">surrogate_units</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.List" title="(in Python v3.13)"><span class="pre">List</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><span class="pre">Any</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">proxy_variable_column_names_map</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Dict" title="(in Python v3.13)"><span class="pre">Dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.List" title="(in Python v3.13)"><span class="pre">List</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">unit_id_column_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><span class="pre">str</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'Artist'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">time_period_column_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><span class="pre">str</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'Date'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_total_periods</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><span class="pre">int</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.13)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Tuple" title="(in Python v3.13)"><span class="pre">Tuple</span></a><span class="p"><span class="pre">[</span></span><span class="pre">ndarray</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">ndarray</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#id4" title="Link to this definition">#</a></dt>
+<dd><p>Construct surrogate and surrogate-proxy matrices from long-form data.</p>
+<p>This function takes a long-format DataFrame and pivots it to create
+two wide-format matrices for a specified set of surrogate units:
+1.  A surrogate matrix (often denoted as <cite>X</cite> in models like ProximalSC),</p>
+<blockquote>
+<div><p>derived from variables specified by <cite>proxy_variable_column_names_map[‘donorproxies’]</cite>.</p>
+</div></blockquote>
+<ol class="arabic simple" start="2">
+<li><p>A surrogate-proxy matrix (often denoted <cite>Z1</cite>), derived from variables
+specified by <cite>proxy_variable_column_names_map[‘surrogatevars’]</cite>.</p></li>
+</ol>
+<p>The function assumes that <cite>proxy_variable_column_names_map[‘donorproxies’]</cite> and
+<cite>proxy_variable_column_names_map[‘surrogatevars’]</cite> each contain the name of a single column
+in <cite>df</cite> to be used for constructing these matrices.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>df</strong> (<em>pd.DataFrame</em>) – The input panel data in long format. Must contain columns for unit
+identifiers, time periods, and the variables specified in <cite>proxy_variable_column_names_map</cite>.</p></li>
+<li><p><strong>surrogate_units</strong> (<em>List</em><em>[</em><em>Any</em><em>]</em>) – A list of unit identifiers (matching values in <cite>unit_id_column_name</cite>) that will
+form the columns of the output matrices.</p></li>
+<li><p><strong>proxy_variable_column_names_map</strong> (<em>Dict</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a><em>, </em><em>List</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a><em>]</em><em>]</em>) – <p>A dictionary specifying the variables to use for constructing the
+matrices. It must contain two keys:</p>
+<ul>
+<li><p>’donorproxies’: A list containing the name of the column in <cite>df</cite>
+to use for the surrogate matrix. (Formerly <cite>proxy_vars</cite>)</p></li>
+<li><p>’surrogatevars’: A list containing the name of the column in <cite>df</cite>
+to use for the surrogate-proxy matrix.</p></li>
+</ul>
+</p></li>
+<li><p><strong>unit_id_column_name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a><em>, </em><em>default &quot;Artist&quot;</em>) – Name of the column in <cite>df</cite> that identifies unique units. (Formerly <cite>id_col</cite>)</p></li>
+<li><p><strong>time_period_column_name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a><em>, </em><em>default &quot;Date&quot;</em>) – Name of the column in <cite>df</cite> that identifies time periods. This column
+will form the index of the pivoted DataFrames before conversion to NumPy arrays. (Formerly <cite>time_col</cite>)</p></li>
+<li><p><strong>num_total_periods</strong> (<em>Optional</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a><em>]</em><em>, </em><em>default None</em>) – Total number of time periods. This parameter is not explicitly used in
+the current implementation’s logic but is included for potential API
+consistency or future extensions. (Formerly <cite>T</cite>)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p><strong>surrogate_matrix</strong> (<em>np.ndarray</em>) – The constructed surrogate matrix (X).
+Shape (n_time_periods, n_surrogate_units).</p></li>
+<li><p><strong>surrogate_proxy_matrix</strong> (<em>np.ndarray</em>) – The constructed surrogate-proxy matrix (Z1).
+Shape (n_time_periods, n_surrogate_units).</p></li>
+</ul>
+</p>
+</dd>
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#KeyError" title="(in Python v3.13)"><strong>KeyError</strong></a> – <ul class="simple">
+<li><p>If <cite>proxy_variable_column_names_map</cite> does not contain ‘donorproxies’ or ‘surrogatevars’,
+      or if the lists associated with these keys are empty.</p></li>
+</ul>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+</section>
+
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="tssc.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Two-Step Synthetic Control</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="estutils.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Estimation Utilities (<cite>mlsynth.utils.estutils</cite>)</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-mlsynth.utils.datautils">Module API</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mlsynth.utils.datautils.balance"><code class="docutils literal notranslate"><span class="pre">balance()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mlsynth.utils.datautils.clean_surrogates2"><code class="docutils literal notranslate"><span class="pre">clean_surrogates2()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mlsynth.utils.datautils.dataprep"><code class="docutils literal notranslate"><span class="pre">dataprep()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mlsynth.utils.datautils.logictreat"><code class="docutils literal notranslate"><span class="pre">logictreat()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mlsynth.utils.datautils.proxy_dataprep"><code class="docutils literal notranslate"><span class="pre">proxy_dataprep()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#function-reference">Function Reference</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id0"><code class="docutils literal notranslate"><span class="pre">logictreat()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1"><code class="docutils literal notranslate"><span class="pre">dataprep()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2"><code class="docutils literal notranslate"><span class="pre">balance()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3"><code class="docutils literal notranslate"><span class="pre">clean_surrogates2()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4"><code class="docutils literal notranslate"><span class="pre">proxy_dataprep()</span></code></a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Jared Greathouse
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2025, Jared Greathouse.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

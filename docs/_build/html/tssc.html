@@ -1,0 +1,863 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Two-Step Synthetic Control &#8212; mlsynth 0.1 documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="_static/documentation_options.js?v=e1a75a79"></script>
+    <script src="_static/doctools.js?v=9bcbadda"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/static/custom_mathjax.js"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'tssc';</script>
+    <link rel="author" title="About these documents" href="about.html" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Data Utilities (mlsynth.utils.datautils)" href="datautils.html" />
+    <link rel="prev" title="mlsynth.estimators.stablesc.StableSC" href="_autosummary/mlsynth.estimators.stablesc.StableSC.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="index.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">mlsynth 0.1 documentation</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Overview:</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="about.html">About mlsynth</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="references.html">References</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Estimators</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="clustersc.html">Cluster Synthetic Controls</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fdid.html">Forward Difference-in-Differences</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fma.html">Factor Model Approach</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fscm.html">Forward SCM</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="gsc.html">Generalized Synthetic Control (GSC)</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="_autosummary/mlsynth.estimators.gsc.GSC.html">mlsynth.estimators.gsc.GSC</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="nsc.html">Nonlinear Synthetic Control (NSC)</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="_autosummary/mlsynth.estimators.nsc.NSC.html">mlsynth.estimators.nsc.NSC</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="pda.html">Panel Data Approach</a></li>
+<li class="toctree-l1"><a class="reference internal" href="proximal.html">Proximal Synthetic Control</a></li>
+<li class="toctree-l1"><a class="reference internal" href="scmo.html">Synthetic Control With Multiple Outcomes</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="sdid.html">Synthetic Difference-in-Differences (SDID)</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="_autosummary/mlsynth.estimators.sdid.SDID.html">mlsynth.estimators.sdid.SDID</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="si.html">Synthetic Interventions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="src.html">Synthetic Regression Control Method</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="stablesc.html">Stable Synthetic Control (StableSC)</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="_autosummary/mlsynth.estimators.stablesc.StableSC.html">mlsynth.estimators.stablesc.StableSC</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Two-Step Synthetic Control</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Utilities</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="datautils.html">Data Utilities (<cite>mlsynth.utils.datautils</cite>)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="estutils.html">Estimation Utilities (<cite>mlsynth.utils.estutils</cite>)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="inferutils.html">Inference Utilities (<cite>mlsynth.utils.inferutils</cite>)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="resultutils.html">Result Utilities (<cite>mlsynth.utils.resultutils</cite>)</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/tssc.rst" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.rst</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Two-Step Synthetic Control</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mlsynth.TSSC"><code class="docutils literal notranslate"><span class="pre">TSSC</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mlsynth.TSSC.config"><code class="docutils literal notranslate"><span class="pre">TSSC.config</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mlsynth.TSSC.df"><code class="docutils literal notranslate"><span class="pre">TSSC.df</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mlsynth.TSSC.outcome"><code class="docutils literal notranslate"><span class="pre">TSSC.outcome</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mlsynth.TSSC.treat"><code class="docutils literal notranslate"><span class="pre">TSSC.treat</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mlsynth.TSSC.unitid"><code class="docutils literal notranslate"><span class="pre">TSSC.unitid</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mlsynth.TSSC.time"><code class="docutils literal notranslate"><span class="pre">TSSC.time</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mlsynth.TSSC.counterfactual_color"><code class="docutils literal notranslate"><span class="pre">TSSC.counterfactual_color</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mlsynth.TSSC.treated_color"><code class="docutils literal notranslate"><span class="pre">TSSC.treated_color</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mlsynth.TSSC.display_graphs"><code class="docutils literal notranslate"><span class="pre">TSSC.display_graphs</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mlsynth.TSSC.save"><code class="docutils literal notranslate"><span class="pre">TSSC.save</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mlsynth.TSSC.draws"><code class="docutils literal notranslate"><span class="pre">TSSC.draws</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mlsynth.TSSC.ci"><code class="docutils literal notranslate"><span class="pre">TSSC.ci</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mlsynth.TSSC.parallel"><code class="docutils literal notranslate"><span class="pre">TSSC.parallel</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mlsynth.TSSC.cores"><code class="docutils literal notranslate"><span class="pre">TSSC.cores</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mlsynth.TSSC.scm_weights_args"><code class="docutils literal notranslate"><span class="pre">TSSC.scm_weights_args</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mlsynth.TSSC.fit"><code class="docutils literal notranslate"><span class="pre">TSSC.fit()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mlsynth.TSSC.__init__"><code class="docutils literal notranslate"><span class="pre">TSSC.__init__()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#msca">MSCa</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mscb">MSCb</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mscc">MSCc</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#step-1-testing-the-relevant-hypotheses">Step 1: Testing the Relevant Hypotheses</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#step-2-estimation">Step 2: Estimation</a></li>
+</ul>
+</li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="two-step-synthetic-control">
+<h1>Two-Step Synthetic Control<a class="headerlink" href="#two-step-synthetic-control" title="Link to this heading">#</a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="mlsynth.TSSC">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mlsynth.</span></span><span class="sig-name descname"><span class="pre">TSSC</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">TSSCConfig</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mlsynth.TSSC" title="Link to this definition">#</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>Two-Step Synthetic Control (TSSC) estimator.</p>
+<p>This estimator implements the Two-Step Synthetic Control method, which
+evaluates several underlying synthetic control (SC) model specifications
+(SIMPLEX, MSCa, MSCb, MSCc) and recommends one based on a second-step
+validation procedure. It provides estimates and inference for each SC
+method considered.</p>
+<p>The first step involves fitting each of the SC model variants. The second
+step uses a validation procedure (detailed in <cite>utils.inferutils.step2</cite>)
+to select a “recommended” model from these variants, typically based on
+pre-treatment fit or other criteria.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>config</strong> (<em>TSSCConfig</em>) – Configuration object containing all necessary parameters. See
+<cite>TSSCConfig</cite> and <cite>BaseEstimatorConfig</cite> for details on attributes
+like <cite>df</cite>, <cite>outcome</cite>, <cite>treat</cite>, <cite>unitid</cite>, <cite>time</cite>, <cite>draws</cite>, etc.</p>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mlsynth.TSSC.config">
+<span class="sig-name descname"><span class="pre">config</span></span><a class="headerlink" href="#mlsynth.TSSC.config" title="Link to this definition">#</a></dt>
+<dd><p>The configuration object passed during instantiation.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>TSSCConfig</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mlsynth.TSSC.df">
+<span class="sig-name descname"><span class="pre">df</span></span><a class="headerlink" href="#mlsynth.TSSC.df" title="Link to this definition">#</a></dt>
+<dd><p>The input DataFrame containing panel data.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>pd.DataFrame</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mlsynth.TSSC.outcome">
+<span class="sig-name descname"><span class="pre">outcome</span></span><a class="headerlink" href="#mlsynth.TSSC.outcome" title="Link to this definition">#</a></dt>
+<dd><p>Name of the outcome variable column in <cite>df</cite>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)">str</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mlsynth.TSSC.treat">
+<span class="sig-name descname"><span class="pre">treat</span></span><a class="headerlink" href="#mlsynth.TSSC.treat" title="Link to this definition">#</a></dt>
+<dd><p>Name of the treatment indicator column in <cite>df</cite>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)">str</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mlsynth.TSSC.unitid">
+<span class="sig-name descname"><span class="pre">unitid</span></span><a class="headerlink" href="#mlsynth.TSSC.unitid" title="Link to this definition">#</a></dt>
+<dd><p>Name of the unit identifier (ID) column in <cite>df</cite>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)">str</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mlsynth.TSSC.time">
+<span class="sig-name descname"><span class="pre">time</span></span><a class="headerlink" href="#mlsynth.TSSC.time" title="Link to this definition">#</a></dt>
+<dd><p>Name of the time variable column in <cite>df</cite>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)">str</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mlsynth.TSSC.counterfactual_color">
+<span class="sig-name descname"><span class="pre">counterfactual_color</span></span><a class="headerlink" href="#mlsynth.TSSC.counterfactual_color" title="Link to this definition">#</a></dt>
+<dd><p>Color(s) to use for the counterfactual line(s) in plots. If a single string,
+it’s used for the recommended model’s counterfactual. If a list, colors
+could be cycled if multiple counterfactuals were plotted simultaneously (though
+TSSC typically plots only the recommended one). Default is “red”.
+(Inherited from <cite>BaseEstimatorConfig</cite> via <cite>TSSCConfig</cite>)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Union[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)">str</a>, List[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)">str</a>]]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mlsynth.TSSC.treated_color">
+<span class="sig-name descname"><span class="pre">treated_color</span></span><a class="headerlink" href="#mlsynth.TSSC.treated_color" title="Link to this definition">#</a></dt>
+<dd><p>Color to use for the treated unit line in plots. Default is “black”.
+(Inherited from <cite>BaseEstimatorConfig</cite> via <cite>TSSCConfig</cite>)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)">str</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mlsynth.TSSC.display_graphs">
+<span class="sig-name descname"><span class="pre">display_graphs</span></span><a class="headerlink" href="#mlsynth.TSSC.display_graphs" title="Link to this definition">#</a></dt>
+<dd><p>If True, graphs of the results for the recommended model will be
+displayed. Default is True.
+(Inherited from <cite>BaseEstimatorConfig</cite> via <cite>TSSCConfig</cite>)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)">bool</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mlsynth.TSSC.save">
+<span class="sig-name descname"><span class="pre">save</span></span><a class="headerlink" href="#mlsynth.TSSC.save" title="Link to this definition">#</a></dt>
+<dd><p>Configuration for saving plots.
+- If <cite>False</cite> (default), plots are not saved.
+- If <cite>True</cite>, plots are saved with default names in the current directory.
+- If a <cite>str</cite>, it’s used as the base filename for saved plots.
+- If a <cite>Dict[str, str]</cite>, it maps specific plot keys (e.g., “estimates_plot”)</p>
+<blockquote>
+<div><p>to full file paths.</p>
+</div></blockquote>
+<p>(Inherited from <cite>BaseEstimatorConfig</cite> via <cite>TSSCConfig</cite>)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Union[<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)">bool</a>, <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)">str</a>, Dict[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)">str</a>, <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)">str</a>]]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mlsynth.TSSC.draws">
+<span class="sig-name descname"><span class="pre">draws</span></span><a class="headerlink" href="#mlsynth.TSSC.draws" title="Link to this definition">#</a></dt>
+<dd><p>Number of subsample replications or draws used for inference procedures
+within the underlying SC methods and the second-step validation.
+Default is 500.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)">int</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mlsynth.TSSC.ci">
+<span class="sig-name descname"><span class="pre">ci</span></span><a class="headerlink" href="#mlsynth.TSSC.ci" title="Link to this definition">#</a></dt>
+<dd><p>Confidence interval level (e.g., 0.95 for 95% CI). Note: This is part
+of the config but its direct usage for CI calculation might be embedded
+within <cite>utils.estutils.TSEST</cite> or <cite>utils.inferutils.step2</cite>.
+Default is 0.95.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.13)">float</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mlsynth.TSSC.parallel">
+<span class="sig-name descname"><span class="pre">parallel</span></span><a class="headerlink" href="#mlsynth.TSSC.parallel" title="Link to this definition">#</a></dt>
+<dd><p>Whether to use parallel processing for computationally intensive parts
+like draws. Default is False.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)">bool</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mlsynth.TSSC.cores">
+<span class="sig-name descname"><span class="pre">cores</span></span><a class="headerlink" href="#mlsynth.TSSC.cores" title="Link to this definition">#</a></dt>
+<dd><p>Number of CPU cores to use for parallel processing. If None (default)
+and <cite>parallel</cite> is True, it may default to all available cores.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Optional[<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)">int</a>]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mlsynth.TSSC.scm_weights_args">
+<span class="sig-name descname"><span class="pre">scm_weights_args</span></span><a class="headerlink" href="#mlsynth.TSSC.scm_weights_args" title="Link to this definition">#</a></dt>
+<dd><p>Additional arguments that can be passed to the SCM weight optimization
+routine within <cite>utils.estutils.TSEST</cite>. Default is None.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Optional[Dict[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)">str</a>, Any]]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="mlsynth.TSSC.fit">
+<span class="sig-name descname"><span class="pre">fit</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mlsynth.TSSC.fit" title="Link to this definition">#</a></dt>
+<dd><p>Fits the TSSC model, evaluates multiple SC variants, recommends one,
+and returns a list of results for each variant.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="mlsynth.TSSC.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">TSSCConfig</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.13)"><span class="pre">None</span></a></span></span><a class="headerlink" href="#mlsynth.TSSC.__init__" title="Link to this definition">#</a></dt>
+<dd><p>Initialize the TSSC estimator.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>config</strong> (<em>TSSCConfig</em>) – <p>Configuration object for the TSSC estimator. This object holds all
+necessary parameters for the estimator, inheriting common ones from
+<cite>BaseEstimatorConfig</cite> and adding TSSC-specific ones.
+Key attributes include:</p>
+<dl class="simple">
+<dt>df<span class="classifier">pd.DataFrame</span></dt><dd><p>The input DataFrame containing panel data. Must include columns
+for outcome, treatment indicator, unit identifier, and time.</p>
+</dd>
+<dt>outcome<span class="classifier">str</span></dt><dd><p>Name of the outcome variable column in <cite>df</cite>.</p>
+</dd>
+<dt>treat<span class="classifier">str</span></dt><dd><p>Name of the treatment indicator column in <cite>df</cite>.</p>
+</dd>
+<dt>unitid<span class="classifier">str</span></dt><dd><p>Name of the unit identifier (ID) column in <cite>df</cite>.</p>
+</dd>
+<dt>time<span class="classifier">str</span></dt><dd><p>Name of the time variable column in <cite>df</cite>.</p>
+</dd>
+<dt>draws<span class="classifier">int, default 500</span></dt><dd><p>Number of subsample replications or draws for inference procedures.</p>
+</dd>
+<dt>ci<span class="classifier">float, default 0.95</span></dt><dd><p>Confidence interval level (e.g., 0.95 for 95% CI).</p>
+</dd>
+<dt>parallel<span class="classifier">bool, default False</span></dt><dd><p>Whether to use parallel processing for draws.</p>
+</dd>
+<dt>cores<span class="classifier">Optional[int], default None</span></dt><dd><p>Number of CPU cores for parallel processing. Defaults to all
+available if None and <cite>parallel</cite> is True.</p>
+</dd>
+<dt>scm_weights_args<span class="classifier">Optional[Dict[str, Any]], default None</span></dt><dd><p>Additional arguments for SCM weight optimization.</p>
+</dd>
+<dt>display_graphs<span class="classifier">bool, default True</span></dt><dd><p>If True, graphs of the results for the recommended model will be displayed.</p>
+</dd>
+<dt>save<span class="classifier">Union[bool, str, Dict[str, str]], default False</span></dt><dd><p>Configuration for saving plots.
+If <cite>False</cite> (default), plots are not saved. If <cite>True</cite>, plots are saved with
+default names. If a <cite>str</cite>, it’s used as the base filename. If a <cite>Dict[str, str]</cite>,
+it maps plot keys to full file paths.</p>
+</dd>
+<dt>counterfactual_color<span class="classifier">Union[str, List[str]], default “red”</span></dt><dd><p>Default color or list of colors for counterfactual lines in plots.</p>
+</dd>
+<dt>treated_color<span class="classifier">str, default “black”</span></dt><dd><p>Default color for the treated unit’s line in plots.</p>
+</dd>
+</dl>
+<p>For authoritative definitions, defaults, and validation rules,
+refer to <cite>mlsynth.config_models.TSSCConfig</cite> and
+<cite>mlsynth.config_models.BaseEstimatorConfig</cite>.</p>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<p>Sometimes with synthetic control methods, treated units are a little too extreme relative to their donor pool. As a result, analysts may sometimes need to use intecepts or relax the nonnegativiety constraint, but it’s unclear, a priori, in which situations this is necessary or beneficial. The Two Step SCM is actually the only method in <code class="docutils literal notranslate"><span class="pre">mlsynth</span></code> that does not rely on machine-learning methods; it does, however, allow analysts to choose between these different modifications to SCM where it may be warranted. This is the benefit of the two-step synthetic control method, as detailed by Li and Shankar <a class="reference internal" href="references.html#tssc" id="id1"><span>[TSSC]</span></a>.</p>
+<p>Here, we have <span class="math notranslate nohighlight">\(\mathcal{N} \operatorname*{:=} \lbrace{1 \ldots N \rbrace}\)</span> units across <span class="math notranslate nohighlight">\(t \in \left(1, T\right) \cap \mathbb{N}\)</span> time periods, where <span class="math notranslate nohighlight">\(j=1\)</span> is our sole treated unit. This leaves us with <span class="math notranslate nohighlight">\(\mathcal{N}_{0} \operatorname*{:=} \lbrace{2 \ldots N\rbrace}\)</span> control units, with the cardinality of this set being the number of controls. We have two sets of time series <span class="math notranslate nohighlight">\(\mathcal{T} \operatorname*{:=} \mathcal{T}_{0} \cup \mathcal{T}_{1}\)</span>, where <span class="math notranslate nohighlight">\(\mathcal{T}_{0} \operatorname*{:=}  \lbrace{1\ldots T_0 \rbrace}\)</span> is the pre-intervention period and <span class="math notranslate nohighlight">\(\mathcal{T}_{1} \operatorname*{:=} \lbrace{T_0+1\ldots T \rbrace}\)</span> denotes the post-intervention period, each with their respective cardinalities. Let <span class="math notranslate nohighlight">\(\mathbf{w} \operatorname*{:=} \lbrace{w_2 \ldots w_N  \rbrace}\)</span> be a generic weight vector we assign to untreated units. We observe</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}y_{jt} =
+\begin{cases}
+    y^{0}_{jt} &amp; \forall \: j\in \mathcal{N}_0\\
+    y^{0}_{1t} &amp; \text{if } j = 1 \text{ and } t \in \mathcal{T}_0 \\
+    y^{1}_{1t} &amp; \text{if } j = 1 \text{ and } t \in \mathcal{T}_1
+\end{cases}\end{split}\]</div>
+<p>We have a single treated unit which, along with the donors, follows a certain data generating process for all time periods until <span class="math notranslate nohighlight">\(T_0\)</span>. Afterwards, the control units follow the same process. The change of the outcomes <span class="math notranslate nohighlight">\(j=1,  \forall t \in \mathcal{T}_1\)</span> is whatever that process was, plus some treatment effect. To this end, we are concerned with <span class="math notranslate nohighlight">\(\hat{y}_{j1}\)</span>, or the values we would have observed absent treatment. The statistic we are concerned with is the average treatment effect on the treated</p>
+<div class="math notranslate nohighlight">
+\[ATT = \frac{1}{T_1 - T_0} \sum_{T_0 +1}^{T} (y_{1t} - \hat{y}_{1t})\]</div>
+<p>where <span class="math notranslate nohighlight">\((y_{1t} - \hat{y}_{1t})\)</span> is the treatment effect.</p>
+<p>I presume the reader is familiar with the basic idea of syntethic control methods: a linear and most often convex combinaiton of controls should approximate the outcome trajectory of a treated unit in the pre=intervention period. Consider three modifications to this idea, though, call them Modified Synthetic Controls (MSC).</p>
+<section id="msca">
+<h2>MSCa<a class="headerlink" href="#msca" title="Link to this heading">#</a></h2>
+<div class="math notranslate nohighlight">
+\[\begin{split}\underset{w}{\text{argmin}} &amp; \quad ||\mathbf{y}_{1} - \mathbf{Y}_{\mathcal{N}_{0}}w_{j}, - \mathbf{\beta}||_{2}^2 \\
+\text{s.t.} \: &amp; \mathbf{w}: w_{j} \in \mathbb{I}, \quad  {\| \mathbf{w} \|_{1} = 1}, \mathbf{\beta} \neq 0.\end{split}\]</div>
+<p>Where <span class="math notranslate nohighlight">\(\mathbb{I}\)</span> is the unit interval.  MSCa shifts the counterfactual within the convex hull using the <span class="math notranslate nohighlight">\(T \times 1\)</span> vector of 1s with its corresponding coefficient being <span class="math notranslate nohighlight">\(\mathbf{\beta}\)</span> (which is unconstrained). It is the intercept.</p>
+</section>
+<section id="mscb">
+<h2>MSCb<a class="headerlink" href="#mscb" title="Link to this heading">#</a></h2>
+<div class="math notranslate nohighlight">
+\[\begin{split}\underset{w}{\text{argmin}} &amp; \quad ||\mathbf{y}_{1} - \mathbf{Y}_{\mathcal{N}_{0}}w_{j}||_{2}^2 \\
+\text{s.t.} \: &amp; \mathbf{w}: w_{j} \in \mathbb{R}_{\geq 0}\end{split}\]</div>
+<p>MSCb gets rid of the intercept and forces the weights to only be positive.</p>
+</section>
+<section id="mscc">
+<h2>MSCc<a class="headerlink" href="#mscc" title="Link to this heading">#</a></h2>
+<div class="math notranslate nohighlight">
+\[\begin{split}\underset{w}{\text{argmin}} &amp; \quad ||\mathbf{y}_{1} - \mathbf{Y}_{\mathcal{N}_{0}}w_{j}-\mathbf{\beta}]||_{2}^2 \\
+\text{s.t.} \: &amp; \mathbf{w}: w_{j} \in \mathbb{R}_{\geq 0}\end{split}\]</div>
+<p>MSCc allows for both an intercept and unrestricted positive weights. We now are projecting the treated unit (as with MSCb) onto a convex cone, instead of the convex hull. We typically would want to use these latter estimators if the treated unit has a particularly higher slope or trend compared to the donor units. Given these different options, it makes sense for analysts to care about which set of restrictions are the most plausible. If a convex combination is enough, then we simply use SC as it was originally formulated. If not, we must select the proper set of constraints to use.</p>
+<section id="step-1-testing-the-relevant-hypotheses">
+<h3>Step 1: Testing the Relevant Hypotheses<a class="headerlink" href="#step-1-testing-the-relevant-hypotheses" title="Link to this heading">#</a></h3>
+<p>The point of TSSC is to first test the viability of the parallel pre-trends assumption for vanilla SCM, which chooses between the original model and the other three presented. Precisely, we make a null hypothesis</p>
+<div class="math notranslate nohighlight">
+\[H_0 : w_{j} \in \mathbb{I}, \quad  {\| \mathbf{w} \|_{1} = 1}\]</div>
+<p>or, that we’ve violated the pre-intervention trend convex hull restriction. In order to test this null hypothesis, we use subsampling (see Kathy’s original paper for details) to test the convex SCM’s pre-intervention fit against MSCc’s. The reason MSCc is the benchmark is because if the intercept is 0 (even though we’ve constrained it not to be) and the unit weights add up to 1 (even though they need not), MSCc reduces to vanilla SCM.</p>
+<p>We first test a joint null hypothesis. We may write our null hypothesis as <span class="math notranslate nohighlight">\(H_0 : \mu = 0, \quad   {||\mathbf{w}||_{1} = 1}\)</span>, or, <span class="math notranslate nohighlight">\(\mathbf R\beta_0 - \mathbf q=\mathbf{0}_{2}\)</span>, or in words, that the intercept is 0 and the unit weights should add to 1. <span class="math notranslate nohighlight">\(\mathbf R\)</span> is a matrix where the first and second rows of the first column are 0 and 1 respectively with the latter columns being 1 and 0 respectively.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\left(
+\begin{bmatrix}
+    0 &amp; \mathbf{1}^{\top}_{N-1} \\
+    1 &amp; \mathbf{0}^{\top}_{N-1}.
+\end{bmatrix}
+\right)\end{split}\]</div>
+<p><span class="math notranslate nohighlight">\(\mathbf q\)</span> is a vector to be used in the joint null hypothesis test</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{bmatrix}
+    1 \\
+    0
+\end{bmatrix}\end{split}\]</div>
+<p>The top row of <span class="math notranslate nohighlight">\(\mathbf{R}\)</span> corresponds to the summation to one constraint and the lower row of <span class="math notranslate nohighlight">\(\mathbf{R}\)</span> corresponds to the zero intercept. We can use <span class="math notranslate nohighlight">\(\mathbf{R}\)</span> and <span class="math notranslate nohighlight">\(\mathbf{q}\)</span> to define a vector, <span class="math notranslate nohighlight">\(\mathbf{d}\)</span>, to test the null hypothesis: <span class="math notranslate nohighlight">\(\mathbf{d} = \mathbf{R} \mathbf{w} - \mathbf{q}\)</span>. <span class="math notranslate nohighlight">\(\mathbf{d}\)</span> is a 2 by 1 vector, with the first element corresponding to the sum of the weights and the second element being the value of the intercept generated by MSCc. We then use <span class="math notranslate nohighlight">\(\mathbf{d} T_0\)</span> to derive the test statistic</p>
+<div class="math notranslate nohighlight">
+\[\tilde{S}_{T_1}= (\sqrt{T_0}\mathbf{d} )\hat{V}^{-1} (\sqrt{T_0}\mathbf{d})\]</div>
+<p>where <span class="math notranslate nohighlight">\(V\)</span> is the asymptotic variance of <span class="math notranslate nohighlight">\(\sqrt{T_1}\mathbf{R}(\hat{\mathbf{w}}_{T_0}^{\text{MSC}}-\mathbf{w}_{T_0}^{\text{MSC}})\)</span>. The natural issue, then, is how to estimate the variance. To do this, we can use a subsampling routine. We begin by taking random draws of the pre-intervention period <span class="math notranslate nohighlight">\(m=1 \ldots T_0\)</span> for both the treated and control units and estimate the synthetic control <span class="math notranslate nohighlight">\(\hat{\mathbf{w}}_{T_0}^{\text{MSC}}\)</span>, checking its differences versus the original weights <span class="math notranslate nohighlight">\(\mathbf{w}_{T_0}^{\text{MSC}}\)</span>. We repeat this process many times (10000 in this case). We can then get a consistent estimator of the variance</p>
+<div class="math notranslate nohighlight">
+\[\hat{V} = \mathbf{R}\sigma^{\ast}(\sqrt{T_0}\hat{\mathbf{w}}_{T_0}^{\text{MSC}})\mathbf{R}^{\top}\]</div>
+<p>where <span class="math notranslate nohighlight">\(\sigma^{\ast}(\sqrt{T_0}\hat{\mathbf{w}}_{T_0}^{\text{MSC}})\)</span> is</p>
+<div class="math notranslate nohighlight">
+\[\frac{m}{B} \sum_{b=1}^{B}(\hat{\mathbf{w}}_{T_0}^{\text{MSC,m,b}}-\mathbf{w}_{T_0}^{\text{MSC}})(\hat{\mathbf{w}}_{T_0}^{\text{MSC,m,b}}-\mathbf{w}_{T_0}^{\text{MSC}})^{\top}\]</div>
+<p>with <span class="math notranslate nohighlight">\(b\)</span> being the number of draws. The sub-sampling statistic itself is</p>
+<div class="math notranslate nohighlight">
+\[S^{\ast}_{m,b} = (\sqrt{m}(\hat{\mathbf{w}}_{T_0}^{\text{MSC,m,b}}-\mathbf{w}_{T_0}^{\text{MSC}})^{\top})\mathbf{V}^{-1} (\sqrt{m}(\hat{\mathbf{w}}_{T_0}^{\text{MSC,m,b}}-\mathbf{w}_{T_0}^{\text{MSC}}))\]</div>
+<p>and, after sorting these in ascending order, the confidence interval is <span class="math notranslate nohighlight">\([\hat{S}_{m,(\alpha B/2)}, \hat{S}_{m,((1-\alpha/2)B)}]\)</span>. Should <span class="math notranslate nohighlight">\(\tilde{S}_{T_1}\)</span> fall within the confidence interval, we reject the joint null hypothesis. If this fails, we then proceed to test the summing to 1 and intercept constraints individually. For each, we make null hypotheses using the row vectors of <span class="math notranslate nohighlight">\(\mathbf{R}\)</span> above, with the respective nulls for summation and the zero intercept being <span class="math notranslate nohighlight">\(H_{0_{a}} : \| \mathbf{w} \| = 1\)</span> and <span class="math notranslate nohighlight">\(H_{0_{b}} : \mu = 0\)</span>. For each, we can write them as <span class="math notranslate nohighlight">\(\mathbf{R}_{a} \mathbf{w}^{\text{MSC}} - \mathbf{q}_{a}\)</span> and <span class="math notranslate nohighlight">\(\mathbf{R}_{b} \mathbf{w}^{\text{MSC}} - \mathbf{q}_{b}\)</span>. For summation and the intercept respectively, <span class="math notranslate nohighlight">\(\mathbf{q}_a = 1\)</span> and <span class="math notranslate nohighlight">\(\mathbf{q}_b = 0\)</span>, with <span class="math notranslate nohighlight">\(\mathbf{R}_a = (0, \mathbf{1}_{N-1}^{\top})\)</span> and <span class="math notranslate nohighlight">\(\mathbf{R}_b = (0, \mathbf{0}_{N-1}^{\top})\)</span>. For each null hypothesis, our test statistic is <span class="math notranslate nohighlight">\((\sqrt{T_0} \mathbf{d})^{2}\)</span>, where for nulls <span class="math notranslate nohighlight">\(s = a, b\)</span> we compute <span class="math notranslate nohighlight">\(\mathbf{d} = \mathbf{R}_s \hat{\mathbf{w}}_{T_0}^{\text{MSC}} - \mathbf{q}_s\)</span>. We also use the subsampling procedure I just described to calculate the subsampling statistics and confidence intervals. TSSC proceeds sequentially. If the joint null is violated, we then first test the summation constraint. If we fail to reject summation, we use MSCa and include the intercept. If we reject, we then test the intercept constraint. If we fail to reject, we use MSCb since it does not impose the summation constraint and does not use the intercept. If the intercept null is also invalid, we use MSCc, the most flexible SCM listed here as it uses both an intercept and unconstrained positive donor weights.</p>
+</section>
+<section id="step-2-estimation">
+<h3>Step 2: Estimation<a class="headerlink" href="#step-2-estimation" title="Link to this heading">#</a></h3>
+<p>After we choose the correct set of constraints, we then estimate the counterfactual. Below, I use TSSC in the provided empirical application. Suppose an online retailer opens a showroom in Brooklyn, and we have 10 donors to choose from. A plot for this is below (note that I don’t know the names of the donors, but it doesn’t matter what their names are). The black line is the sales trends for Brooklyn, and the blue lines are the donor trends. The red dashed line is the treatment point, or <span class="math notranslate nohighlight">\(t = 76\)</span>.</p>
+<a class="reference internal image-reference" href="https://raw.githubusercontent.com/jgreathouse9/mlsynth/main/examples/TSSC/treatedvsdonors.png"><img alt="Brooklyn vs Donors" class="align-center" src="https://raw.githubusercontent.com/jgreathouse9/mlsynth/main/examples/TSSC/treatedvsdonors.png" style="width: 600px;" />
+</a>
+<p>Here, we can get a sense of how the quasi-experiment may be set up, where we have the sole treated unit as Brooklyn, and <span class="math notranslate nohighlight">\(N_0 = 10\)</span>. In our case, MSC(b) is the counterfactual of interest as it was the one selected by the first step. Modified SCM(b) gets a pretreatment RMSE of 434.43. Its absolute and percentage ATTs are 1131.97 and 24.5.</p>
+<a class="reference internal image-reference" href="https://raw.githubusercontent.com/jgreathouse9/mlsynth/main/examples/TSSC/Showroom.png"><img alt="TSSC Results" class="align-center" src="https://raw.githubusercontent.com/jgreathouse9/mlsynth/main/examples/TSSC/Showroom.png" style="width: 600px;" />
+</a>
+</section>
+</section>
+</section>
+
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="_autosummary/mlsynth.estimators.stablesc.StableSC.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">mlsynth.estimators.stablesc.StableSC</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="datautils.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Data Utilities (<cite>mlsynth.utils.datautils</cite>)</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mlsynth.TSSC"><code class="docutils literal notranslate"><span class="pre">TSSC</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mlsynth.TSSC.config"><code class="docutils literal notranslate"><span class="pre">TSSC.config</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mlsynth.TSSC.df"><code class="docutils literal notranslate"><span class="pre">TSSC.df</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mlsynth.TSSC.outcome"><code class="docutils literal notranslate"><span class="pre">TSSC.outcome</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mlsynth.TSSC.treat"><code class="docutils literal notranslate"><span class="pre">TSSC.treat</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mlsynth.TSSC.unitid"><code class="docutils literal notranslate"><span class="pre">TSSC.unitid</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mlsynth.TSSC.time"><code class="docutils literal notranslate"><span class="pre">TSSC.time</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mlsynth.TSSC.counterfactual_color"><code class="docutils literal notranslate"><span class="pre">TSSC.counterfactual_color</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mlsynth.TSSC.treated_color"><code class="docutils literal notranslate"><span class="pre">TSSC.treated_color</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mlsynth.TSSC.display_graphs"><code class="docutils literal notranslate"><span class="pre">TSSC.display_graphs</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mlsynth.TSSC.save"><code class="docutils literal notranslate"><span class="pre">TSSC.save</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mlsynth.TSSC.draws"><code class="docutils literal notranslate"><span class="pre">TSSC.draws</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mlsynth.TSSC.ci"><code class="docutils literal notranslate"><span class="pre">TSSC.ci</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mlsynth.TSSC.parallel"><code class="docutils literal notranslate"><span class="pre">TSSC.parallel</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mlsynth.TSSC.cores"><code class="docutils literal notranslate"><span class="pre">TSSC.cores</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mlsynth.TSSC.scm_weights_args"><code class="docutils literal notranslate"><span class="pre">TSSC.scm_weights_args</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mlsynth.TSSC.fit"><code class="docutils literal notranslate"><span class="pre">TSSC.fit()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mlsynth.TSSC.__init__"><code class="docutils literal notranslate"><span class="pre">TSSC.__init__()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#msca">MSCa</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mscb">MSCb</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mscc">MSCc</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#step-1-testing-the-relevant-hypotheses">Step 1: Testing the Relevant Hypotheses</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#step-2-estimation">Step 2: Estimation</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Jared Greathouse
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2025, Jared Greathouse.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

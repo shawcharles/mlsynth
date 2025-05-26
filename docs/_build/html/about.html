@@ -1,0 +1,642 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>About mlsynth &#8212; mlsynth 0.1 documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="_static/documentation_options.js?v=e1a75a79"></script>
+    <script src="_static/doctools.js?v=9bcbadda"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/static/custom_mathjax.js"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'about';</script>
+    <link rel="author" title="About these documents" href="#" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="References" href="references.html" />
+    <link rel="prev" title="MLSYNTH" href="index.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="index.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">mlsynth 0.1 documentation</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Overview:</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">About mlsynth</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="references.html">References</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Estimators</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="clustersc.html">Cluster Synthetic Controls</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fdid.html">Forward Difference-in-Differences</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fma.html">Factor Model Approach</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fscm.html">Forward SCM</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="gsc.html">Generalized Synthetic Control (GSC)</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="_autosummary/mlsynth.estimators.gsc.GSC.html">mlsynth.estimators.gsc.GSC</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="nsc.html">Nonlinear Synthetic Control (NSC)</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="_autosummary/mlsynth.estimators.nsc.NSC.html">mlsynth.estimators.nsc.NSC</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="pda.html">Panel Data Approach</a></li>
+<li class="toctree-l1"><a class="reference internal" href="proximal.html">Proximal Synthetic Control</a></li>
+<li class="toctree-l1"><a class="reference internal" href="scmo.html">Synthetic Control With Multiple Outcomes</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="sdid.html">Synthetic Difference-in-Differences (SDID)</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="_autosummary/mlsynth.estimators.sdid.SDID.html">mlsynth.estimators.sdid.SDID</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="si.html">Synthetic Interventions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="src.html">Synthetic Regression Control Method</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="stablesc.html">Stable Synthetic Control (StableSC)</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="_autosummary/mlsynth.estimators.stablesc.StableSC.html">mlsynth.estimators.stablesc.StableSC</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="tssc.html">Two-Step Synthetic Control</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Utilities</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="datautils.html">Data Utilities (<cite>mlsynth.utils.datautils</cite>)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="estutils.html">Estimation Utilities (<cite>mlsynth.utils.estutils</cite>)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="inferutils.html">Inference Utilities (<cite>mlsynth.utils.inferutils</cite>)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="resultutils.html">Result Utilities (<cite>mlsynth.utils.resultutils</cite>)</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/about.rst" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.rst</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>About mlsynth</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">About mlsynth</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#github-repo">GitHub Repo</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#installation">Installation</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#methods">Methods</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mission">Mission</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#why-mlsynth">Why <code class="docutils literal notranslate"><span class="pre">mlsynth</span></code>?</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#why-use-mlsynth">Why use <code class="docutils literal notranslate"><span class="pre">mlsynth</span></code>?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#use-cases">Use Cases</a></li>
+</ul>
+</li>
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="about-mlsynth">
+<h1>About mlsynth<a class="headerlink" href="#about-mlsynth" title="Link to this heading">#</a></h1>
+<p><code class="docutils literal notranslate"><span class="pre">mlsynth</span></code> is a Python package that provides a suite of causal inference methods using machine learning techniques. Most of these methodologies come from the synthetic control family of methods. <code class="docutils literal notranslate"><span class="pre">mlsynth</span></code> calculates Average Treatment Effects on the Treated (ATTS) and, when possible, computes confidence intervals and inference statistics. <code class="docutils literal notranslate"><span class="pre">mlsynth</span></code> also conveniently returns the observed versus predicted values, and metrics of fit.</p>
+<section id="github-repo">
+<h2>GitHub Repo<a class="headerlink" href="#github-repo" title="Link to this heading">#</a></h2>
+<p><a class="github reference external" href="https://github.com/jgreathouse9/mlsynth">jgreathouse9/mlsynth</a></p>
+<section id="installation">
+<h3>Installation<a class="headerlink" href="#installation" title="Link to this heading">#</a></h3>
+<p>The dependencies for mlsynth are:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pandas</span>
+<span class="n">numpy</span>
+<span class="n">matplotlib</span>
+<span class="n">scipy</span>
+<span class="n">scikit</span><span class="o">-</span><span class="n">learn</span>
+<span class="n">cvxpy</span>
+<span class="n">screenot</span>
+<span class="n">statsmodels</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">mlsynth</span></code> may be installed from the command line like</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>pip<span class="w"> </span>install<span class="w"> </span>-U<span class="w"> </span>git+https://github.com/jgreathouse9/mlsynth.git
+</pre></div>
+</div>
+</section>
+</section>
+<section id="methods">
+<h2>Methods<a class="headerlink" href="#methods" title="Link to this heading">#</a></h2>
+<p>At present, <code class="docutils literal notranslate"><span class="pre">mlsynth</span></code> supports:</p>
+<div class="pst-scrollable-table-container"><table class="table" id="id25">
+<caption><span class="caption-text">Estimators in <cite>mlsynth</cite></span><a class="headerlink" href="#id25" title="Link to this table">#</a></caption>
+<colgroup>
+<col style="width: 30.0%" />
+<col style="width: 50.0%" />
+<col style="width: 20.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Estimator</p></th>
+<th class="head"><p>Reference</p></th>
+<th class="head"><p>Class in mlsynth</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><a class="reference external" href="https://doi.org/10.1287/mksc.2022.1406">Augmented Difference-in-Differences</a></p></td>
+<td><p>Kathleen T. Li and Christophe Van den Bulte. “Augmented Difference-in-Differences.” <em>Marketing Science</em> 2023 42:4, 746-767.</p></td>
+<td><p>FDID</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference external" href="#">CLUSTERSC</a></p></td>
+<td><p>Saeyoung Rho, Andrew Tang, Noah Bergam, Rachel Cummings, Vishal Misra. “CLUSTERSC: Advancing Synthetic Control with Donor Clustering for Disaggregate-Level Data.” (2024).</p></td>
+<td><p>CLUSTERSC</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference external" href="https://doi.org/10.1287/inte.2023.0028">Debiased Convex Regression</a></p></td>
+<td><p>Luis Costa, Vivek F. Farias, Patricio Foncea, Jingyuan (Donna) Gan, Ayush Garg, Ivo Rosa Montenegro, Kumarjit Pathak, Tianyi Peng, Dusan Popovic. “Generalized Synthetic Control for TestOps at ABI: Models, Algorithms, and Infrastructure.” <em>INFORMS Journal on Applied Analytics</em> 53(5):336-349, 2023.</p></td>
+<td><p>GSC</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference external" href="https://doi.org/10.1177/00222437221137533">Factor Model Approach</a></p></td>
+<td><p>Kathleen T. Li, Garrett P. Sonnier. “Statistical Inference for the Factor Model Approach to Estimate Causal Effects in Quasi-Experimental Settings.” <em>Journal of Marketing Research</em>, Volume 60, Issue 3.</p></td>
+<td><p>FMA</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference external" href="https://doi.org/10.1287/mksc.2022.1406">Forward Difference-in-Differences</a></p></td>
+<td><p>Kathleen T. Li. “Frontiers: A Simple Forward Difference-in-Differences Method.” <em>Marketing Science</em> 43(2):267-279, 2023.</p></td>
+<td><p>FDID</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference external" href="https://doi.org/10.1016/j.jeconom.2021.04.009">Forward Selected Panel Data Approach</a></p></td>
+<td><p>Zhentao Shi, Jingyi Huang. “Forward-selected panel data approach for program evaluation.” <em>Journal of Econometrics</em>, Volume 234, Issue 2, 2023, Pages 512-535.</p></td>
+<td><p>PDA</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference external" href="https://doi.org/10.1002/jae.1230">L1PDA</a></p></td>
+<td><p>Kathleen T. Li, David R. Bell. “Estimation of average treatment effects with panel data: Asymptotic theory and implementation.” <em>Journal of Econometrics</em>, Volume 197, Issue 1, March 2017, Pages 65-75.</p></td>
+<td><p>PDA</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference external" href="https://doi.org/10.13140/RG.2.2.11670.97609">L2-relaxation for Economic Prediction</a></p></td>
+<td><p>Zhentao Shi, Yishu Wang. “L2-relaxation for Economic Prediction.” November 2024. DOI: <a class="reference external" href="https://doi.org/10.13140/RG.2.2.11670.97609">10.13140/RG.2.2.11670.97609</a>.</p></td>
+<td><p>PDA</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference external" href="https://doi.org/10.1080/01621459.2021.1928513">Principal Component Regression</a></p></td>
+<td><p>Agarwal, Anish, Devavrat Shah, Dennis Shen, and Dogyoon Song. “On Robustness of Principal Component Regression.” <em>Journal of the American Statistical Association</em> 116 (536): 1731–45, 2021.</p></td>
+<td><p>CLUSTERSC</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference external" href="https://academicworks.cuny.edu/gc_etds/4984">Robust PCA Synthetic Control</a></p></td>
+<td><p>Mani Bayani. “Essays on Machine Learning Methods in Economics.” CUNY Academic Works, 2022.</p></td>
+<td><p>CLUSTERSC</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference external" href="https://doi.org/10.1198/jasa.2009.ap08746">Synthetic Control Method (Vanilla SCM)</a></p></td>
+<td><p>Abadie, Alberto; Diamond, Alexis; Hainmueller, Jens. “Synthetic Control Methods for Comparative Case Studies: Estimating the Effect of California’s Tobacco Control Program.” <em>Journal of the American Statistical Association</em> 105 (490): 493–505, 2010.</p></td>
+<td><p>TSSC</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference external" href="https://doi.org/10.1287/mnsc.2023.4878">Two Step Synthetic Control</a></p></td>
+<td><p>Kathleen T. Li, Venkatesh Shankar. “A Two-Step Synthetic Control Approach for Estimating Causal Effects of Marketing Events.” <em>Management Science</em> 70(6):3734-3747, 2023.</p></td>
+<td><p>TSSC</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference external" href="https://arxiv.org/abs/2304.02272">Synthetic Control with Multiple Outcomes</a></p></td>
+<td><p>Wei Tian, Seojeong Lee, and Valentyn Panchenko. “Synthetic Controls with Multiple Outcomes.” arXiv 2304.02272.</p></td>
+<td><p>SCMO</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference external" href="https://arxiv.org/abs/2006.07691">Synthetic Interventions</a></p></td>
+<td><p>Anish Agarwal, Devavrat Shah, and Dennis Shen. “Synthetic Interventions.” arXiv 2006.07691.</p></td>
+<td><p>SI</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference external" href="https://doi.org/10.1016/j.econlet.2024.111976">Forward Selected Synthetic Control Method</a></p></td>
+<td><p>Giovanni Cerulli. “Optimal initial donor selection for the synthetic control method.” <em>Economics Letters</em>, 2024.</p></td>
+<td><p>FSCM</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference external" href="https://arxiv.org/abs/2306.02584">Synthetic Regressing Control Method</a></p></td>
+<td><p>Rong J. B. Zhu. “Synthetic Regressing Control Method.” arXiv 2306.02584.</p></td>
+<td><p>SRC</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference external" href="https://arxiv.org/abs/2108.13935">PI-SCM</a></p></td>
+<td><p>Xu Shi, Kendrick Li, Wang Miao, Mengtong Hu, and Eric Tchetgen Tchetgen. “Theory for identification and Inference with Synthetic Controls: A Proximal Causal Inference Framework.” arXiv:2108.13935, 2023.</p></td>
+<td><p>PROXIMAL</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference external" href="https://arxiv.org/abs/2308.09527">PIS-SCM</a></p></td>
+<td><p>Jizhou Liu, Eric J. Tchetgen Tchetgen, and Carlos Varjão. “Proximal Causal Inference for Synthetic Control with Surrogates.” arXiv:2308.09527, 2023.</p></td>
+<td><p>PROXIMAL</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="mission">
+<h2>Mission<a class="headerlink" href="#mission" title="Link to this heading">#</a></h2>
+<p>The first reason I created this library can be summarized from the CausalML <a class="reference external" href="https://github.com/uber/causalml/blob/master/CHARTER.md">Charter</a>, as I am:</p>
+<blockquote>
+<div><p>committed to democratizing causal machine learning through accessible, innovative, and well-documented open-source tools that empower data scientists, researchers, and organizations.</p>
+</div></blockquote>
+<p>However, there is a slightly more practical reason as well. Frequently in public policy, we are concerned with estimation of casual impacts of some intervention on an outcome we care about. The longstanding traditional workhorses in this field are Difference-in-Differences methodologies and synthetic control methods, and for good reason. Difference-in-Differences is very simple to compute. Numerous advances have been made for the methodology in recent years, both in terms of econometric theory and practical implementation (<a class="reference internal" href="references.html#roth20232218" id="id1"><span>[ROTH20232218]</span></a> , <a class="reference internal" href="references.html#chaisesurvey" id="id2"><span>[chaisesurvey]</span></a>). Equally, synthetic control methods have also become very popular amongst economists and policy analysts (<a class="reference internal" href="references.html#abadie2010" id="id3"><span>[ABADIE2010]</span></a> , <a class="reference internal" href="references.html#abadie2021" id="id4"><span>[Abadie2021]</span></a>), most likely for their interpretability and ease of use in modern statistical software such as Stata or R.</p>
+<p>However, as influential as the base toolkit had become, some important problems persist with them. For Difference-in-Differences, frequently the parallel trends assumption is impractical in a variety of real-world applications <a class="reference internal" href="references.html#costa2023" id="id5"><span>[Costa2023]</span></a>. For synthetic control methods, it is now known that computational issues with standard solvers are a bigger problem than first realized (<a class="reference internal" href="references.html#becker20181" id="id6"><span>[BECKER20181]</span></a> , <a class="reference internal" href="references.html#albalate2021decoupling" id="id7"><span>[albalate2021decoupling]</span></a>, <a class="reference internal" href="references.html#malo2023computing" id="id8"><span>[malo2023computing]</span></a>). Furthermore, synthetic control methods are known to be intractable in high dimensional settings, noisy outcomes, missing data, or where we are unsure on the donors pool to use (<a class="reference internal" href="references.html#kinn2018" id="id9"><span>[KINN2018]</span></a>, <a class="reference internal" href="references.html#microsynth" id="id10"><span>[microsynth]</span></a>, <a class="reference internal" href="references.html#scmdisagg" id="id11"><span>[scmdisagg]</span></a>, <a class="reference internal" href="references.html#amjad2018" id="id12"><span>[Amjad2018]</span></a>, <a class="reference internal" href="references.html#agarwal2021" id="id13"><span>[Agarwal2021]</span></a>, <a class="reference internal" href="references.html#bayani2021" id="id14"><span>[Bayani2021]</span></a>). As a result, many developments in the causal inference literature have commonly employed machine learning methods to tackle these issues. Of course, many exciting developments already exist on this front (<a class="reference internal" href="references.html#aersdid" id="id15"><span>[aersdid]</span></a>, <a class="reference internal" href="references.html#fect2024" id="id16"><span>[FECT2024]</span></a>).</p>
+</section>
+</section>
+<section id="why-mlsynth">
+<h1>Why <code class="docutils literal notranslate"><span class="pre">mlsynth</span></code>?<a class="headerlink" href="#why-mlsynth" title="Link to this heading">#</a></h1>
+<p>Particularly in the fields of public policy and economics, synthetic control methods have existed and been used for a long while for empirical researchers. However, the more recent developments in this literature have not been as widely used (certainly by public policy scholars) as they perhaps ought to be. Of course, there are notable exceptions for Difference-in-Differences, and SCMs such as augmented synthetic controls and the synthetic Difference-in-Differences method.</p>
+<p>Generalizing as to why this might be is hard. However, I believe this lack of use is primarily due to a host of sociological and historical reasons. Speaking for the public policy field, I believe there are a few reasons for why this is.</p>
+<ul class="simple">
+<li><p>Accessibility</p></li>
+</ul>
+<p>For one, lots of these new developments simply appear in journals/conferences that many applied economists and public policy scholars do not frequent, such as <em>Journal of Machine Learning Research</em>, <em>Journal of Econometrics</em>, <em>Marketing Science</em>, <em>Journal of Marketing Research</em>, and other outlets. Thus, scholars may not take advantage of them because they do not know of them.</p>
+<ul class="simple">
+<li><p>Software</p></li>
+</ul>
+<p>Another barrier to entry is the software many of these advances are written for/in (again, speaking only for the public policy field). Not a majority, but many, of the classes which appear in <code class="docutils literal notranslate"><span class="pre">mlsynth</span></code> had implementations only/mostly in MATLAB. As Zhentao Shi <a class="reference external" href="https://zhentaoshi.github.io/econ5170/intro.html">writes</a>:</p>
+<blockquote>
+<div><p>“MATLAB [JG: and to a lesser degree Stata] may still linger in some areas in engineering, but it will be a dinosaur fossil buried under the wonderland of big data.”</p>
+</div></blockquote>
+<p>Beyond this, even if the software were written for a software more typical in public policy (Stata and R) or economics (Stata, R, and increasingly Python), the vast majority of the methods <code class="docutils literal notranslate"><span class="pre">mlsynth</span></code> implements were not wrapped into packages that provided straightforward and off the shelf use without much modification. For example, the Two Step Synthetic Control Method <a class="reference internal" href="references.html#tssc" id="id17"><span>[TSSC]</span></a> Forward Difference-in-Differences <a class="reference internal" href="references.html#li2024" id="id18"><span>[Li2024]</span></a> , Robust Synthetic Control <a class="reference internal" href="references.html#amjad2018" id="id19"><span>[Amjad2018]</span></a> , or the Factor Model Approach <a class="reference internal" href="references.html#li2023statistical" id="id20"><span>[li2023statistical]</span></a> have publicly available code, but are not very user friendly. All of the public software for these approaches just listed either assumes a very specific data structure (e.g., a wide shaped data frame) or does not automate away the management of critical design elements. For example, users oftentimes must manually change things like the specification of the control group, the number of pre and post-intervention periods, or even critical things such as the number of singular values. Robust PCA Synthetic Control by <a class="reference internal" href="references.html#bayani2021" id="id21"><span>[Bayani2021]</span></a> had no public implementation, and the code for it (provided to me by my friend and coworker, Mani Bayani) was written for both R and Python, meaning that even if the code were public, analysis would need to use two softwares to use it at all.  These are barriers to entry for applied researchers to actually <em>use</em> these tools. In order for applied economists, policy analysts, and business scientists to effectively employ these methods to answer the questions they are concerend with, a simple yet robust, free, and well-documented framework should exist, one which unifies these approaches under a single banner.</p>
+<section id="why-use-mlsynth">
+<h2>Why use <code class="docutils literal notranslate"><span class="pre">mlsynth</span></code>?<a class="headerlink" href="#why-use-mlsynth" title="Link to this heading">#</a></h2>
+<p>Plenty of writing exists in the academic literature <a class="reference internal" href="references.html#causeimben" id="id22"><span>[causeimben]</span></a> and popular press on the various advances in machine learning more broadly and how it may be applied for causal inference, so I will not iterate over it here. Why is <code class="docutils literal notranslate"><span class="pre">mlsynth</span></code>  useful, then? I believe <code class="docutils literal notranslate"><span class="pre">mlsynth</span></code> is useful because it is an answer to the problems posed above. <code class="docutils literal notranslate"><span class="pre">mlsynth</span></code> has a universal and consistent syntax. It requires only a single long dataframe (where every unit is indexed to one row per time period), which consists of a unit column (a string), a numeric column for time, a numeric outcome variable, and a dummy variable denoting a unit as treated or not (1 if and when treated, else 0). In addition to its simplicity of use, it also provides all of the relevant causal effects, fit statistics, and (where applicable) inferential statistics for hypothesis testing.</p>
+</section>
+<section id="use-cases">
+<h2>Use Cases<a class="headerlink" href="#use-cases" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><strong>Comparative Case Studies</strong>: At present,  <code class="docutils literal notranslate"><span class="pre">mlsynth</span></code> is best suited for cases where we have a single treated unit versus many potential control units. This does not mean that it in principle many not be used due settings of staggered adoption, as the Factor Model Approach by Li and Sonnier <a class="reference internal" href="references.html#li2023statistical" id="id23"><span>[li2023statistical]</span></a> or the <span class="math notranslate nohighlight">\(\ell_2\)</span> relaxation by Shi and Wang <a class="reference internal" href="references.html#l2relax" id="id24"><span>[l2relax]</span></a> come outfitted for this purpose; however, I have not yet written these extensions, so they will be present in future versions of <code class="docutils literal notranslate"><span class="pre">mlsynth</span></code> to broaden the use cases as much as possible. Users who wish to use them for the multiple treated unit setting/staggered adoption must extend the current code themselves.</p></li>
+</ul>
+</section>
+</section>
+
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="index.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">MLSYNTH</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="references.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">References</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">About mlsynth</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#github-repo">GitHub Repo</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#installation">Installation</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#methods">Methods</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mission">Mission</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#why-mlsynth">Why <code class="docutils literal notranslate"><span class="pre">mlsynth</span></code>?</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#why-use-mlsynth">Why use <code class="docutils literal notranslate"><span class="pre">mlsynth</span></code>?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#use-cases">Use Cases</a></li>
+</ul>
+</li>
+</ul>
+
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Jared Greathouse
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2025, Jared Greathouse.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
